@@ -1,12 +1,12 @@
 import { Navbar } from "@/components/navbar";
-import { CertificatesSection } from "@/components/certificates-section";
+import { CertificatesFull } from "@/components/certificates-full";
 
 export default function CertificatesPage() {
   return (
     <div className="min-h-screen">
       <Navbar />
       <main className="pt-8">
-        <CertificatesSection />
+        <CertificatesFull />
       </main>
     </div>
   );

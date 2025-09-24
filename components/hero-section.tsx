@@ -15,10 +15,13 @@ const skills = [
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black/[0.96] antialiased bg-grid-white/[0.02]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background antialiased">
+      <div className="absolute inset-0 bg-grid-small-black/[0.2] dark:bg-grid-small-white/[0.2]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background to-transparent" />
+      
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
-        fill="white"
+        fill="currentColor"
       />
       <BackgroundBeams />
       
@@ -30,22 +33,22 @@ export function HeroSection() {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
-              Full Stack Developer
+            <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground pb-4 overflow-visible">
+              Hi, I&apos;m Gregg Marayan
             </h1>
             <TextGenerateEffect 
               words="Building exceptional digital experiences with modern technologies"
-              className="mt-4 text-lg md:text-xl text-neutral-300 max-w-3xl mx-auto"
+              className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
             />
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}  
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mb-8"
           >
-            <p className="text-lg text-neutral-400 max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
               Hi, I&apos;m a passionate developer who loves creating innovative solutions. 
               I specialize in modern web technologies and have a keen eye for user experience.
             </p>
@@ -73,12 +76,12 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
             <Link href="/projects">
-              <Button size="lg" className="bg-white text-black hover:bg-neutral-200">
+              <Button size="lg">
                 View My Work
               </Button>
             </Link>
             <Link href="/contact">
-              <Button size="lg" variant="outline" className="border-neutral-600 text-white hover:bg-neutral-800">
+              <Button size="lg" variant="outline">
                 Get In Touch
               </Button>
             </Link>
@@ -92,7 +95,7 @@ export function HeroSection() {
           >
             <Link 
               href="https://github.com/GreggMarayan" 
-              className="text-neutral-400 hover:text-white transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -100,7 +103,7 @@ export function HeroSection() {
             </Link>
             <Link 
               href="https://www.linkedin.com/in/gregg-marayan" 
-              className="text-neutral-400 hover:text-white transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -108,7 +111,7 @@ export function HeroSection() {
             </Link>
             <Link 
               href="/contact" 
-              className="text-neutral-400 hover:text-white transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
             >
               <Mail className="h-6 w-6" />
             </Link>
@@ -120,7 +123,7 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 1 }}
             className="animate-bounce"
           >
-            <ArrowDown className="h-6 w-6 mx-auto text-neutral-400" />
+            <ArrowDown className="h-6 w-6 mx-auto text-muted-foreground" />
           </motion.div>
         </div>
       </div>

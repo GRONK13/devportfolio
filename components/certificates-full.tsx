@@ -70,10 +70,7 @@ const certificates = [
   },
 ];
 
-export function CertificatesSection() {
-  // Show only first 3 certificates as preview
-  const previewCertificates = certificates.slice(0, 3);
-  
+export function CertificatesFull() {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
       <div className="max-w-7xl mx-auto">
@@ -84,14 +81,14 @@ export function CertificatesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Certifications</h2>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">All Certifications & Achievements</h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A preview of my professional certifications that validate my expertise in various technologies and platforms.
+            A comprehensive collection of my professional certifications and credentials that validate my expertise in various technologies and platforms.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {previewCertificates.map((cert, index) => (
+          {certificates.map((cert, index) => (
             <motion.div
               key={cert.id}
               initial={{ opacity: 0, y: 30 }}
@@ -147,20 +144,6 @@ export function CertificatesSection() {
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <Link href="/certificates">
-            <Button variant="outline" size="lg">
-              View All Certifications
-            </Button>
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

@@ -50,7 +50,10 @@ const projects = [
   },
 ];
 
-export function ProjectsSection() {
+export function   ProjectsSection() {
+  // Show only first 2 featured projects as preview
+  const previewProjects = projects.filter(project => project.featured).slice(0, 2);
+  
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
@@ -63,12 +66,12 @@ export function ProjectsSection() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Here are some of my recent projects that showcase my skills and experience in web development.
+            A preview of some of my recent projects that showcase my skills and experience in web development.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {projects.filter(project => project.featured).map((project, index) => (
+          {previewProjects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 30 }}
@@ -114,55 +117,7 @@ export function ProjectsSection() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-          {projects.filter(project => !project.featured).map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden h-full">
-                <div className="relative overflow-hidden bg-muted h-32">
-                  <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-                    <span className="text-muted-foreground text-xs">Project Image</span>
-                  </div>
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2">
-                    <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                      <Button size="sm" variant="secondary">
-                        <Github className="h-3 w-3" />
-                      </Button>
-                    </Link>
-                    <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                      <Button size="sm">
-                        <ExternalLink className="h-3 w-3" />
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg">{project.title}</CardTitle>
-                  <CardDescription className="text-sm">{project.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-1">
-                    {project.technologies.slice(0, 3).map((tech) => (
-                      <Badge key={tech} variant="outline" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                    {project.technologies.length > 3 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{project.technologies.length - 3}
-                      </Badge>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
