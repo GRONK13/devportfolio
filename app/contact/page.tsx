@@ -99,7 +99,7 @@ export default function ContactPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">hello@developer.com</p>
+                    <p className="text-muted-foreground">gregg.marayan@gmail.com</p>
                   </CardContent>
                 </Card>
 
@@ -111,7 +111,7 @@ export default function ContactPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                    <p className="text-muted-foreground">+63 (956) 155-1297</p>
                   </CardContent>
                 </Card>
 
@@ -124,7 +124,7 @@ export default function ContactPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      San Francisco, CA
+                      Mandaue City, Cebu, Philippines
                       <br />
                       Available for remote work
                     </p>

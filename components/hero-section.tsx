@@ -10,8 +10,7 @@ import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
 import Link from "next/link";
 
 const skills = [
-  "React", "Next.js", "TypeScript", "Node.js", "Python", 
-  "AWS", "Docker", "MongoDB", "PostgreSQL", "GraphQL"
+  "React", "Next.js", "JavaScript", "TypeScript", "Node.js", "Python", "Docker", "PostgreSQL", "GraphQL"
 ];
 
 export function HeroSection() {
@@ -92,7 +91,7 @@ export function HeroSection() {
             className="flex justify-center space-x-6 mb-12"
           >
             <Link 
-              href="https://github.com" 
+              href="https://github.com/GreggMarayan" 
               className="text-neutral-400 hover:text-white transition-colors"
               target="_blank"
               rel="noopener noreferrer"
@@ -100,7 +99,7 @@ export function HeroSection() {
               <Github className="h-6 w-6" />
             </Link>
             <Link 
-              href="https://linkedin.com" 
+              href="https://www.linkedin.com/in/gregg-marayan" 
               className="text-neutral-400 hover:text-white transition-colors"
               target="_blank"
               rel="noopener noreferrer"

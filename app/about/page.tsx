@@ -8,11 +8,11 @@ import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Code, Lightbulb, Users, Zap } from "lucide-react";
 
 const skills = {
-  "Frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Vue.js"],
-  "Backend": ["Node.js", "Express", "Python", "FastAPI", "GraphQL", "REST APIs"],
-  "Database": ["PostgreSQL", "MongoDB", "Redis", "Prisma", "Supabase"],
-  "DevOps": ["AWS", "Docker", "Kubernetes", "CI/CD", "Vercel", "GitHub Actions"],
-  "Tools": ["Git", "VS Code", "Figma", "Postman", "Jest", "Cypress"],
+  "Frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+  "Backend": ["Node.js", "Express", "GraphQL", "REST APIs"],
+  "Database": ["PostgreSQL", "Prisma", "Supabase"],
+  "DevOps": ["Docker", "Kubernetes", "CI/CD", "Vercel", "GitHub Actions"],
+  "Tools": ["Git", "VS Code", "Figma", "Postman", "Cypress"],
 };
 
 const experiences = [
