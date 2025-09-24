@@ -16,7 +16,23 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Developer Portfolio",
-  description: "A modern developer portfolio showcasing projects and skills",
+  description: "A modern developer portfolio showcasing Gregg Marayan's projects and skills",
+  icons: {
+    icon: 
+    [
+      {
+        media: '(prefers-color-scheme: light)',
+        url: 'https://img.icons8.com/ios-filled/100/program.png',
+        href: 'https://img.icons8.com/ios-filled/100/program.png'
+      },
+
+      {
+        media: '(prefers-color-scheme: dark)',
+        url: 'https://img.icons8.com/ios/100/program.png',
+        href: 'https://img.icons8.com/ios/100/program.png'
+      },
+    ]
+  }
 };
 
 export default function RootLayout({
@@ -25,16 +41,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
-        >
+          disableTransitionOnChange>
           {children}
           <Toaster />
         </ThemeProvider>
