@@ -111,7 +111,7 @@ export default function ContactPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">+63 (956) 155-1297</p>
+                    <p className="text-muted-foreground">+63 (992) 531-5378</p>
                   </CardContent>
                 </Card>
 

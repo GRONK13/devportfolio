@@ -6,54 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
-
-const projects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description: "A full-stack e-commerce solution with payment integration, inventory management, and admin dashboard.",
-    image: "/project1.jpg",
-    technologies: ["Next.js", "TypeScript", "Stripe", "Prisma", "PostgreSQL"],
-    githubUrl: "https://github.com/yourusername/ecommerce",
-    liveUrl: "https://your-ecommerce.vercel.app",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Task Management App",
-    description: "A collaborative task management application with real-time updates and team features.",
-    image: "/project2.jpg",
-    technologies: ["React", "Node.js", "Socket.io", "MongoDB", "Express"],
-    githubUrl: "https://github.com/yourusername/taskapp",
-    liveUrl: "https://your-taskapp.vercel.app",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Weather Dashboard",
-    description: "A responsive weather application with location-based forecasts and interactive maps.",
-    image: "/project3.jpg",
-    technologies: ["React", "OpenWeather API", "Chart.js", "Tailwind CSS"],
-    githubUrl: "https://github.com/yourusername/weather",
-    liveUrl: "https://your-weather.vercel.app",
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "Blog Platform",
-    description: "A modern blog platform with markdown support, comments system, and SEO optimization.",
-    image: "/project4.jpg",
-    technologies: ["Next.js", "MDX", "Tailwind CSS", "Vercel"],
-    githubUrl: "https://github.com/yourusername/blog",
-    liveUrl: "https://your-blog.vercel.app",
-    featured: false,
-  },
-];
+import { projects } from "@/data/projects";
 
 export function ProjectsFull() {
   // Show featured projects first, then non-featured
-  const featuredProjects = projects.filter(project => project.featured);
-  const otherProjects = projects.filter(project => !project.featured);
+  const featuredProjects = projects.filter(project => project.isFeatured);
+  const otherProjects = projects.filter(project => !project.isFeatured);
   
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
