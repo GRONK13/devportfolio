@@ -55,7 +55,7 @@ export function Navbar() {
           <Link className="flex items-center space-x-3 mr-8" href="/">
             <Code className="h-6 w-6 text-primary" />
             <span className="hidden font-bold text-lg sm:inline-block">
-              Developer Portfolio
+              Gregg Marayan
             </span>
           </Link>
           
