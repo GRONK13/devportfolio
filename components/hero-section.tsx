@@ -34,10 +34,10 @@ export function HeroSection() {
             className="mb-8"
           >
             <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground pb-4 overflow-visible">
-              Hi, I&apos;m Gregg Marayan
+              Hi, I&apos;m Gregg
             </h1>
             <TextGenerateEffect 
-              words="Building exceptional digital experiences with modern technologies"
+              words="A 4th Year Information Technology Student at University of San Carlos"
               className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
             />
           </motion.div>
@@ -49,8 +49,7 @@ export function HeroSection() {
             className="mb-8"
           >
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              Hi, I&apos;m a passionate developer who loves creating innovative solutions. 
-              I specialize in modern web technologies and have a keen eye for user experience.
+              Hi, I&apos;m Gregg Marayan, a developer currently exploring full-stack projects and building real-world experience.
             </p>
             
             <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -83,6 +82,11 @@ export function HeroSection() {
             <Link href="/contact">
               <Button size="lg" variant="outline">
                 Get In Touch
+              </Button>
+            </Link>
+            <Link href="/about">
+              <Button size="lg" variant="outline">
+                Get To Know Me
               </Button>
             </Link>
           </motion.div>

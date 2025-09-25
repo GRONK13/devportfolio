@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -38,7 +39,7 @@ export function ProjectsFull() {
           className="mb-16"
         >
           <h2 className="text-2xl font-semibold mb-8 text-center">Featured Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {featuredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
@@ -46,12 +47,17 @@ export function ProjectsFull() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                className="w-full max-w-md"
               >
                 <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
-                  <div className="relative overflow-hidden bg-muted h-48">
-                    <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                      <span className="text-muted-foreground text-sm">Project Image</span>
-                    </div>
+                  <div className="relative overflow-hidden h-48">
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} screenshot`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
                       <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" variant="secondary">
@@ -67,6 +73,7 @@ export function ProjectsFull() {
                       </Link>
                     </div>
                   </div>
+
                   <CardHeader>
                     <CardTitle className="text-xl">{project.title}</CardTitle>
                     <CardDescription>{project.description}</CardDescription>
@@ -94,7 +101,7 @@ export function ProjectsFull() {
           viewport={{ once: true }}
         >
           <h2 className="text-2xl font-semibold mb-8 text-center">More Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
             {otherProjects.map((project, index) => (
               <motion.div
                 key={project.id}
@@ -102,6 +109,7 @@ export function ProjectsFull() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                className="w-full max-w-sm"
               >
                 <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden h-full">
                   <div className="relative overflow-hidden bg-muted h-32">
