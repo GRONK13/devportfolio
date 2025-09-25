@@ -11,6 +11,7 @@ export default function Home() {
   const pathname = usePathname();
 
   return (
+
     <div className="min-h-screen relative">
       {/* Top-right dark mode toggle only on this page */}
       <div className="fixed top-4 right-4 z-50">

@@ -42,6 +42,7 @@ export function HeroSection() {
             <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground pb-4 overflow-visible">
               Hi, I&apos;m Gregg
             </h1>
+            
             <TextGenerateEffect
               words="A 4th Year Information Technology Student at University of San Carlos"
               className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
@@ -105,6 +106,7 @@ export function HeroSection() {
                 Download Resume
               </a>
             </Button>
+
           </motion.div>
 
           <motion.div
