@@ -32,10 +32,10 @@ export const professionalExperience: ExperienceItem[] = [
 
 export const education: EducationItem[] = [
   {
-    degree: "Bachelor of Science in Computer Science",
-    institution: "University of Technology",
+    degree: "Bachelor of Science in Information Technology",
+    institution: "University of San Carlos",
     period: "2021 - 2026",
-    description: "Comprehensive study of computer science fundamentals including algorithms, data structures, and web development.",
+    description: "Comprehensive study of information technology fundamentals including algorithms, data structures, and web development.",
     gpa: "TBD",
     honors: [
       "Internal Relations Officer of GDGoC (USC Talamban) 2025",
