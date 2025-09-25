@@ -25,7 +25,7 @@ export function CertificatesFull() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-wrap justify-center gap-6">
           {certificates.map((cert, index) => (
             <motion.div
               key={cert.id}
@@ -33,6 +33,7 @@ export function CertificatesFull() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
+              className="w-full max-w-sm"
             >
               <Card className="group hover:shadow-lg transition-all duration-300 h-full">
                 <CardHeader>

@@ -4,37 +4,12 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Timeline } from "@/components/ui/timeline";
 import { BackgroundBeams } from "@/components/ui/background-beams";
-import { Code, Lightbulb, Users, Zap } from "lucide-react";
-
-const skills = {
-  "Frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-  "Backend": ["Node.js", "Express", "GraphQL", "REST APIs"],
-  "Database": ["PostgreSQL", "Prisma", "Supabase"],
-  "DevOps": ["Docker", "Kubernetes", "CI/CD", "Vercel", "GitHub Actions"],
-  "Tools": ["Git", "VS Code", "Figma", "Postman", "Cypress"],
-};
-
-const experiences = [
-  {
-    title: "Senior Full Stack Developer",
-    company: "Tech Innovators Inc.",
-    period: "2022 - Present",
-    description: "Leading development of scalable web applications using React, Node.js, and cloud technologies. Mentoring junior developers and architecting solutions for high-traffic applications.",
-  },
-  {
-    title: "Full Stack Developer",
-    company: "Digital Solutions Co.",
-    period: "2020 - 2022",
-    description: "Developed and maintained multiple client projects using modern web technologies. Collaborated with design teams to create user-friendly interfaces and optimized application performance.",
-  },
-  {
-    title: "Frontend Developer",
-    company: "StartUp Ventures",
-    period: "2019 - 2020",
-    description: "Built responsive web applications and implemented modern UI/UX designs. Worked closely with backend developers to integrate APIs and ensure seamless user experiences.",
-  },
-];
+import { Code, Lightbulb, Users, Zap, Briefcase, GraduationCap, Award } from "lucide-react";
+import { professionalExperience, education } from "@/data/experience";
+import skills from "@/data/skills";
 
 export default function AboutPage() {
   return (
@@ -53,9 +28,9 @@ export default function AboutPage() {
             >
               <h1 className="text-4xl md:text-5xl font-bold mb-4">About Me</h1>
               <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-                I&apos;m a passionate full-stack developer with over 5 years of experience creating 
-                digital solutions that make a difference. I love turning complex problems into 
-                simple, beautiful, and intuitive applications.
+                I&apos;m a 4th year BS Information Technology student at the University of San Carlos. 
+                I&apos;m eager to explore different areas in tech, from development and system administration to cybersecurity and cloud tools. 
+                I enjoy learning through hands-on experience and I&apos;m open to new challenges that help me grow.
               </p>
             </motion.div>
 
@@ -72,20 +47,19 @@ export default function AboutPage() {
                 </CardHeader>
                 <CardContent className="prose prose-neutral dark:prose-invert max-w-none">
                   <p className="text-muted-foreground leading-relaxed">
-                    My journey in software development began during my computer science studies, 
-                    where I discovered my passion for creating digital experiences. What started 
-                    as curiosity about how websites work evolved into a career dedicated to building 
-                    innovative solutions.
+                    My journey began during my Senior High School Robotics class, where we tinkered around with microcontrollers and basic programming. 
+                    This hands-on experience sparked my curiosity and passion for technology, leading me to pursue a degree in Information Technology.
                   </p>
+                  <br />
                   <p className="text-muted-foreground leading-relaxed">
-                    Over the years, I&apos;ve had the privilege of working with startups and established 
-                    companies, helping them bring their ideas to life through clean, efficient code 
-                    and thoughtful design. I believe in continuous learning and staying up-to-date 
-                    with the latest technologies and best practices.
+                    As a BS IT student at the University of San Carlos, I&apos;ve been steadily growing my skills through hands-on projects, coursework, and attending workshops and seminars.
+                    I enjoy helping teams turn ideas into working solutions, whether it&apos;s troubleshooting backend issues, refining UI components, or setting up collaborative workflows.
+                    I&apos;m committed to continuous learning and always looking for ways to improve through real-world experience and emerging tech.
                   </p>
+                  <br />
                   <p className="text-muted-foreground leading-relaxed">
-                    When I&apos;m not coding, you can find me contributing to open-source projects, 
-                    writing technical blogs, or exploring new frameworks and tools that can improve 
+                    When I&apos;m not coding, you can find me playing games such as Tekken 8, and Surroundead,
+                    watching movies and series such as Dexter, or exploring new frameworks and tools that can improve 
                     development workflows.
                   </p>
                 </CardContent>
@@ -162,38 +136,116 @@ export default function AboutPage() {
               </div>
             </motion.section>
 
-            {/* Experience */}
+            {/* Experience and Education Tabs */}
             <motion.section
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <h2 className="text-3xl font-bold text-center mb-12">Professional Experience</h2>
-              <div className="space-y-6">
-                {experiences.map((exp, index) => (
-                  <motion.div
-                    key={exp.title}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  >
-                    <Card>
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle className="text-xl">{exp.title}</CardTitle>
-                            <p className="text-primary font-semibold">{exp.company}</p>
-                          </div>
-                          <Badge variant="outline">{exp.period}</Badge>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground">{exp.description}</p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
+              <h2 className="text-3xl font-bold text-center mb-12">Journey & Education</h2>
+              <Tabs defaultValue="education" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8">
+                  <TabsTrigger value="experience" className="flex items-center gap-2">
+                    <Briefcase className="h-4 w-4" />
+                    Professional Experience
+                  </TabsTrigger>
+                  <TabsTrigger value="education" className="flex items-center gap-2">
+                    <GraduationCap className="h-4 w-4" />
+                    Education
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="experience" className="mt-0">
+                  <Timeline data={professionalExperience.map(exp => ({
+                    title: exp.period,
+                    content: (
+                      <div>
+                        <Card className="mb-6">
+                          <CardHeader>
+                            <div className="flex justify-between items-start mb-2">
+                              <div>
+                                <CardTitle className="text-xl">{exp.title}</CardTitle>
+                                <p className="text-primary font-semibold">{exp.company}</p>
+                              </div>
+                              <Badge variant="outline" className="flex items-center gap-1">
+                                <Briefcase className="h-3 w-3" />
+                                {exp.period}
+                              </Badge>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-muted-foreground mb-4">{exp.description}</p>
+                            {exp.achievements && (
+                              <div>
+                                <h4 className="font-semibold mb-2 flex items-center gap-2">
+                                  <Award className="h-4 w-4" />
+                                  Key Achievements:
+                                </h4>
+                                <ul className="list-disc list-inside space-y-1">
+                                  {exp.achievements.map((achievement, index) => (
+                                    <li key={index} className="text-sm text-muted-foreground">
+                                      {achievement}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </CardContent>
+                        </Card>
+                      </div>
+                    )
+                  }))} />
+                </TabsContent>
+
+                <TabsContent value="education" className="mt-0">
+                  <Timeline data={education.map(edu => ({
+                    title: edu.period,
+                    content: (
+                      <div>
+                        <Card className="mb-6">
+                          <CardHeader>
+                            <div className="flex justify-between items-start mb-2">
+                              <div>
+                                <CardTitle className="text-xl">{edu.degree}</CardTitle>
+                                <p className="text-primary font-semibold">{edu.institution}</p>
+                              </div>
+                              <div className="text-right">
+                                <Badge variant="outline" className="flex items-center gap-1 mb-1">
+                                  <GraduationCap className="h-3 w-3" />
+                                  {edu.period}
+                                </Badge>
+                                {edu.gpa && (
+                                  <Badge variant="secondary" className="text-xs">
+                                    GPA: {edu.gpa}
+                                  </Badge>
+                                )}
+                              </div>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-muted-foreground mb-4">{edu.description}</p>
+                            {edu.honors && (
+                              <div>
+                                <h4 className="font-semibold mb-2 flex items-center gap-2">
+                                  <Award className="h-4 w-4" />
+                                  Key Achievements:
+                                </h4>
+                                <ul className="list-disc list-inside space-y-1">
+                                  {edu.honors.map((honor, index) => (
+                                    <li key={index} className="text-sm text-muted-foreground">
+                                      {honor}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </CardContent>
+                        </Card>
+                      </div>
+                    )
+                  }))} />
+                </TabsContent>
+              </Tabs>
             </motion.section>
           </div>
         </div>

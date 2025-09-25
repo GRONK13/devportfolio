@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -28,7 +29,7 @@ export function ProjectsSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div className="flex flex-wrap justify-center gap-8 mb-12">
           {featuredProjects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -38,10 +39,15 @@ export function ProjectsSection() {
               viewport={{ once: true }}
             >
               <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+                {/* image: use Next Image and keep responsive cover */}
                 <div className="relative overflow-hidden bg-muted h-48">
-                  <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                    <span className="text-muted-foreground text-sm">Project Image</span>
-                  </div>
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} screenshot`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
                     <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                       <Button size="sm" variant="secondary">
@@ -57,6 +63,7 @@ export function ProjectsSection() {
                     </Link>
                   </div>
                 </div>
+
                 <CardHeader>
                   <CardTitle className="text-xl">{project.title}</CardTitle>
                   <CardDescription>{project.description}</CardDescription>

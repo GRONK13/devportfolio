@@ -12,12 +12,12 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    description: "A full-stack e-commerce solution with payment integration, inventory management, and admin dashboard.",
-    image: "/project1.jpg",
-    technologies: ["Next.js", "TypeScript", "Stripe", "Prisma", "PostgreSQL"],
-    githubUrl: "https://github.com/yourusername/ecommerce",
-    liveUrl: "https://your-ecommerce.vercel.app",
+    title: "Mobile-First Car Rental Booking Management and Information System for J&A Car Rental",
+    description: "A full-stack mobile-first car rental booking management system with user authentication, booking management, and payment integration.",
+    image: "/J&A.png",
+    technologies: [ "React", "TailwindCSS", "JavaScript", "Express", "Prisma", "PostgreSQL"],
+    githubUrl: "https://github.com/unclejambo/JA-car-rental-system",
+    liveUrl: "https://jrs-front.vercel.app/",
     isFeatured: true,
   },
 ];
