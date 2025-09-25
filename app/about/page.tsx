@@ -43,9 +43,9 @@ export default function AboutPage() {
             >
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">My Story</CardTitle>
+                  <CardTitle className="text-2xl text-center">My Story</CardTitle>
                 </CardHeader>
-                <CardContent className="prose prose-neutral dark:prose-invert max-w-none">
+                <CardContent className="prose prose-neutral dark:prose-invert max-w-none text-center">
                   <p className="text-muted-foreground leading-relaxed">
                     My journey began during my Senior High School Robotics class, where we tinkered around with microcontrollers and basic programming. 
                     This hands-on experience sparked my curiosity and passion for technology, leading me to pursue a degree in Information Technology.
@@ -122,11 +122,22 @@ export default function AboutPage() {
                         <CardTitle className="text-lg">{category}</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                           {skillList.map((skill) => (
-                            <Badge key={skill} variant="secondary">
-                              {skill}
-                            </Badge>
+                            <motion.div
+                              key={skill.name}
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
+                              className="flex flex-col items-center justify-center p-3 rounded-lg border border-border/50 hover:border-border transition-colors group hover:bg-muted/30"
+                            >
+                              <skill.icon 
+                                className={`h-8 w-8 mb-2 transition-colors ${skill.color || 'text-foreground'} group-hover:scale-110 transition-transform`}
+                              />
+                              <span className="text-xs font-medium text-center text-muted-foreground group-hover:text-foreground transition-colors">
+                                {skill.name}
+                              </span>
+                            </motion.div>
                           ))}
                         </div>
                       </CardContent>

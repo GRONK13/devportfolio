@@ -10,15 +10,11 @@ import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
 import Link from "next/link";
 import { skills as skillsData } from "@/data/skills";
 
-type Skill = string | { name: string; [key: string]: unknown };
-
-const typedSkillsData = skillsData as Record<string, Skill[]>;
-
 const skills: string[] = Array.from(
   new Set(
-    Object.values(typedSkillsData)
+    Object.values(skillsData)
       .flat()
-      .map((s: Skill) => (typeof s === "string" ? s : s.name))
+      .map((skill) => skill.name)
   )
 ).slice(0, 12); // limit to first 12 for layout; remove .slice() if you want all
 
@@ -81,20 +77,13 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
-            <Link href="/projects">
-              <Button size="lg">View My Work</Button>
-            </Link>
+            
             <Link href="/contact">
               <Button size="lg" variant="outline">
                 Get In Touch
               </Button>
             </Link>
-            <Link href="/about">
-              <Button size="lg" variant="outline">
-                Get To Know Me
-              </Button>
-            </Link>
-
+            
             {/* Added: Download Resume */}
             <Button asChild size="lg" variant="secondary">
               <a
