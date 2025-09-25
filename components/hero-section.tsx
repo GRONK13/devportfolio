@@ -98,7 +98,7 @@ export function HeroSection() {
             {/* Added: Download Resume */}
             <Button asChild size="lg" variant="secondary">
               <a
-                href="/Gregg-Marayan-Resume.pdf"
+                href="/Marayan_Resume.pdf"
                 download
                 className="flex items-center gap-2"
               >
