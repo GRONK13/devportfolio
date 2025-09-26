@@ -79,7 +79,7 @@ export function HeroSection() {
           >
             
             <Link href="/contact">
-              <Button size="lg" variant="outline">
+              <Button size="lg">
                 Get In Touch
               </Button>
             </Link>
