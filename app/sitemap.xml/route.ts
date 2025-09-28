@@ -1,33 +1,34 @@
 import { MetadataRoute } from 'next'
+import { personalInfo } from '@/data/personal-info'
 
 export async function GET(): Promise<Response> {
   const sitemap: MetadataRoute.Sitemap = [
     {
-      url: 'https://greggmarayan.vercel.app',
+      url: personalInfo.website.url,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,
     },
     {
-      url: 'https://greggmarayan.vercel.app/about',
+      url: `${personalInfo.website.url}/about`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: 'https://greggmarayan.vercel.app/projects',
+      url: `${personalInfo.website.url}/projects`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: 'https://greggmarayan.vercel.app/certificates',
+      url: `${personalInfo.website.url}/certificates`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
-      url: 'https://greggmarayan.vercel.app/contact',
+      url: `${personalInfo.website.url}/contact`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,

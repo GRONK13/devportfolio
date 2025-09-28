@@ -10,6 +10,7 @@ import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Code, Lightbulb, Users, Zap, Briefcase, GraduationCap, Award } from "lucide-react";
 import { professionalExperience, education } from "@/data/experience";
 import skills from "@/data/skills";
+import { personalInfo } from "@/data/personal-info";
 
 export default function AboutPage() {
   return (
@@ -28,9 +29,7 @@ export default function AboutPage() {
             >
               <h1 className="text-4xl md:text-5xl font-bold mb-4">About Me</h1>
               <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-                I&apos;m a 4th year BS Information Technology student at the University of San Carlos. 
-                I&apos;m eager to explore different areas in tech, from development and system administration to cybersecurity and cloud tools. 
-                I enjoy learning through hands-on experience and I&apos;m open to new challenges that help me grow.
+                {personalInfo.descriptions.long}
               </p>
             </motion.div>
 
@@ -47,20 +46,15 @@ export default function AboutPage() {
                 </CardHeader>
                 <CardContent className="prose prose-neutral dark:prose-invert max-w-none text-center">
                   <p className="text-muted-foreground leading-relaxed">
-                    My journey began during my Senior High School Robotics class, where we tinkered around with microcontrollers and basic programming. 
-                    This hands-on experience sparked my curiosity and passion for technology, leading me to pursue a degree in Information Technology.
+                    {personalInfo.story.beginning}
                   </p>
                   <br />
                   <p className="text-muted-foreground leading-relaxed">
-                    As a BS IT student at the University of San Carlos, I&apos;ve been steadily growing my skills through hands-on projects, coursework, and attending workshops and seminars.
-                    I enjoy helping teams turn ideas into working solutions, whether it&apos;s troubleshooting backend issues, refining UI components, or setting up collaborative workflows.
-                    I&apos;m committed to continuous learning and always looking for ways to improve through real-world experience and emerging tech.
+                    {personalInfo.story.current}
                   </p>
                   <br />
                   <p className="text-muted-foreground leading-relaxed">
-                    When I&apos;m not coding, you can find me playing games such as Tekken 8, and Surroundead,
-                    watching movies and series such as Dexter, or exploring new frameworks and tools that can improve 
-                    development workflows.
+                    {personalInfo.story.personal}
                   </p>
                 </CardContent>
               </Card>

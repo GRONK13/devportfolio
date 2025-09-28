@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import * as z from "zod";
+import { personalInfo } from "@/data/personal-info";
 
 // Initialize Resend conditionally
 let resend: Resend | null = null;
@@ -49,13 +50,13 @@ export async function POST(request: NextRequest) {
       </div>
       <hr>
       <p style="font-size: 12px; color: #666;">
-        This message was sent through your portfolio contact form.
+        This message was sent through ${personalInfo.name}'s portfolio contact form.
       </p>
     `;
 
     await resend.emails.send({
       from: "Portfolio Contact Form <onboarding@resend.dev>",
-      to: [process.env.CONTACT_EMAIL || "hello@example.com"],
+      to: [process.env.CONTACT_EMAIL || personalInfo.email],
       subject: `Portfolio Contact: ${subject}`,
       html: emailContent,
       replyTo: email,

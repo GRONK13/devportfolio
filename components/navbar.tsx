@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Menu, X, Code, Home, User, Briefcase, Award, Mail } from "lucide-react"
+import { personalInfo } from "@/data/personal-info"
 
 const navigation = [
   {
@@ -55,7 +56,7 @@ export function Navbar() {
           <Link className="flex items-center space-x-3 mr-8" href="/">
             <Code className="h-6 w-6 text-primary" />
             <span className="hidden font-bold text-lg sm:inline-block">
-              Gregg Marayan
+              {personalInfo.name}
             </span>
           </Link>
           

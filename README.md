@@ -35,7 +35,7 @@ A modern, responsive developer portfolio built with Next.js 15, TypeScript, Tail
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/devportfolio.git
+   git clone https://github.com/GRONK13/devportfolio.git
    cd devportfolio
    ```
 
@@ -56,7 +56,7 @@ A modern, responsive developer portfolio built with Next.js 15, TypeScript, Tail
    Edit `.env.local` and add your configuration:
    ```env
    RESEND_API_KEY=your_resend_api_key_here
-   CONTACT_EMAIL=your-email@example.com
+   CONTACT_EMAIL=gregg.marayan@gmail.com
    ```
 
 4. **Run the development server**
@@ -92,13 +92,13 @@ To enable the contact form functionality:
 
 ### Personal Information
 
-Update the following files with your information:
+Update your personal information in the centralized configuration file:
 
-- **Hero Section**: `components/hero-section.tsx`
-- **About Page**: `app/about/page.tsx`
-- **Projects**: `components/projects-section.tsx`
-- **Certificates**: `components/certificates-section.tsx`
-- **Contact Info**: `app/contact/page.tsx`
+- **Personal Info**: `data/personal-info.ts` - Contains all your personal details, contact info, social links, and descriptions
+- **Projects**: `data/projects.ts` - Your project portfolio
+- **Skills**: `data/skills.ts` - Technical skills and tools
+- **Experience**: `data/experience.ts` - Work experience and education
+- **Certificates**: `data/certificates.ts` - Professional certifications
 
 ### Styling
 
@@ -180,7 +180,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📞 Support
 
-If you have any questions or need help with setup, please [open an issue](https://github.com/yourusername/devportfolio/issues) or contact me directly.
+If you have any questions or need help with setup, please [open an issue](https://github.com/GRONK13/devportfolio/issues) or contact me directly at gregg.marayan@gmail.com.
 
 ---
 

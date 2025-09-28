@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { personalInfo } from "@/data/personal-info";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,47 +17,31 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Gregg Marayan - Full Stack Developer Portfolio",
-    template: "%s | Gregg Marayan"
+    default: `${personalInfo.name} - Full Stack Developer Portfolio`,
+    template: `%s | ${personalInfo.name}`
   },
-  description: "Gregg Marayan is a 4th Year Information Technology Student at University of San Carlos specializing in full-stack web development with React, Next.js, Node.js, and TypeScript. View my projects, skills, and experience.",
-  keywords: [
-    "Gregg Marayan",
-    "Full Stack Developer",
-    "React Developer",
-    "Next.js Developer", 
-    "TypeScript Developer",
-    "Web Developer",
-    "Frontend Developer",
-    "Backend Developer",
-    "University of San Carlos",
-    "Information Technology Student",
-    "JavaScript",
-    "Node.js",
-    "PostgreSQL",
-    "Portfolio",
-    "Software Engineer"
-  ],
-  authors: [{ name: "Gregg Marayan" }],
-  creator: "Gregg Marayan",
-  publisher: "Gregg Marayan",
-  metadataBase: new URL("https://greggmarayan.vercel.app"),
+  description: personalInfo.descriptions.medium,
+  keywords: personalInfo.keywords,
+  authors: [{ name: personalInfo.name }],
+  creator: personalInfo.name,
+  publisher: personalInfo.name,
+  metadataBase: new URL(personalInfo.website.url),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://greggmarayan.vercel.app", 
-    title: "Gregg Marayan - Full Stack Developer Portfolio",
-    description: "Explore the portfolio of Gregg Marayan, a passionate full-stack developer specializing in modern web technologies. View projects, skills, and professional experience.",
-    siteName: "Gregg Marayan Portfolio",
+    url: personalInfo.website.url, 
+    title: `${personalInfo.name} - Full Stack Developer Portfolio`,
+    description: `Explore the portfolio of ${personalInfo.name}, a passionate full-stack developer specializing in modern web technologies. View projects, skills, and professional experience.`,
+    siteName: `${personalInfo.name} Portfolio`,
     images: [
       {
         url: "/web-app-manifest-512x512.png",
         width: 1200,
         height: 630,
-        alt: "Gregg Marayan - Full Stack Developer",
+        alt: `${personalInfo.name} - Full Stack Developer`,
       },
     ],
   },
@@ -102,11 +87,7 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
@@ -115,7 +96,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
         <meta name="color-scheme" content="dark light" />
         <meta name="format-detection" content="telephone=no" />
-        <link rel="canonical" href="https://greggmarayan.vercel.app" />
+        <link rel="canonical" href={personalInfo.website.url} />
         
         {/* Schema.org structured data */}
         <script
@@ -124,13 +105,13 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              name: "Gregg Marayan",
-              jobTitle: "Full Stack Developer", 
-              description: "4th Year Information Technology Student at University of San Carlos specializing in full-stack web development",
-              url: "https://greggmarayan.vercel.app",
+              name: personalInfo.name,
+              jobTitle: personalInfo.title, 
+              description: personalInfo.descriptions.medium.split("specializing")[0].trim(),
+              url: personalInfo.website.url,
               sameAs: [
-                "https://github.com/GreggMarayan",
-                "https://linkedin.com/in/gregg-marayan", 
+                personalInfo.social.github,
+                personalInfo.social.linkedin, 
               ],
               alumniOf: {
                 "@type": "CollegeOrUniversity",

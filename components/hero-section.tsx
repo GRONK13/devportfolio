@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
 import Link from "next/link";
 import { skills as skillsData } from "@/data/skills";
+import { personalInfo } from "@/data/personal-info";
 
 const skills: string[] = Array.from(
   new Set(
@@ -36,11 +37,11 @@ export function HeroSection() {
             className="mb-8"
           >
             <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground pb-4 overflow-visible">
-              Hi, I&apos;m Gregg
+              Hi, I&apos;m {personalInfo.name.split(' ')[0]}
             </h1>
             
             <TextGenerateEffect
-              words="A 4th Year Information Technology Student at University of San Carlos"
+              words={personalInfo.subtitle}
               className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
             />
           </motion.div>
@@ -52,7 +53,7 @@ export function HeroSection() {
             className="mb-8"
           >
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              Hi, I&apos;m Gregg Marayan, a developer currently exploring full-stack projects and building real-world experience.
+              {personalInfo.bio}
             </p>
 
             <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -87,7 +88,7 @@ export function HeroSection() {
             {/* Added: Download Resume */}
             <Button asChild size="lg" variant="secondary">
               <a
-                href="/Marayan_Resume.pdf"
+                href={personalInfo.resume.path}
                 download
                 className="flex items-center gap-2"
               >
@@ -105,7 +106,7 @@ export function HeroSection() {
             className="flex justify-center space-x-6 mb-12"
           >
             <Link
-              href="https://github.com/GreggMarayan"
+              href={personalInfo.social.github}
               className="text-muted-foreground hover:text-foreground transition-colors"
               target="_blank"
               rel="noopener noreferrer"
@@ -113,7 +114,7 @@ export function HeroSection() {
               <Github className="h-6 w-6" />
             </Link>
             <Link
-              href="https://www.linkedin.com/in/gregg-marayan"
+              href={personalInfo.social.linkedin}
               className="text-muted-foreground hover:text-foreground transition-colors"
               target="_blank"
               rel="noopener noreferrer"

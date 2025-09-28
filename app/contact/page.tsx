@@ -14,6 +14,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Mail, MapPin, Phone, Send, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { personalInfo } from "@/data/personal-info";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -99,7 +100,7 @@ export default function ContactPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">gregg.marayan@gmail.com</p>
+                    <p className="text-muted-foreground">{personalInfo.email}</p>
                   </CardContent>
                 </Card>
 
@@ -111,7 +112,7 @@ export default function ContactPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">+63 (992) 531-5378</p>
+                    <p className="text-muted-foreground">{personalInfo.phone}</p>
                   </CardContent>
                 </Card>
 
@@ -124,9 +125,9 @@ export default function ContactPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Mandaue City, Cebu, Philippines
+                      {personalInfo.location.city}, {personalInfo.location.province}, {personalInfo.location.country}
                       <br />
-                      Available for remote work
+                      {personalInfo.location.availability}
                     </p>
                   </CardContent>
                 </Card>
