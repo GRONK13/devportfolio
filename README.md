@@ -56,7 +56,7 @@ A modern, responsive developer portfolio built with Next.js 15, TypeScript, Tail
    Edit `.env.local` and add your configuration:
    ```env
    RESEND_API_KEY=your_resend_api_key_here
-   CONTACT_EMAIL=gregg.marayan@gmail.com
+   CONTACT_EMAIL=your.email@example.com
    ```
 
 4. **Run the development server**
