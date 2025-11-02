@@ -49,7 +49,7 @@ export function ProjectsFull() {
                 viewport={{ once: true }}
                 className="w-full max-w-md"
               >
-                <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden h-full flex flex-col">
                   <div className="relative overflow-hidden h-48">
                     <Image
                       src={project.image}
@@ -76,9 +76,9 @@ export function ProjectsFull() {
 
                   <CardHeader>
                     <CardTitle className="text-xl">{project.title}</CardTitle>
-                    <CardDescription>{project.description}</CardDescription>
+                    <CardDescription className="line-clamp-3">{project.description}</CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="mt-auto">
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.map((tech) => (
                         <Badge key={tech} variant="secondary" className="text-xs">
