@@ -20,4 +20,14 @@ export const projects: Project[] = [
     liveUrl: "https://jrs-front.vercel.app/",
     isFeatured: true,
   },
+  {
+    id: 2,
+    title: "Lost & Found Portal for USC DCSIM Students",
+    description: "A dedicated platform designed to make it easier for USC DCSIM students to report found belongings and recover lost items. The system provides a simple, student-friendly way to log reports, browse listed items, and manage claims securely. By streamlining communication between finders and owners, the portal fosters accountability, trust, and community support within the department.",
+    image: "/lost-and-found.jpeg",
+    technologies: [ "Next", "TailwindCSS", "JavaScript", "Supabase"],
+    githubUrl: "https://github.com/GRONK13/lost-and-found",
+    liveUrl: "https://lost-n-found.dcism.org/",
+    isFeatured: true,
+  },
 ];
