@@ -194,3 +194,18 @@
 .dark .glow {
   box-shadow: 0 0 20px rgba(147, 197, 253, 0.5);
 }
+
+/* Infinite Moving Cards Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 7));
+  }
+}
+
+.animate-scroll {
+  animation: scroll var(--animation-duration, 40s) linear infinite;
+  animation-direction: var(--animation-direction, forwards);
+}

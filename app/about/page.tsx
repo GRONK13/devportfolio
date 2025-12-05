@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Timeline } from "@/components/ui/timeline";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { Code, Lightbulb, Users, Zap, Briefcase, GraduationCap, Award } from "lucide-react";
 import { professionalExperience, education } from "@/data/experience";
 import skills from "@/data/skills";
@@ -102,43 +103,20 @@ export default function AboutPage() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="mb-20"
             >
-              <h2 className="text-3xl font-bold text-center mb-12">Technical Skills</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {Object.entries(skills).map(([category, skillList], index) => (
-                  <motion.div
-                    key={category}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                  >
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-lg">{category}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                          {skillList.map((skill) => (
-                            <motion.div
-                              key={skill.name}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
-                              className="flex flex-col items-center justify-center p-3 rounded-lg border border-border/50 hover:border-border transition-colors group hover:bg-muted/30"
-                            >
-                              <skill.icon 
-                                className={`h-8 w-8 mb-2 transition-colors ${skill.color || 'text-foreground'} group-hover:scale-110 transition-transform`}
-                              />
-                              <span className="text-xs font-medium text-center text-muted-foreground group-hover:text-foreground transition-colors">
-                                {skill.name}
-                              </span>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
+              <h2 className="text-3xl font-bold text-center mb-4">Technical Skills</h2>
+              <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+                A comprehensive toolkit of modern technologies and frameworks I use to build scalable applications
+              </p>
+              
+              <InfiniteMovingCards
+                items={Object.entries(skills).map(([category, skillList]) => ({
+                  category,
+                  skills: skillList
+                }))}
+                direction="left"
+                speed="slow"
+                pauseOnHover={true}
+              />
             </motion.section>
 
             {/* Experience and Education Tabs */}

@@ -17,16 +17,10 @@ export interface EducationItem {
 
 export const professionalExperience: ExperienceItem[] = [
   {
-    title: "Hire me to fill this out",
-    company: "....",
-    period: "¯\\_(ツ)_/¯",
-    description: "There's nothing here yet.",
-    achievements: [
-      "This guy is probably watching Dexter right now",
-      "(╯°□°）╯︵ ┻━┻",
-      "Waiting for GTA VI",
-
-    ]
+    title: "Software Developer Intern",
+    company: "Talleco JobTarget",
+    period: "Oct 2025 - Current",
+    description: "I am currently interning as a Software Developer at Talleco JobTarget, where I am involved in developing and maintaining web applications using modern technologies."
   },
 ];
 
