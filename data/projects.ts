@@ -30,4 +30,14 @@ export const projects: Project[] = [
     liveUrl: "https://lost-n-found.dcism.org/",
     isFeatured: true,
   },
+  {
+    id: 3,
+    title: "DevKwest",
+    description: "A platform for developers to enhance their skills by developing new projects.",
+    image: "/DevKwest.png",
+    technologies: [ "Next", "TailwindCSS", "TypeScript", "Supabase", "Framer Motion"],
+    githubUrl: "https://github.com/nzrnshannen/devkwest",
+    liveUrl: "",
+    isFeatured: false,
+  },
 ];

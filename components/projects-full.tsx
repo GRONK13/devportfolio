@@ -13,7 +13,7 @@ export function ProjectsFull() {
   // Show featured projects first, then non-featured
   const featuredProjects = projects.filter(project => project.isFeatured);
   const otherProjects = projects.filter(project => !project.isFeatured);
-  
+
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
@@ -111,40 +111,51 @@ export function ProjectsFull() {
                 viewport={{ once: true }}
                 className="w-full max-w-sm"
               >
-                <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden h-full">
-                  <div className="relative overflow-hidden bg-muted h-32">
-                    <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-                      <span className="text-muted-foreground text-xs">Project Image</span>
-                    </div>
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2">
+                <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden h-full flex flex-col">
+                  <div className="relative overflow-hidden h-48">
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} screenshot`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
                       <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" variant="secondary">
-                          <Github className="h-3 w-3" />
+                          <Github className="h-4 w-4 mr-2" />
+                          Code
                         </Button>
                       </Link>
-                      <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm">
-                          <ExternalLink className="h-3 w-3" />
+
+                      {/* Conditional Live Demo Button */}
+                      {project.liveUrl === "development" || !project.liveUrl ? (
+                        <Button size="sm" variant="outline" disabled className="cursor-not-allowed opacity-75">
+                          <ExternalLink className="h-4 w-4 mr-2" />
+                          In Development
                         </Button>
-                      </Link>
+                      ) : (
+                        <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                          <Button size="sm">
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            Live Demo
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </div>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">{project.title}</CardTitle>
-                    <CardDescription className="text-sm">{project.description}</CardDescription>
+
+                  <CardHeader>
+                    <CardTitle className="text-xl">{project.title}</CardTitle>
+                    <CardDescription className="line-clamp-3">{project.description}</CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-1">
-                      {project.technologies.slice(0, 3).map((tech) => (
-                        <Badge key={tech} variant="outline" className="text-xs">
+                  <CardContent className="mt-auto">
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <Badge key={tech} variant="secondary" className="text-xs">
                           {tech}
                         </Badge>
                       ))}
-                      {project.technologies.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{project.technologies.length - 3}
-                        </Badge>
-                      )}
                     </div>
                   </CardContent>
                 </Card>
