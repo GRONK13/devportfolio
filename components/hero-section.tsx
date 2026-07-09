@@ -10,6 +10,7 @@ import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
 import Link from "next/link";
 import { skills as skillsData } from "@/data/skills";
 import { personalInfo } from "@/data/personal-info";
+import { DeveloperTerminal } from "@/components/developer-terminal";
 
 const skills: string[] = Array.from(
   new Set(
@@ -17,11 +18,11 @@ const skills: string[] = Array.from(
       .flat()
       .map((skill) => skill.name)
   )
-).slice(0, 12); // limit to first 12 for layout; remove .slice() if you want all
+).slice(0, 12); // limit to first 12 for layout
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background antialiased">
+    <section className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-background antialiased pt-24 pb-16 lg:py-0">
       <div className="absolute inset-0 bg-grid-small-black/[0.2] dark:bg-grid-small-white/[0.2]" />
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background to-transparent" />
 
@@ -29,115 +30,128 @@ export function HeroSection() {
       <BackgroundBeams />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8"
-          >
-            <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground pb-4 overflow-visible">
-              Hi, I&apos;m {personalInfo.name.split(' ')[0]}
-            </h1>
-            
-            <TextGenerateEffect
-              words={personalInfo.subtitle}
-              className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
-            />
-          </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Bio & Details Left Column */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-6 w-full"
+            >
+              <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-muted-foreground pb-2 overflow-visible">
+                Hi, I&apos;m {personalInfo.name.split(' ')[0]}
+              </h1>
+              
+              <TextGenerateEffect
+                words={personalInfo.subtitle}
+                className="mt-2 text-lg md:text-xl text-muted-foreground font-semibold"
+              />
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mb-8"
-          >
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              {personalInfo.bio}
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mb-6"
+            >
+              <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-xl leading-relaxed">
+                {personalInfo.bio}
+              </p>
 
-            <div className="flex flex-wrap justify-center gap-2 mb-8">
-              {skills.map((skill, index) => (
-                <motion.div
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {skills.map((skill, index) => (
+                  <motion.div
+                    key={skill}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+                  >
+                    <Badge variant="secondary" className="text-xs py-1 px-2.5">
+                      {skill}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex flex-wrap gap-3 items-center mb-8"
+            >
+              <Link href="/contact">
+                <Button size="lg" className="shadow-lg shadow-primary/20 hover:shadow-primary/35 transition-all">
+                  Get In Touch
+                </Button>
+              </Link>
+              
+              <Button asChild size="lg" variant="secondary" className="border">
+                <a
+                  href={personalInfo.resume.path}
+                  download
+                  className="flex items-center gap-2"
                 >
-                  <Badge variant="secondary" className="text-sm">
-                    {skill}
-                  </Badge>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
-          >
-            
-            <Link href="/contact">
-              <Button size="lg">
-                Get In Touch
+                  <Download className="h-4 w-4" />
+                  Download Resume
+                </a>
               </Button>
-            </Link>
-            
-            {/* Added: Download Resume */}
-            <Button asChild size="lg" variant="secondary">
-              <a
-                href={personalInfo.resume.path}
-                download
-                className="flex items-center gap-2"
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="flex space-x-5"
+            >
+              <Link
+                href={personalInfo.social.github}
+                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Download className="h-4 w-4" />
-                Download Resume
-              </a>
-            </Button>
+                <Github className="h-5.5. w-5.5" />
+              </Link>
+              <Link
+                href={personalInfo.social.linkedin}
+                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="h-5.5 w-5.5" />
+              </Link>
+              <Link
+                href="/contact"
+                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all"
+              >
+                <Mail className="h-5.5 w-5.5" />
+              </Link>
+            </motion.div>
+          </div>
 
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex justify-center space-x-6 mb-12"
+          {/* Terminal Right Column */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="lg:col-span-5 w-full h-full flex items-center justify-center"
           >
-            <Link
-              href={personalInfo.social.github}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github className="h-6 w-6" />
-            </Link>
-            <Link
-              href={personalInfo.social.linkedin}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Linkedin className="h-6 w-6" />
-            </Link>
-            <Link
-              href="/contact"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Mail className="h-6 w-6" />
-            </Link>
+            <DeveloperTerminal />
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1 }}
-            className="animate-bounce"
-          >
-            <ArrowDown className="h-6 w-6 mx-auto text-muted-foreground" />
-          </motion.div>
         </div>
+        
+        {/* Bounce Arrow indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1 }}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce hidden lg:block"
+        >
+          <ArrowDown className="h-5 w-5 text-muted-foreground/60" />
+        </motion.div>
       </div>
     </section>
   );
