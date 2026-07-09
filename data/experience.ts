@@ -19,7 +19,7 @@ export const professionalExperience: ExperienceItem[] = [
   {
     title: "Software Developer Intern",
     company: "Talleco JobTarget",
-    period: "Oct 2025 - Current",
+    period: "Oct 2025 - March 2026",
     description: "I am currently interning as a Software Developer at Talleco JobTarget, where I am involved in developing and maintaining web applications using modern technologies."
   },
 ];
