@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { projects } from "@/data/projects";
+import { ProjectImage } from "@/components/project-image";
 
 export function ProjectsSection() {
   // Show only featured projects as preview
@@ -42,12 +42,10 @@ export function ProjectsSection() {
               <Card className="group glass-panel hover:border-primary/45 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden h-full flex flex-col relative border-border/40">
                 {/* image: use Next Image and keep responsive cover */}
                 <div className="relative overflow-hidden bg-muted h-48 border-b border-border/30">
-                  <Image
-                    src={project.image}
-                    alt={`${project.title} screenshot`}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                  <ProjectImage 
+                    title={project.title} 
+                    imageSrc={project.image} 
+                    liveUrl={project.liveUrl} 
                   />
                   <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3.5 z-10">
                     <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">

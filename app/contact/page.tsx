@@ -92,7 +92,7 @@ export default function ContactPage() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="space-y-6"
               >
-                <Card>
+                <Card className="glass-panel shadow-lg border-border/40 hover:border-primary/20 transition-all">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Mail className="h-5 w-5" />
@@ -104,7 +104,7 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="glass-panel shadow-lg border-border/40 hover:border-primary/20 transition-all">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Phone className="h-5 w-5" />
@@ -116,7 +116,7 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="glass-panel shadow-lg border-border/40 hover:border-primary/20 transition-all">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <MapPin className="h-5 w-5" />
@@ -140,7 +140,7 @@ export default function ContactPage() {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="lg:col-span-2"
               >
-                <Card>
+                <Card className="glass-panel shadow-lg border-border/40 hover:border-primary/20 transition-all">
                   <CardHeader>
                     <CardTitle>Send me a message</CardTitle>
                     <CardDescription>

@@ -7,12 +7,17 @@ export const metadata: Metadata = {
   description: "View the list of professional IT certifications and security credentials obtained by Gregg Marayan, including Cisco CyberOps Associate.",
 };
 
+import { BackgroundBeams } from "@/components/ui/background-beams";
+
 export default function CertificatesPage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="pt-8">
-        <CertificatesFull />
+      <main className="relative overflow-hidden min-h-[calc(100vh-4rem)]">
+        <BackgroundBeams />
+        <div className="relative z-10">
+          <CertificatesFull />
+        </div>
       </main>
     </div>
   );
