@@ -13,6 +13,7 @@ export function ProjectImage({ title, imageSrc, liveUrl }: ProjectImageProps) {
   const [src, setSrc] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasError, setHasError] = useState<boolean>(false);
+  const [retryCount, setRetryCount] = useState<number>(0);
 
   useEffect(() => {
     // If there is no live URL, use the static image directly
@@ -26,25 +27,34 @@ export function ProjectImage({ title, imageSrc, liveUrl }: ProjectImageProps) {
     setHasError(false);
 
     // Using Microlink screenshot API (highly reliable, free, public, returns actual image redirect)
-    // Adding timestamp/attempt parameter to force reload on retry if needed
+    // Adding retryCount parameter to cache-bust and force reload on retry
     const screenshotApiUrl = `https://api.microlink.io?url=${encodeURIComponent(
       liveUrl
-    )}&screenshot=true&embed=screenshot.url&_ts=${Date.now()}`;
+    )}&screenshot=true&embed=screenshot.url&retry=${retryCount}`;
     
     setSrc(screenshotApiUrl);
-  }, [liveUrl, imageSrc]);
+  }, [liveUrl, imageSrc, retryCount]);
 
   const handleLoad = () => {
     setIsLoading(false);
   };
 
   const handleError = () => {
-    // If the screenshot fails to load, gracefully fall back to the static uploaded image
+    // If the screenshot fails to load, try retrying twice after a delay
     if (src !== imageSrc) {
-      setSrc(imageSrc);
-      setHasError(true);
+      if (retryCount < 2) {
+        setTimeout(() => {
+          setRetryCount((prev) => prev + 1);
+        }, 3000);
+      } else {
+        // Exceeded retries, gracefully fall back to the static uploaded image
+        setSrc(imageSrc);
+        setHasError(true);
+        setIsLoading(false);
+      }
+    } else {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

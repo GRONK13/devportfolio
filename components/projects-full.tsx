@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,30 +10,21 @@ import Link from "next/link";
 import { projects } from "@/data/projects";
 import { ProjectImage } from "@/components/project-image";
 
-type ProjectCategory = "All" | "React/Next.js" | "Supabase" | "PostgreSQL" | "Prisma/Express";
-
 export function ProjectsFull() {
-  const [activeFilter, setActiveFilter] = useState<ProjectCategory>("All");
+  const [activeFilter, setActiveFilter] = useState<string>("All");
 
-  const filters: ProjectCategory[] = ["All", "React/Next.js", "Supabase", "PostgreSQL", "Prisma/Express"];
+  const filters = useMemo(() => {
+    const allTechs = projects.flatMap((p) => p.technologies);
+    const uniqueTechs = Array.from(new Set(allTechs.map((t) => t.trim())));
+    uniqueTechs.sort((a, b) => a.localeCompare(b));
+    return ["All", ...uniqueTechs];
+  }, []);
 
   const filteredProjects = projects.filter((project) => {
     if (activeFilter === "All") return true;
-    const techs = project.technologies.map(t => t.toLowerCase());
-    
-    if (activeFilter === "React/Next.js") {
-      return techs.includes("react") || techs.includes("next");
-    }
-    if (activeFilter === "Supabase") {
-      return techs.includes("supabase");
-    }
-    if (activeFilter === "PostgreSQL") {
-      return techs.includes("postgresql");
-    }
-    if (activeFilter === "Prisma/Express") {
-      return techs.includes("prisma") || techs.includes("express");
-    }
-    return true;
+    return project.technologies.some(
+      (t) => t.toLowerCase() === activeFilter.toLowerCase()
+    );
   });
 
   return (
