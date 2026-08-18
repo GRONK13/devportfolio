@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
 
 interface HistoryItem {
   command: string;
@@ -10,6 +11,8 @@ interface HistoryItem {
 
 export function DeveloperTerminal() {
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
+  const [passwordMode, setPasswordMode] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([
     {
       command: "",
@@ -39,6 +42,11 @@ export function DeveloperTerminal() {
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      if (passwordMode) {
+        handlePasswordSubmit(input);
+        setInput("");
+        return;
+      }
       executeCommand(input.trim());
       setInput("");
     } else if (e.key === "ArrowUp") {
@@ -167,6 +175,11 @@ export function DeveloperTerminal() {
       case "clear":
         setHistory([]);
         return;
+      case "su root":
+      case "su":
+        setPasswordMode(true);
+        setHistory((prev) => [...prev, { command: cmd, output: "Password: " }]);
+        return;
       case "sudo":
         output = "Usage: sudo [command]. Try: sudo hacker, sudo clean-room, or sudo coffee";
         break;
@@ -217,6 +230,44 @@ export function DeveloperTerminal() {
     setHistory((prev) => [...prev, { command: cmd, output }]);
   };
 
+  const handlePasswordSubmit = async (password: string) => {
+    setPasswordMode(false);
+    const masked = "•".repeat(password.length);
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        setHistory((prev) => [
+          ...prev,
+          {
+            command: masked,
+            output: (
+              <div className="text-green-500 font-mono space-y-1">
+                <p>[OK] Authentication successful.</p>
+                <p>[OK] Elevating privileges to root...</p>
+                <p className="animate-pulse">[REDIRECT] Loading control panel...</p>
+              </div>
+            ),
+          },
+        ]);
+        setTimeout(() => router.push("/cmd"), 1200);
+      } else {
+        setHistory((prev) => [
+          ...prev,
+          { command: masked, output: "su: Authentication failure" },
+        ]);
+      }
+    } catch {
+      setHistory((prev) => [
+        ...prev,
+        { command: masked, output: "su: Authentication failure" },
+      ]);
+    }
+  };
+
   return (
     <div 
       onClick={focusInput}
@@ -256,10 +307,12 @@ export function DeveloperTerminal() {
 
       {/* Terminal Input */}
       <div className="mt-2 pt-2 border-t border-zinc-800/50 flex items-center space-x-1">
-        <span className="text-primary font-bold flex-shrink-0">guest@greggmarayan:~$</span>
+        <span className="text-primary font-bold flex-shrink-0">
+          {passwordMode ? "Password:" : "guest@greggmarayan:~$"}
+        </span>
         <input
           ref={inputRef}
-          type="text"
+          type={passwordMode ? "password" : "text"}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
