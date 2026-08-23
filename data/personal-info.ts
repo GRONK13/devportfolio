@@ -7,7 +7,7 @@ export const personalInfo = {
   "phone": "+63 (992) 531-5378",
   "location": {
     "city": "Mandaue City | Taguig City",
-    "province": "Cebu | Manila",
+    "province": "",
     "country": "Philippines",
     "availability": "Available for remote work"
   },
@@ -17,8 +17,8 @@ export const personalInfo = {
     "email": "mailto:gregg.marayan@gmail.com"
   },
   "website": {
-    "url": "https://greggmarayan.vercel.app",
-    "domain": "greggmarayan.vercel.app"
+    "url": "https://greggmarayan.me",
+    "domain": "greggmarayan.me"
   },
   "resume": {
     "filename": "Marayan_Resume.pdf",
