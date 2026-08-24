@@ -2,7 +2,7 @@ export const personalInfo = {
   "name": "Gregg Marayan",
   "title": "Full Stack Developer",
   "subtitle": "Full Stack Developer - Information Technology Graduate at University of San Carlos",
-  "bio": "Hi, I'm Gregg Marayan, a developer currently exploring full-stack projects and building real-world experience.",
+  "bio": "Hi, I'm Gregg Marayan, a developer currently exploring Networking and full-stack projects and building real-world experience.",
   "email": "gregg.marayan@gmail.com",
   "phone": "+63 (992) 531-5378",
   "location": {
@@ -26,7 +26,7 @@ export const personalInfo = {
   },
   "descriptions": {
     "short": "Full Stack Developer at University of San Carlos",
-    "medium": "Gregg Marayan is a Full Stack Developer at University of San Carlos specializing in full-stack web development with React, Next.js, Node.js, and TypeScript.",
+    "medium": "Gregg Marayan is a Full Stack Developer. University of San Carlos graduate specializing in full-stack web development with React, Next.js, Node.js, and TypeScript.",
     "long": "I'm a recent graduate in Information Technology from the University of San Carlos. I'm eager to explore different areas in tech, from development and system administration to cybersecurity and cloud tools. I enjoy learning through hands-on experience and I'm open to new challenges that help me grow."
   },
   "keywords": [
