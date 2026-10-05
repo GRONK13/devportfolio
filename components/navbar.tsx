@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Menu, X, Code, Home, User, Briefcase, Award, Mail } from "lucide-react"
-import { personalInfo } from "@/data/personal-info"
+import { personalInfo as defaultPersonalInfo, PersonalInfo } from "@/data/personal-info"
 
 const navigation = [
   {
@@ -44,9 +44,18 @@ const navigation = [
   },
 ]
 
-export function Navbar() {
+export interface NavbarProps {
+  personalInfo?: PersonalInfo;
+  brandName?: string;
+}
+
+export function Navbar({
+  personalInfo = defaultPersonalInfo,
+  brandName,
+}: NavbarProps = {}) {
   const [isOpen, setIsOpen] = React.useState(false)
   const pathname = usePathname()
+  const displayName = brandName || personalInfo.name
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -56,7 +65,7 @@ export function Navbar() {
           <Link className="flex items-center space-x-3 mr-8" href="/">
             <Code className="h-6 w-6 text-primary" />
             <span className="hidden font-bold text-lg sm:inline-block">
-              {personalInfo.name}
+              {displayName}
             </span>
           </Link>
           
@@ -90,7 +99,7 @@ export function Navbar() {
         <div className="flex md:hidden">
           <Link className="flex items-center space-x-2" href="/">
             <Code className="h-6 w-6 text-primary" />
-            <span className="font-bold text-lg">Portfolio</span>
+            <span className="font-bold text-lg">{displayName}</span>
           </Link>
         </div>
         

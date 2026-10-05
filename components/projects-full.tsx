@@ -7,10 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import { Project, projects as defaultProjects } from "@/data/projects";
 import { ProjectImage } from "@/components/project-image";
 
-export function ProjectsFull() {
+export interface ProjectsFullProps {
+  projects?: Project[];
+}
+
+export function ProjectsFull({ projects = defaultProjects }: ProjectsFullProps = {}) {
   const [activeFilter, setActiveFilter] = useState<string>("All");
 
   const filters = useMemo(() => {
@@ -18,7 +22,7 @@ export function ProjectsFull() {
     const uniqueTechs = Array.from(new Set(allTechs.map((t) => t.trim())));
     uniqueTechs.sort((a, b) => a.localeCompare(b));
     return ["All", ...uniqueTechs];
-  }, []);
+  }, [projects]);
 
   const filteredProjects = projects.filter((project) => {
     if (activeFilter === "All") return true;

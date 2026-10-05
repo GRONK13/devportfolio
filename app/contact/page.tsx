@@ -65,7 +65,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen">
-      <Navbar />
+      <Navbar personalInfo={personalInfo} />
       <main className="relative">
         <BackgroundBeams />
         

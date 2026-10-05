@@ -6,9 +6,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Award, Calendar } from "lucide-react";
 import Link from "next/link";
-import { certificates } from "@/data/certificates";
+import { Certificate, certificates as defaultCertificates } from "@/data/certificates";
 
-export function CertificatesSection() {
+export interface CertificatesSectionProps {
+  certificates?: Certificate[];
+}
+
+export function CertificatesSection({ certificates = defaultCertificates }: CertificatesSectionProps = {}) {
   // Show only featured certificates as preview
   const featuredCertificates = certificates.filter(cert => cert.isFeatured);
   
