@@ -6,9 +6,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Award, Calendar } from "lucide-react";
 import Link from "next/link";
-import { certificates } from "@/data/certificates";
+import { Certificate, certificates as defaultCertificates } from "@/data/certificates";
 
-export function CertificatesFull() {
+export interface CertificatesFullProps {
+  certificates?: Certificate[];
+}
+
+export function CertificatesFull({ certificates = defaultCertificates }: CertificatesFullProps = {}) {
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 bg-transparent">
       <div className="max-w-7xl mx-auto">

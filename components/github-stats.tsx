@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { GitBranch, GitCommit, GitPullRequest, Award, Activity } from "lucide-react";
+import { personalInfo } from "@/data/personal-info";
 
 interface CommitMsg {
   repo: string;
@@ -26,7 +27,15 @@ const mockCommits: CommitMsg[] = [
   { repo: "ja-car-rental-system", msg: "docs: add comprehensive readme instructions for environment setup", time: "7d ago" }
 ];
 
-export function GitHubStats() {
+export interface GitHubStatsProps {
+  username?: string;
+  name?: string;
+}
+
+export function GitHubStats({
+  username = personalInfo.github,
+  name = personalInfo.name,
+}: GitHubStatsProps = {}) {
   const [selectedDay, setSelectedDay] = useState<{ day: number; commits: number } | null>(null);
   const [commits, setCommits] = useState<CommitMsg[]>(mockCommits);
   const [githubStats, setGithubStats] = useState({
@@ -52,8 +61,10 @@ export function GitHubStats() {
   });
 
   useEffect(() => {
+    if (!username) return;
+
     // 1. Fetch real public profile statistics
-    fetch("https://api.github.com/users/GRONK13")
+    fetch(`https://api.github.com/users/${username}`)
       .then((res) => {
         if (!res.ok) throw new Error("Rate limit or profile error");
         return res.json();
@@ -67,7 +78,7 @@ export function GitHubStats() {
       .catch((err) => console.log("GitHub profile fetch fallback:", err));
 
     // 2. Fetch real public push commit events
-    fetch("https://api.github.com/users/GRONK13/events/public")
+    fetch(`https://api.github.com/users/${username}/events/public`)
       .then((res) => {
         if (!res.ok) throw new Error("Rate limit or events error");
         return res.json();
@@ -108,7 +119,9 @@ export function GitHubStats() {
 
           if (event.payload?.commits) {
             for (const commit of event.payload.commits) {
-              const repoName = event.repo.name.replace("GRONK13/", "");
+              const repoName = event.repo.name.includes("/")
+                ? event.repo.name.split("/").pop() || event.repo.name
+                : event.repo.name;
               extractedCommits.push({
                 repo: repoName,
                 msg: commit.message,
@@ -136,7 +149,7 @@ export function GitHubStats() {
         });
       })
       .catch((err) => console.log("GitHub events fetch fallback:", err));
-  }, []);
+  }, [username]);
 
   const totalCommits = useMemo(() => gridData.reduce((a, b) => a + b, 0), [gridData]);
 
@@ -158,7 +171,7 @@ export function GitHubStats() {
             <Activity className="h-6 w-6 text-primary animate-pulse" />
             <div>
               <h3 className="text-xl font-bold">Open Source Contributions</h3>
-              <p className="text-xs text-muted-foreground font-mono">Real-time public statistics and updates for GRONK13</p>
+              <p className="text-xs text-muted-foreground font-mono">Real-time public statistics and updates for {username}</p>
             </div>
           </div>
 
@@ -244,7 +257,7 @@ export function GitHubStats() {
                   Engineering Health Metric
                 </h4>
                 <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                  Gregg maintains regular commit logs, clean pull requests, and detailed code reviews. Consistent cycles prevent legacy code build up and speed delivery timelines.
+                  {(name ? name.split(" ")[0] : username) || "Developer"} maintains regular commit logs, clean pull requests, and detailed code reviews. Consistent cycles prevent legacy code build up and speed delivery timelines.
                 </p>
               </div>
 

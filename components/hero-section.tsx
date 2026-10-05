@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Spotlight } from "@/components/ui/spotlight";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
@@ -8,19 +9,29 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
 import Link from "next/link";
-import { skills as skillsData } from "@/data/skills";
-import { personalInfo } from "@/data/personal-info";
+import { skills as defaultSkills, SkillsMap } from "@/data/skills";
+import { personalInfo as defaultPersonalInfo, PersonalInfo } from "@/data/personal-info";
+import { projects as defaultProjects, Project } from "@/data/projects";
+import { certificates as defaultCertificates, Certificate } from "@/data/certificates";
 import { DeveloperTerminal } from "@/components/developer-terminal";
 
-const skills: string[] = Array.from(
-  new Set(
-    Object.values(skillsData)
-      .flat()
-      .map((skill) => skill.name)
-  )
-).slice(0, 12); // limit to first 12 for layout
+export interface HeroSectionProps {
+  personalInfo?: PersonalInfo;
+  projects?: Project[];
+  skills?: SkillsMap;
+  certificates?: Certificate[];
+}
 
-export function HeroSection() {
+export function HeroSection({
+  personalInfo = defaultPersonalInfo,
+  projects = defaultProjects,
+  skills = defaultSkills,
+  certificates = defaultCertificates,
+}: HeroSectionProps = {}) {
+  const displaySkills = useMemo(() => {
+    const list = Object.values(skills || {}).flat();
+    return list.map((skill) => skill.name).slice(0, 12);
+  }, [skills]);
   return (
     <section className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-background antialiased pt-24 pb-16 lg:py-0">
       <div className="absolute inset-0 bg-grid-small-black/[0.2] dark:bg-grid-small-white/[0.2]" />
@@ -61,7 +72,7 @@ export function HeroSection() {
               </p>
 
               <div className="flex flex-wrap gap-2 mb-6">
-                {skills.map((skill, index) => (
+                {displaySkills.map((skill, index) => (
                   <motion.div
                     key={skill}
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -108,25 +119,28 @@ export function HeroSection() {
             >
               <Link
                 href={personalInfo.social.github}
-                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all"
+                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all p-2"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="GitHub Profile"
               >
-                <Github className="h-5.5. w-5.5" />
+                <Github className="h-5 w-5" />
               </Link>
               <Link
                 href={personalInfo.social.linkedin}
-                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all"
+                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all p-2"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="LinkedIn Profile"
               >
-                <Linkedin className="h-5.5 w-5.5" />
+                <Linkedin className="h-5 w-5" />
               </Link>
               <Link
                 href="/contact"
-                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all"
+                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all p-2"
+                aria-label={`Contact ${personalInfo.name.split(' ')[0] || personalInfo.name}`}
               >
-                <Mail className="h-5.5 w-5.5" />
+                <Mail className="h-5 w-5" />
               </Link>
             </motion.div>
           </div>
@@ -138,7 +152,12 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="lg:col-span-5 w-full h-full flex items-center justify-center"
           >
-            <DeveloperTerminal />
+            <DeveloperTerminal
+              personalInfo={personalInfo}
+              projects={projects}
+              skills={skills}
+              certificates={certificates}
+            />
           </motion.div>
 
         </div>

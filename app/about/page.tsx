@@ -17,7 +17,7 @@ import { GitHubStats } from "@/components/github-stats";
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
-      <Navbar />
+      <Navbar personalInfo={personalInfo} />
       <main className="relative">
         <BackgroundBeams />
 
@@ -73,29 +73,33 @@ export default function AboutPage() {
             >
               <h2 className="text-3xl font-bold text-center mb-12">What Drives Me</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                  { icon: Code, title: "Clean Code", description: "Writing maintainable, scalable, and self-documenting code with rigorous types." },
-                  { icon: Lightbulb, title: "Innovation", description: "Finding creative engineering solutions to real-world, complex business workflows." },
-                  { icon: Users, title: "Collaboration", description: "Working effectively with multidisciplinary product teams using Agile methods." },
-                  { icon: Zap, title: "Performance", description: "Optimizing page load metrics, client rendering pathways, and database calls." },
-                ].map((value, index) => (
-                  <motion.div
-                    key={value.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.08 }}
-                  >
-                    <Card className="text-center h-full glass-panel hover:shadow-lg hover:shadow-primary/5 hover:border-primary/40 transition-all duration-300">
-                      <CardHeader>
-                        <value.icon className="h-10 w-10 mx-auto mb-4 text-primary" />
-                        <CardTitle className="text-lg font-bold">{value.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
+                {(personalInfo.coreValues || []).map((value, index) => {
+                  const iconMap: Record<string, typeof Code> = {
+                    Code,
+                    Lightbulb,
+                    Users,
+                    Zap,
+                  };
+                  const IconComp = iconMap[value.icon] || Code;
+                  return (
+                    <motion.div
+                      key={value.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.3 + index * 0.08 }}
+                    >
+                      <Card className="text-center h-full glass-panel hover:shadow-lg hover:shadow-primary/5 hover:border-primary/40 transition-all duration-300">
+                        <CardHeader>
+                          <IconComp className="h-10 w-10 mx-auto mb-4 text-primary" />
+                          <CardTitle className="text-lg font-bold">{value.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.section>
 
@@ -130,7 +134,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="mb-20"
             >
-              <GitHubStats />
+              <GitHubStats username={personalInfo.github} name={personalInfo.name} />
             </motion.section>
 
             {/* Experience and Education Tabs */}

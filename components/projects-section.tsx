@@ -6,10 +6,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import { Project, projects as defaultProjects } from "@/data/projects";
 import { ProjectImage } from "@/components/project-image";
 
-export function ProjectsSection() {
+export interface ProjectsSectionProps {
+  projects?: Project[];
+}
+
+export function ProjectsSection({ projects = defaultProjects }: ProjectsSectionProps = {}) {
   // Show only featured projects as preview
   const featuredProjects = projects.filter(project => project.isFeatured);
   

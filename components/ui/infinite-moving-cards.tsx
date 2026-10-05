@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
+import { SkillIcon } from "@/components/skill-icon";
 
 export const InfiniteMovingCards = ({
   items,
@@ -13,7 +14,8 @@ export const InfiniteMovingCards = ({
   items: {
     category: string;
     skills: {
-      icon: React.ComponentType<{ className?: string; size?: number; stroke?: number }>;
+      iconSlug?: string;
+      icon?: React.ComponentType<{ className?: string; size?: number; stroke?: number }>;
       name: string;
       color?: string;
     }[];
@@ -121,14 +123,26 @@ export const InfiniteMovingCards = ({
                     key={skillIdx}
                     className="flex flex-col items-center justify-center p-2 rounded-lg border border-border/30 hover:border-primary/50 transition-all group"
                   >
-                    <skill.icon
-                      className={cn(
-                        "mb-1 transition-transform group-hover:scale-110",
-                        skill.color || "text-foreground"
-                      )}
-                      size={32}
-                      stroke={1.5}
-                    />
+                    {skill.iconSlug ? (
+                      <SkillIcon
+                        slug={skill.iconSlug}
+                        className={cn(
+                          "mb-1 transition-transform group-hover:scale-110",
+                          skill.color || "text-foreground"
+                        )}
+                        size={32}
+                        stroke={1.5}
+                      />
+                    ) : skill.icon ? (
+                      <skill.icon
+                        className={cn(
+                          "mb-1 transition-transform group-hover:scale-110",
+                          skill.color || "text-foreground"
+                        )}
+                        size={32}
+                        stroke={1.5}
+                      />
+                    ) : null}
                     <span className="text-[10px] font-medium text-center text-muted-foreground group-hover:text-foreground transition-colors">
                       {skill.name}
                     </span>

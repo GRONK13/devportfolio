@@ -1,25 +1,54 @@
 "use client";
 
-import { useState, useRef, useEffect, KeyboardEvent } from "react";
+import { useState, useRef, useEffect, useMemo, KeyboardEvent } from "react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import { personalInfo as defaultPersonalInfo, getFullLocation, PersonalInfo } from "@/data/personal-info";
+import { projects as defaultProjects, Project } from "@/data/projects";
+import { skills as defaultSkills, SkillsMap } from "@/data/skills";
+import { certificates as defaultCertificates, Certificate } from "@/data/certificates";
 
 interface HistoryItem {
   command: string;
   output: string | React.ReactNode;
 }
 
-export function DeveloperTerminal() {
+export interface DeveloperTerminalProps {
+  personalInfo?: PersonalInfo;
+  projects?: Project[];
+  skills?: SkillsMap;
+  certificates?: Certificate[];
+}
+
+export function DeveloperTerminal({
+  personalInfo = defaultPersonalInfo,
+  projects = defaultProjects,
+  skills = defaultSkills,
+  certificates = defaultCertificates,
+}: DeveloperTerminalProps = {}) {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
+  const firstName = personalInfo.name ? personalInfo.name.split(" ")[0] : "Developer";
+  const hostName = personalInfo.website?.domain ? personalInfo.website.domain.split(".")[0] : (personalInfo.github?.toLowerCase() || "portfolio");
+  const shellPrompt = `guest@${hostName}:~$`;
+  const locationString = getFullLocation(personalInfo);
+
+  const allSkillsList = useMemo(() => {
+    return Object.values(skills || {}).flat();
+  }, [skills]);
+
   const [passwordMode, setPasswordMode] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([
     {
       command: "",
       output: (
         <div className="space-y-1">
-          <p className="text-primary font-bold">Welcome to Gregg&apos;s Interactive Shell v1.2.0 (Type &apos;help&apos; for commands)</p>
-          <p className="text-muted-foreground text-xs">System status: ACTIVE | Location: Mandaue City, PH</p>
+          <p className="text-primary font-bold">
+            Welcome to {firstName}&apos;s Interactive Shell v1.2.0 (Type &apos;help&apos; for commands)
+          </p>
+          <p className="text-muted-foreground text-xs">
+            System status: ACTIVE | Location: {locationString}
+          </p>
         </div>
       ),
     },
@@ -109,61 +138,86 @@ export function DeveloperTerminal() {
         output = (
           <div className="space-y-2 max-w-2xl">
             <p>
-              <span className="font-bold text-primary">Name:</span> Gregg Marayan
+              <span className="font-bold text-primary">Name:</span> {personalInfo.name}
             </p>
             <p>
-              <span className="font-bold text-primary">Role:</span> Full Stack Developer & Information Technology Graduate
+              <span className="font-bold text-primary">Role:</span> {personalInfo.subtitle}
             </p>
-            <p className="text-muted-foreground">
-              I graduated in Information Technology from the University of San Carlos, Talamban, Cebu. 
-              My tech journey started with robotics microcontrollers and expanded into backend APIs, database management, 
-              cybersecurity threat modeling, and modern web application development. I love building practical tools that make workflows easier.
+            <p>
+              <span className="font-bold text-primary">Location:</span> {locationString}
+              {personalInfo.location?.availability ? ` (${personalInfo.location.availability})` : ""}
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              {personalInfo.descriptions?.long || personalInfo.bio || ""}
             </p>
           </div>
         );
         break;
-      case "skills":
+      case "skills": {
+        const categoryColorMap: Record<string, string> = {
+          Frontend: "text-yellow-500",
+          Backend: "text-blue-500",
+          Database: "text-green-500",
+          DevOps: "text-purple-500",
+          Tools: "text-cyan-500",
+        };
         output = (
           <div className="space-y-2">
             <p className="font-bold text-primary">Technical Toolkit Matrix:</p>
             <div className="space-y-1 text-sm">
-              <p><span className="text-yellow-500 font-bold">[Frontend]:</span> React, Next.js, TypeScript, JavaScript, TailwindCSS, Framer Motion</p>
-              <p><span className="text-blue-500 font-bold">[Backend]:</span> Node.js, Express, REST APIs, GraphQL</p>
-              <p><span className="text-green-500 font-bold">[Database]:</span> PostgreSQL, Supabase, Prisma ORM</p>
-              <p><span className="text-purple-500 font-bold">[DevOps/Tools]:</span> Docker, Git, Vercel, VS Code, Figma, Postman</p>
-              <p><span className="text-red-500 font-bold">[Certifications]:</span> Cisco CyberOps Associate, Cisco Intro to Cybersecurity</p>
+              {Object.entries(skills || {}).map(([category, items]) => (
+                <p key={category}>
+                  <span className={`font-bold ${categoryColorMap[category] || "text-primary"}`}>
+                    [{category}]:
+                  </span>{" "}
+                  {Array.isArray(items) ? items.map((s) => s.name).join(", ") : ""}
+                </p>
+              ))}
+              {certificates && certificates.length > 0 && (
+                <p>
+                  <span className="text-red-500 font-bold">[Certifications]:</span>{" "}
+                  {certificates.map((c) => c.title).join(", ")}
+                </p>
+              )}
             </div>
           </div>
         );
         break;
-      case "projects":
+      }
+      case "projects": {
+        const projectList = projects || [];
+        const featured = projectList.filter((p) => p.isFeatured);
+        const displayProjects = featured.length > 0 ? featured : projectList.slice(0, 3);
         output = (
           <div className="space-y-3">
             <p className="font-bold text-primary">Featured Projects:</p>
             <div className="space-y-2">
-              <div>
-                <p className="font-bold">1. J&A Car Rental System</p>
-                <p className="text-muted-foreground text-xs pl-4">Mobile-first full stack booking & booking dashboard system using React, Express, and PostgreSQL.</p>
-              </div>
-              <div>
-                <p className="font-bold">2. USC Lost & Found Portal</p>
-                <p className="text-muted-foreground text-xs pl-4">Platform for students to report/recover items built with Next.js, Tailwind, and Supabase.</p>
-              </div>
-              <div>
-                <p className="font-bold">3. DevKwest</p>
-                <p className="text-muted-foreground text-xs pl-4">Skill improvement board with Next.js, Framer Motion, and Supabase integration.</p>
-              </div>
+              {displayProjects.map((p, idx) => (
+                <div key={p.id}>
+                  <p className="font-bold">
+                    {idx + 1}. {p.title}
+                  </p>
+                  <p className="text-muted-foreground text-xs pl-4">
+                    {p.description}
+                  </p>
+                  <p className="text-zinc-500 text-[11px] pl-4 font-mono">
+                    Stack: {p.technologies?.join(", ") || ""}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         );
         break;
+      }
       case "contact":
         output = (
           <div className="space-y-1">
-            <p><span className="font-bold text-primary">Email:</span> gregg.marayan@gmail.com</p>
-            <p><span className="font-bold text-primary">Phone:</span> +63 (992) 531-5378</p>
-            <p><span className="font-bold text-primary">GitHub:</span> https://github.com/GRONK13</p>
-            <p><span className="font-bold text-primary">LinkedIn:</span> linkedin.com/in/gregg-marayan</p>
+            <p><span className="font-bold text-primary">Email:</span> {personalInfo.email}</p>
+            <p><span className="font-bold text-primary">Phone:</span> {personalInfo.phone}</p>
+            <p><span className="font-bold text-primary">GitHub:</span> {personalInfo.social?.github || personalInfo.github || ""}</p>
+            <p><span className="font-bold text-primary">LinkedIn:</span> {personalInfo.social?.linkedin || ""}</p>
+            <p><span className="font-bold text-primary">Website:</span> {personalInfo.website?.url || ""}</p>
           </div>
         );
         break;
@@ -183,42 +237,61 @@ export function DeveloperTerminal() {
       case "sudo":
         output = "Usage: sudo [command]. Try: sudo hacker, sudo clean-room, or sudo coffee";
         break;
-      case "sudo hacker":
+      case "sudo hacker": {
+        const certBadge = certificates[0]?.title || "Cisco CyberOps Shield";
         output = (
           <div className="text-green-500 font-mono space-y-1 animate-pulse">
             <p>Initializing security penetration sequence...</p>
             <p>[OK] Connected to port 22/SSH...</p>
             <p>[OK] Intercepting network traffic streams...</p>
-            <p>[ALERT] Cisco CyberOps Shield Activated. Access Restricted.</p>
+            <p>[ALERT] {certBadge} Activated. Access Restricted.</p>
           </div>
         );
         break;
+      }
       case "sudo clean-room":
         output = "BEEP BOOP. Running automated digital vacuum. Codebase is now pristine!";
         break;
       case "sudo coffee":
         output = "☕ Coffee brewed successfully. Coding speed increased by 45%.";
         break;
-      case "game":
+      case "game": {
+        const sampleHints = (
+          allSkillsList.length > 0
+            ? allSkillsList.slice(0, 4).map((s) => s.name.toLowerCase())
+            : ["react", "nextjs", "docker"]
+        ).join(", ");
         output = (
           <div className="space-y-1">
             <p className="text-yellow-500 font-bold">🎮 Terminal Mini-Game Activated!</p>
             <p>I am thinking of a tech keyword. Can you guess it? Try typing:</p>
-            <p className="pl-4 text-xs font-mono text-muted-foreground">`guess [word]` (Hint: options might include react, docker, supabase, nextjs, 42)</p>
+            <p className="pl-4 text-xs font-mono text-muted-foreground">
+              `guess [word]` (Hint: options might include {sampleHints}, 42)
+            </p>
           </div>
         );
         break;
+      }
       case "matrix":
         output = <MatrixRain />;
         break;
       default:
-        if (lowerCmd.startsWith("guess ")) {
-          const guessVal = lowerCmd.split(" ")[1];
-          const correctGuesses = ["42", "react", "nextjs", "supabase", "docker", "robotics"];
-          if (correctGuesses.includes(guessVal)) {
-            output = `🎉 YES! "${guessVal}" is correct! You possess true engineering intellect.`;
+        if (lowerCmd === "guess" || lowerCmd.startsWith("guess ")) {
+          const guessVal = lowerCmd.replace(/^guess\s*/, "").trim();
+          if (!guessVal) {
+            output = "Usage: guess [word]. Type 'game' to see hints.";
           } else {
-            output = `❌ Negative. "${guessVal}" is incorrect. Type 'game' to see hints.`;
+            const techWords = [
+              ...allSkillsList.map((s) => s.name.toLowerCase().replace(/[^a-z0-9]/g, "")),
+              ...(projects || []).map((p) => p.title.toLowerCase().split(" ")[0].replace(/[^a-z0-9]/g, "")),
+              "42",
+              "robotics",
+            ];
+            if (techWords.includes(guessVal.toLowerCase().replace(/[^a-z0-9]/g, ""))) {
+              output = `🎉 YES! "${guessVal}" is correct! You possess true engineering intellect.`;
+            } else {
+              output = `❌ Negative. "${guessVal}" is incorrect. Type 'game' to see hints.`;
+            }
           }
         } else if (lowerCmd.startsWith("sudo ")) {
           output = `Permission denied. guest user is not in the sudoers file. This incident has been logged.`;
@@ -232,7 +305,7 @@ export function DeveloperTerminal() {
 
   const handlePasswordSubmit = async (password: string) => {
     setPasswordMode(false);
-    const masked = "•".repeat(password.length);
+    const masked = password.length > 0 ? "•".repeat(password.length) : "(empty)";
     try {
       const res = await fetch("/api/auth", {
         method: "POST",
@@ -281,7 +354,7 @@ export function DeveloperTerminal() {
           <span className="w-3 h-3 rounded-full bg-green-500 inline-block" />
         </div>
         <div className="text-xs text-zinc-400 font-semibold flex-1 text-center pr-10">
-          guest@greggmarayan: ~ (bash)
+          guest@{hostName}: ~ (bash)
         </div>
       </div>
 
@@ -294,7 +367,7 @@ export function DeveloperTerminal() {
           <div key={index} className="space-y-1">
             {item.command && (
               <div className="flex items-center space-x-1">
-                <span className="text-primary font-bold">guest@greggmarayan:~$</span>
+                <span className="text-primary font-bold">{shellPrompt}</span>
                 <span>{item.command}</span>
               </div>
             )}
@@ -308,7 +381,7 @@ export function DeveloperTerminal() {
       {/* Terminal Input */}
       <div className="mt-2 pt-2 border-t border-zinc-800/50 flex items-center space-x-1">
         <span className="text-primary font-bold flex-shrink-0">
-          {passwordMode ? "Password:" : "guest@greggmarayan:~$"}
+          {passwordMode ? "Password:" : shellPrompt}
         </span>
         <input
           ref={inputRef}
