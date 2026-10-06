@@ -1,11 +1,13 @@
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { Footer } from "@/components/footer";
 import { personalInfo } from "@/data/personal-info";
+import { skillsList } from "@/data/skills";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,35 +19,50 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  colorScheme: "dark light",
+};
+
 export const metadata: Metadata = {
   title: {
     default: `${personalInfo.name} - Full Stack Developer Portfolio`,
-    template: `%s | ${personalInfo.name}`
+    template: `%s | ${personalInfo.name}`,
   },
   description: personalInfo.descriptions.medium,
   keywords: personalInfo.keywords,
   authors: [{ name: personalInfo.name }],
   creator: personalInfo.name,
   publisher: personalInfo.name,
+  formatDetection: {
+    telephone: false,
+  },
   metadataBase: new URL(personalInfo.website.url),
   alternates: {
     canonical: "/",
   },
-  openGraph: {
+    openGraph: {
     type: "website",
     locale: "en_US",
-    url: personalInfo.website.url, 
+    url: personalInfo.website.url,
     title: `${personalInfo.name} - Full Stack Developer Portfolio`,
     description: `Explore the portfolio of ${personalInfo.name}, a passionate full-stack developer specializing in modern web technologies. View projects, skills, and professional experience.`,
     siteName: `${personalInfo.name} Portfolio`,
     images: [
       {
-        url: "/web-app-manifest-512x512.png",
-        width: 1200,
-        height: 630,
+        url: "/android-chrome-512x512.png",
+        width: 512,
+        height: 512,
         alt: `${personalInfo.name} - Full Stack Developer`,
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${personalInfo.name} - Full Stack Developer Portfolio`,
+    description: personalInfo.descriptions.medium,
+    images: ["/android-chrome-512x512.png"],
+    creator: `@${personalInfo.github}`,
   },
   robots: {
     index: true,
@@ -69,7 +86,7 @@ export const metadata: Metadata = {
       },
       {
         url: "/favicon-16x16.png",
-        type: "image/png", 
+        type: "image/png",
         sizes: "16x16",
       },
       {
@@ -89,17 +106,14 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
-        {/* Remove all these manual links - metadata handles them */}
-        {/* Additional SEO meta tags */}
-        <meta name="theme-color" content="#000000" />
-        <meta name="color-scheme" content="dark light" />
-        <meta name="format-detection" content="telephone=no" />
-        <link rel="canonical" href={personalInfo.website.url} />
-        
         {/* Schema.org structured data */}
         <script
           type="application/ld+json"
@@ -108,39 +122,41 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
               "@context": "https://schema.org",
               "@type": "Person",
               name: personalInfo.name,
-              jobTitle: personalInfo.title, 
-              description: personalInfo.descriptions.medium.split("specializing")[0].trim(),
+              jobTitle: personalInfo.title,
+              description: personalInfo.descriptions.medium,
               url: personalInfo.website.url,
+              image: `${personalInfo.website.url}/android-chrome-512x512.png`,
+              email: personalInfo.email,
               sameAs: [
                 personalInfo.social.github,
-                personalInfo.social.linkedin, 
-              ],
+                personalInfo.social.linkedin,
+              ].filter(Boolean),
               alumniOf: {
                 "@type": "CollegeOrUniversity",
-                name: "University of San Carlos"
+                name: "University of San Carlos",
               },
-              knowsAbout: [
-                "React",
-                "Next.js", 
-                "TypeScript",
-                "JavaScript",
-                "Node.js",
-                "PostgreSQL",
-                "Full Stack Development",
-                "Web Development"
-              ]
-            })
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: personalInfo.location.city,
+                addressRegion: personalInfo.location.province,
+                addressCountry: personalInfo.location.country,
+              },
+              knowsAbout: skillsList.map((skill) => skill.name),
+            }),
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex min-h-screen flex-col`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="flex-1 flex flex-col">
+            {children}
+          </div>
+          <Footer />
           <Toaster />
         </ThemeProvider>
         <Analytics />

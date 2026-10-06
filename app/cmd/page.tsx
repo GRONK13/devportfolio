@@ -359,7 +359,7 @@ export default function AdminPage() {
 
   if (isVerifying) {
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
+      <div className="flex-1 bg-zinc-950 flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-primary animate-spin" />
       </div>
     );
@@ -367,7 +367,7 @@ export default function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
+      <div className="flex-1 bg-zinc-950 flex items-center justify-center p-4">
         <Card className="w-full max-w-md glass-panel border-border/40">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-mono text-zinc-100">
@@ -416,7 +416,7 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 p-4 md:p-8 font-sans">
+    <div className="flex-1 bg-zinc-950 text-zinc-100 p-4 md:p-8 font-sans">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800 pb-6">

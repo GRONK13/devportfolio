@@ -12,7 +12,7 @@ import { skills } from "@/data/skills";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">  
+    <div className="flex-1 flex flex-col">  
       <Navbar personalInfo={personalInfo} />
       <main>
         <HeroSection

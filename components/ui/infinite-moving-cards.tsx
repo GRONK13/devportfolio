@@ -58,6 +58,14 @@ export const InfiniteMovingCards = ({
 
   const addAnimation = React.useCallback(() => {
     if (containerRef.current && scrollerRef.current) {
+      if (scrollerRef.current.getAttribute("data-cloned") === "true") {
+        getDirection();
+        getSpeed();
+        setStart(true);
+        return;
+      }
+      scrollerRef.current.setAttribute("data-cloned", "true");
+
       const scrollerContent = Array.from(scrollerRef.current.children);
 
       scrollerContent.forEach((item) => {

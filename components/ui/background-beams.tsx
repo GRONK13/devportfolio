@@ -81,7 +81,7 @@ export const BackgroundBeams = ({ className }: { className?: string }) => {
   return (
     <div
       ref={beams}
-      className={`absolute inset-0 overflow-hidden ${className}`}
+      className={`absolute inset-0 overflow-hidden ${className || ""}`}
     />
   );
 };
