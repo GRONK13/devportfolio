@@ -199,9 +199,11 @@ export function SecurityConsole() {
             <div className="p-3 border-t bg-muted/40 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <button
+                  type="button"
                   onClick={startSecurityScan}
                   disabled={isScanning}
-                  className="flex items-center gap-2 px-4 py-1.5 text-xs font-semibold rounded bg-primary text-primary-foreground hover:opacity-90 disabled:opacity-50 transition-opacity"
+                  aria-label={isScanning ? `Compliance scan in progress: ${scanProgress}%` : "Run compliance scan"}
+                  className="flex items-center gap-2 px-4 py-2 min-h-[44px] text-xs font-semibold rounded bg-primary text-primary-foreground hover:opacity-90 disabled:opacity-50 transition-opacity focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none cursor-pointer"
                 >
                   <RefreshCw className={`h-3 w-3 ${isScanning ? 'animate-spin' : ''}`} />
                   {isScanning ? `SCANNING (${scanProgress}%)` : "RUN COMPLIANCE SCAN"}
@@ -239,15 +241,17 @@ export function SecurityConsole() {
 
             <div className="flex-1 flex flex-col justify-between space-y-4">
               <div className="space-y-2">
-                <label className="text-xs font-bold text-muted-foreground block">
+                <label htmlFor="crypto-plaintext" className="text-xs font-bold text-muted-foreground block">
                   Plaintext Input
                 </label>
                 <textarea
+                  id="crypto-plaintext"
                   value={plainText}
                   onChange={(e) => setPlainText(e.target.value)}
                   placeholder="Enter message to encrypt/hash..."
                   rows={3}
-                  className="w-full text-sm p-3 rounded-md bg-muted border border-border outline-none focus:ring-1 focus:ring-primary/45 resize-none font-mono"
+                  className="w-full text-sm p-3 rounded-md bg-muted border border-border outline-none focus:ring-1 focus:ring-primary/45 resize-none font-mono focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+                  aria-label="Plaintext input for cryptographic hashing"
                 />
               </div>
 

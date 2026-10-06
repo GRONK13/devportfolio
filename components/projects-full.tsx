@@ -57,12 +57,17 @@ export function ProjectsFull({ projects = defaultProjects }: ProjectsFullProps =
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
           className="flex flex-wrap justify-center items-center gap-2.5 mb-14"
+          role="toolbar"
+          aria-label="Project technology filters"
         >
           {filters.map((filter) => (
             <button
               key={filter}
+              type="button"
               onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-1.5 text-xs font-mono rounded-full border transition-all cursor-pointer ${
+              aria-label={`Filter projects by ${filter}`}
+              aria-pressed={activeFilter === filter}
+              className={`px-4 py-2 min-h-[44px] sm:min-h-[38px] text-xs font-mono rounded-full border transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
                 activeFilter === filter
                   ? "bg-primary border-primary text-primary-foreground font-semibold shadow-md shadow-primary/20"
                   : "bg-muted/40 hover:bg-muted border-border/60 text-muted-foreground hover:text-foreground"
@@ -105,25 +110,35 @@ export function ProjectsFull({ projects = defaultProjects }: ProjectsFullProps =
                       imageSrc={project.image} 
                       liveUrl={project.liveUrl} 
                     />
-                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3.5 z-10">
-                      <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" variant="secondary" className="font-semibold text-xs py-1.5 h-8">
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3.5 z-10">
+                      <Button asChild size="sm" variant="secondary" className="font-semibold text-xs py-1.5 min-h-[36px]">
+                        <Link
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View ${project.title} source code on GitHub`}
+                        >
                           <Github className="h-3.5 w-3.5 mr-1.5" />
                           Repository
-                        </Button>
-                      </Link>
+                        </Link>
+                      </Button>
                       
                       {project.liveUrl === "development" || !project.liveUrl ? (
-                        <Button size="sm" variant="outline" disabled className="cursor-not-allowed opacity-65 text-xs py-1.5 h-8">
+                        <Button size="sm" variant="outline" disabled className="cursor-not-allowed opacity-65 text-xs py-1.5 min-h-[36px]" aria-label={`${project.title} is currently in development`}>
                           In Dev
                         </Button>
                       ) : (
-                        <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                          <Button size="sm" className="font-semibold text-xs py-1.5 h-8 shadow shadow-primary/25">
+                        <Button asChild size="sm" className="font-semibold text-xs py-1.5 shadow shadow-primary/25 min-h-[36px]">
+                          <Link
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`View live demo of ${project.title}`}
+                          >
                             <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
                             Live Demo
-                          </Button>
-                        </Link>
+                          </Link>
+                        </Button>
                       )}
                     </div>
                   </div>

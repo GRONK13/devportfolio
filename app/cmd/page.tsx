@@ -444,7 +444,7 @@ export default function AdminPage() {
               <Button
                 key={tab.id}
                 variant={isActive ? "default" : "outline"}
-                className={`rounded-full ${
+                className={`rounded-full min-h-[44px] ${
                   isActive ? "bg-primary text-primary-foreground" : "border-zinc-700 text-zinc-300 hover:text-white"
                 }`}
                 onClick={() => setActiveTab(tab.id)}
@@ -795,7 +795,8 @@ export default function AdminPage() {
                             <Button
                               variant="destructive"
                               size="icon"
-                              className="absolute top-3 right-3 h-7 w-7"
+                              aria-label={`Delete core value ${val.title || "item"}`}
+                              className="absolute top-3 right-3 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:h-7 sm:w-7 flex items-center justify-center p-0"
                               onClick={() => {
                                 confirmDelete(
                                   "Delete Core Value",
@@ -982,7 +983,8 @@ export default function AdminPage() {
                                 <Button
                                   variant="destructive"
                                   size="icon"
-                                  className="absolute top-3 right-3 h-7 w-7"
+                                  aria-label={`Delete skill ${skill.name || "item"}`}
+                                  className="absolute top-3 right-3 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:h-7 sm:w-7 flex items-center justify-center p-0"
                                   onClick={() => {
                                     confirmDelete(
                                       "Delete Skill",
@@ -1089,7 +1091,8 @@ export default function AdminPage() {
                     <Button
                       variant="destructive"
                       size="icon"
-                      className="absolute top-4 right-4 h-8 w-8"
+                      aria-label={`Delete project ${project.title || index + 1}`}
+                      className="absolute top-4 right-4 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:h-8 sm:w-8 flex items-center justify-center p-0"
                       onClick={() => {
                         confirmDelete(
                           "Delete Project",
@@ -1266,7 +1269,8 @@ export default function AdminPage() {
                     <Button
                       variant="destructive"
                       size="icon"
-                      className="absolute top-4 right-4 h-8 w-8"
+                      aria-label={`Delete certificate ${cert.title || index + 1}`}
+                      className="absolute top-4 right-4 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:h-8 sm:w-8 flex items-center justify-center p-0"
                       onClick={() => {
                         confirmDelete(
                           "Delete Certificate",
@@ -1463,7 +1467,8 @@ export default function AdminPage() {
                       <Button
                         variant="destructive"
                         size="icon"
-                        className="absolute top-4 right-4 h-8 w-8"
+                        aria-label={`Delete experience ${exp.title || index + 1}`}
+                        className="absolute top-4 right-4 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:h-8 sm:w-8 flex items-center justify-center p-0"
                         onClick={() => {
                           confirmDelete(
                             "Delete Experience",
@@ -1611,7 +1616,8 @@ export default function AdminPage() {
                       <Button
                         variant="destructive"
                         size="icon"
-                        className="absolute top-4 right-4 h-8 w-8"
+                        aria-label={`Delete education ${edu.degree || index + 1}`}
+                        className="absolute top-4 right-4 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 sm:h-8 sm:w-8 flex items-center justify-center p-0"
                         onClick={() => {
                           confirmDelete(
                             "Delete Education",

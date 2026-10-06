@@ -51,19 +51,36 @@ export function ProjectsSection({ projects = defaultProjects }: ProjectsSectionP
                     imageSrc={project.image} 
                     liveUrl={project.liveUrl} 
                   />
-                  <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3.5 z-10">
-                    <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                      <Button size="sm" variant="secondary" className="font-semibold text-xs py-1.5 h-8">
+                  <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3.5 z-10">
+                    <Button asChild size="sm" variant="secondary" className="font-semibold text-xs py-1.5 min-h-[36px]">
+                      <Link
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`View ${project.title} source code on GitHub`}
+                      >
                         <Github className="h-3.5 w-3.5 mr-1.5" />
                         Repository
+                      </Link>
+                    </Button>
+                    
+                    {project.liveUrl === "development" || !project.liveUrl ? (
+                      <Button size="sm" variant="outline" disabled className="cursor-not-allowed opacity-65 text-xs py-1.5 min-h-[36px]" aria-label={`${project.title} is currently in development`}>
+                        In Dev
                       </Button>
-                    </Link>
-                    <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                      <Button size="sm" className="font-semibold text-xs py-1.5 h-8 shadow shadow-primary/25">
-                        <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
-                        Live Demo
+                    ) : (
+                      <Button asChild size="sm" className="font-semibold text-xs py-1.5 shadow shadow-primary/25 min-h-[36px]">
+                        <Link
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View live demo of ${project.title}`}
+                        >
+                          <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
+                          Live Demo
+                        </Link>
                       </Button>
-                    </Link>
+                    )}
                   </div>
                 </div>
 
@@ -94,11 +111,11 @@ export function ProjectsSection({ projects = defaultProjects }: ProjectsSectionP
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <Link href="/projects">
-            <Button variant="outline" size="lg">
+          <Button asChild variant="outline" size="lg" className="min-h-[44px]">
+            <Link href="/projects">
               View All Projects
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>

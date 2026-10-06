@@ -33,7 +33,8 @@ export function Footer({ personalInfo = defaultPersonalInfo }: FooterProps = {})
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/"
-                className="group flex items-center space-x-2 text-foreground transition-colors hover:text-primary"
+                aria-label="Home page"
+                className="group flex items-center space-x-2 text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
               >
                 <Code className="h-5 w-5 text-primary transition-transform group-hover:scale-110" />
                 <span className="text-xl font-bold tracking-tight">
@@ -63,7 +64,7 @@ export function Footer({ personalInfo = defaultPersonalInfo }: FooterProps = {})
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm py-1"
                 >
                   {item.name}
                 </Link>
@@ -76,7 +77,7 @@ export function Footer({ personalInfo = defaultPersonalInfo }: FooterProps = {})
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${personalInfo.name} on GitHub`}
-                className="rounded-lg border border-border/40 bg-background/50 p-2 text-muted-foreground transition-colors hover:border-border hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="rounded-lg border border-border/40 bg-background/50 p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-muted-foreground transition-colors hover:border-border hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Github className="h-4 w-4" />
               </a>
@@ -85,14 +86,14 @@ export function Footer({ personalInfo = defaultPersonalInfo }: FooterProps = {})
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${personalInfo.name} on LinkedIn`}
-                className="rounded-lg border border-border/40 bg-background/50 p-2 text-muted-foreground transition-colors hover:border-border hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="rounded-lg border border-border/40 bg-background/50 p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-muted-foreground transition-colors hover:border-border hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Linkedin className="h-4 w-4" />
               </a>
               <a
                 href={emailHref}
                 aria-label={`Send email to ${personalInfo.name}`}
-                className="rounded-lg border border-border/40 bg-background/50 p-2 text-muted-foreground transition-colors hover:border-border hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="rounded-lg border border-border/40 bg-background/50 p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-muted-foreground transition-colors hover:border-border hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Mail className="h-4 w-4" />
               </a>

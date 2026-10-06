@@ -42,7 +42,7 @@ ${sitemap
     (item) => `
   <url>
     <loc>${item.url}</loc>
-    <lastmod>${item.lastModified?.toString()}</lastmod>
+    <lastmod>${item.lastModified instanceof Date ? item.lastModified.toISOString() : new Date().toISOString()}</lastmod>
     <changefreq>${item.changeFrequency}</changefreq>
     <priority>${item.priority}</priority>
   </url>`

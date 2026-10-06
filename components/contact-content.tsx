@@ -108,7 +108,8 @@ export function ContactContent({ personalInfo = defaultPersonalInfo }: ContactCo
                 <CardContent>
                   <a
                     href={emailHref}
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label={`Send email to ${personalInfo.email}`}
+                    className="text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm py-0.5 inline-block"
                   >
                     {personalInfo.email}
                   </a>
@@ -215,7 +216,7 @@ export function ContactContent({ personalInfo = defaultPersonalInfo }: ContactCo
                       )}
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                    <Button type="submit" size="lg" className="w-full min-h-[44px]" disabled={isSubmitting}>
                       {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -62,7 +62,11 @@ export function Navbar({
       <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo and Desktop Navigation */}
         <div className="flex items-center">
-          <Link className="flex items-center space-x-3 mr-8" href="/">
+          <Link
+            className="flex items-center space-x-3 mr-8 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            href="/"
+            aria-label="Home page"
+          >
             <Code className="h-6 w-6 text-primary" />
             <span className="hidden font-bold text-lg sm:inline-block">
               {displayName}
@@ -79,7 +83,7 @@ export function Navbar({
                       href={item.href}
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "flex items-center space-x-2 px-4 py-2 text-sm font-medium transition-colors",
+                        "flex items-center space-x-2 px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                         pathname === item.href 
                           ? "bg-accent text-accent-foreground" 
                           : "hover:bg-accent/50 hover:text-accent-foreground"
@@ -97,7 +101,11 @@ export function Navbar({
         
         {/* Mobile Logo (visible only on mobile) */}
         <div className="flex md:hidden">
-          <Link className="flex items-center space-x-2" href="/">
+          <Link
+            className="flex items-center space-x-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            href="/"
+            aria-label="Home page"
+          >
             <Code className="h-6 w-6 text-primary" />
             <span className="font-bold text-lg">{displayName}</span>
           </Link>
@@ -111,9 +119,11 @@ export function Navbar({
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="md:hidden min-h-[44px] min-w-[44px] focus-visible:ring-2 focus-visible:outline-none"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
             {isOpen ? (
               <X className="h-5 w-5" />
@@ -126,15 +136,15 @@ export function Navbar({
       
       {/* Mobile Navigation Menu */}
       {isOpen && (
-        <div className="border-t bg-background/95 backdrop-blur md:hidden">
+        <div id="mobile-navigation" className="border-t bg-background/95 backdrop-blur md:hidden">
           <div className="container mx-auto px-4 py-4">
-            <nav className="flex flex-col space-y-1">
+            <nav className="flex flex-col space-y-1" aria-label="Mobile navigation">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "flex items-center space-x-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors",
+                    "flex items-center space-x-3 rounded-lg px-4 py-3 min-h-[44px] text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     pathname === item.href
                       ? "bg-accent text-accent-foreground"
                       : "text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground"

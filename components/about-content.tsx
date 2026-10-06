@@ -140,12 +140,12 @@ export function AboutContent({ personalInfo = defaultPersonalInfo }: AboutConten
           >
             <h2 className="text-3xl font-bold text-center mb-12">Journey & Education</h2>
             <Tabs defaultValue="experience" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8">
-                <TabsTrigger value="experience" className="flex items-center gap-2">
+              <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8 min-h-[48px] h-auto p-1">
+                <TabsTrigger value="experience" className="flex items-center gap-2 min-h-[44px]">
                   <Briefcase className="h-4 w-4" />
                   Professional Experience
                 </TabsTrigger>
-                <TabsTrigger value="education" className="flex items-center gap-2">
+                <TabsTrigger value="education" className="flex items-center gap-2 min-h-[44px]">
                   <GraduationCap className="h-4 w-4" />
                   Education
                 </TabsTrigger>

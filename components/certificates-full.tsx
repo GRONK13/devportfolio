@@ -51,16 +51,21 @@ export function CertificatesFull({ certificates = defaultCertificates }: Certifi
                       </div>
                       <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">{cert.title}</CardTitle>
                     </div>
-                    <Link 
-                      href={cert.verificationUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="ghost"
+                      className="opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-within:opacity-100 transition-opacity p-0 min-h-[44px] min-w-[44px] sm:min-h-9 sm:min-w-9"
                     >
-                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
+                      <Link 
+                        href={cert.verificationUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        aria-label={`Verify ${cert.title} credential`}
+                      >
                         <ExternalLink className="h-4 w-4" />
-                      </Button>
-                    </Link>
+                      </Link>
+                    </Button>
                   </div>
                   <CardDescription className="text-xs leading-normal mt-2">{cert.description}</CardDescription>
                 </CardHeader>

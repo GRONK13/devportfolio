@@ -93,11 +93,11 @@ export function HeroSection({
               transition={{ duration: 0.5, delay: 0.4 }}
               className="flex flex-wrap gap-3 items-center mb-8"
             >
-              <Link href="/contact">
-                <Button size="lg" className="shadow-lg shadow-primary/20 hover:shadow-primary/35 transition-all">
+              <Button asChild size="lg" className="shadow-lg shadow-primary/20 hover:shadow-primary/35 transition-all">
+                <Link href="/contact">
                   Get In Touch
-                </Button>
-              </Link>
+                </Link>
+              </Button>
               
               <Button asChild size="lg" variant="secondary" className="border">
                 <a
@@ -115,11 +115,11 @@ export function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="flex space-x-5"
+              className="flex space-x-3 items-center"
             >
               <Link
                 href={personalInfo.social.github}
-                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all p-2"
+                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
@@ -128,7 +128,7 @@ export function HeroSection({
               </Link>
               <Link
                 href={personalInfo.social.linkedin}
-                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all p-2"
+                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
@@ -137,7 +137,7 @@ export function HeroSection({
               </Link>
               <Link
                 href="/contact"
-                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all p-2"
+                className="text-muted-foreground hover:text-primary hover:scale-110 transition-all p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                 aria-label={`Contact ${personalInfo.name.split(' ')[0] || personalInfo.name}`}
               >
                 <Mail className="h-5 w-5" />

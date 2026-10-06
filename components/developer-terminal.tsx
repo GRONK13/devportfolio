@@ -344,14 +344,46 @@ export function DeveloperTerminal({
   return (
     <div 
       onClick={focusInput}
+      role="region"
+      aria-label="Interactive developer terminal"
       className="w-full h-80 rounded-lg bg-black/90 text-green-400 font-mono p-4 flex flex-col border border-primary/30 glow shadow-2xl text-left text-sm cursor-text terminal-container relative"
     >
       {/* Terminal Title Bar */}
       <div className="flex items-center justify-between border-b border-zinc-800 pb-2 mb-3 select-none">
-        <div className="flex space-x-2">
-          <span className="w-3 h-3 rounded-full bg-red-500 inline-block" />
-          <span className="w-3 h-3 rounded-full bg-yellow-500 inline-block" />
-          <span className="w-3 h-3 rounded-full bg-green-500 inline-block" />
+        <div className="flex space-x-1 items-center" role="group" aria-label="Terminal controls">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setHistory([]);
+            }}
+            className="p-1.5 rounded-full hover:bg-white/10 transition-colors focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:outline-none cursor-pointer"
+            aria-label="Clear terminal history"
+          >
+            <span className="block w-3 h-3 rounded-full bg-red-500 hover:opacity-80 transition-opacity" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              inputRef.current?.blur();
+            }}
+            className="p-1.5 rounded-full hover:bg-white/10 transition-colors focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:outline-none cursor-pointer"
+            aria-label="Blur terminal focus"
+          >
+            <span className="block w-3 h-3 rounded-full bg-yellow-500 hover:opacity-80 transition-opacity" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              executeCommand("help");
+            }}
+            className="p-1.5 rounded-full hover:bg-white/10 transition-colors focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:outline-none cursor-pointer"
+            aria-label="Show terminal help"
+          >
+            <span className="block w-3 h-3 rounded-full bg-green-500 hover:opacity-80 transition-opacity" />
+          </button>
         </div>
         <div className="text-xs text-zinc-400 font-semibold flex-1 text-center pr-10">
           guest@{hostName}: ~ (bash)
@@ -389,12 +421,13 @@ export function DeveloperTerminal({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="flex-1 bg-transparent outline-none border-none text-zinc-200 focus:ring-0 p-0 font-mono text-sm leading-none"
+          className="flex-1 bg-transparent outline-none border-none text-zinc-200 focus:ring-0 p-0 font-mono text-sm leading-none focus-visible:outline-none"
           autoFocus
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck="false"
+          aria-label={passwordMode ? "Terminal password prompt" : "Terminal command input"}
         />
       </div>
     </div>

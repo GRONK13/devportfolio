@@ -216,9 +216,11 @@ export function GitHubStats({
                 {gridData.map((dayCommits, idx) => (
                   <button
                     key={idx}
+                    type="button"
                     onClick={() => setSelectedDay({ day: idx, commits: dayCommits })}
-                    className={`w-[11px] h-[11px] rounded-sm border focus:ring-1 focus:ring-primary/50 transition-all cursor-pointer ${getIntensityClass(dayCommits)}`}
+                    className={`w-[11px] h-[11px] rounded-sm border focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all cursor-pointer ${getIntensityClass(dayCommits)}`}
                     title={`${dayCommits} commits`}
+                    aria-label={`Day ${idx + 1}: ${dayCommits} commits`}
                   />
                 ))}
               </div>

@@ -54,16 +54,21 @@ export function CertificatesSection({ certificates = defaultCertificates }: Cert
                       </div>
                       <CardTitle className="text-lg leading-tight">{cert.title}</CardTitle>
                     </div>
-                    <Link 
-                      href={cert.verificationUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="ghost"
+                      className="opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-within:opacity-100 transition-opacity p-0 min-h-[44px] min-w-[44px] sm:min-h-9 sm:min-w-9"
                     >
-                      <Button size="sm" variant="ghost">
+                      <Link 
+                        href={cert.verificationUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        aria-label={`Verify ${cert.title} credential`}
+                      >
                         <ExternalLink className="h-4 w-4" />
-                      </Button>
-                    </Link>
+                      </Link>
+                    </Button>
                   </div>
                   <CardDescription className="text-sm">{cert.description}</CardDescription>
                 </CardHeader>
@@ -98,11 +103,11 @@ export function CertificatesSection({ certificates = defaultCertificates }: Cert
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <Link href="/certificates">
-            <Button variant="outline" size="lg">
+          <Button asChild variant="outline" size="lg" className="min-h-[44px]">
+            <Link href="/certificates">
               View All Certifications
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>
