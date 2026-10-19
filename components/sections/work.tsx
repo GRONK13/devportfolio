@@ -13,9 +13,9 @@ export function Work({ projects }: { projects: Project[] }) {
     <Section id="work" index={1} title="Selected work" aside={`${pad(projects.length)} projects`}>
       <ol className="grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2 md:gap-y-24">
         {projects.map((project, i) => (
-          <li key={project.slug} className={i % 2 === 1 ? "md:mt-32" : undefined}>
+          <li key={project.slug} className={i % 2 === 1 ? "reveal md:mt-32" : "reveal"}>
             <article className="group relative">
-              <ProjectCover project={project} sizes="(min-width: 768px) 45vw, 100vw" priority={i === 0} />
+              <ProjectCover project={project} sizes="(min-width: 768px) 45vw, 100vw" priority={i === 0} dither />
               <div className="mt-5 grid grid-cols-[auto_1fr] gap-x-4">
                 <span className="label pt-1.5 text-muted" aria-hidden="true">
                   {pad(i + 1)}

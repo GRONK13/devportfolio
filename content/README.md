@@ -29,6 +29,9 @@ YAML when it saves, so `# comments` in a file you edit there are dropped.
    `cover.src` and `cover.alt`.
 3. Give it a unique `order` (lower shows first).
 
+The dithered "proof" version of the cover shown on the home page is generated from the
+screenshot at build time (`public/_dither/`); there is nothing to make by hand.
+
 ## Rules
 
 - Images live in `public/media/` and are referenced as `/media/...`.

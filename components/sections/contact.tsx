@@ -1,5 +1,5 @@
 import { Availability } from "@/components/availability";
-import { ContactForm } from "@/components/contact-form";
+import { LazyContactForm } from "@/components/lazy-contact-form";
 import { Section } from "@/components/section";
 import type { Profile } from "@/lib/content";
 
@@ -20,7 +20,7 @@ export function Contact({ profile }: { profile: Profile }) {
       <div className="grid-12 mt-16 gap-y-12 md:mt-24">
         <div className="col-span-4 md:col-span-8">
           <h3 className="label mb-8 text-muted">Send a message</h3>
-          <ContactForm />
+          <LazyContactForm email={profile.email} />
         </div>
         <div className="col-span-4 md:col-span-3 md:col-start-10">
           <h3 className="label text-muted">Elsewhere</h3>

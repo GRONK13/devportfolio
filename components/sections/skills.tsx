@@ -13,7 +13,7 @@ export function Skills({ groups, projectsUsing }: { groups: Group[]; projectsUsi
     <Section id="skills" index={5} title="Skills">
       <div className="grid grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-3">
         {groups.map((group) => (
-          <div key={group.name}>
+          <div key={group.name} className="reveal">
             <h3 className="text-xl font-semibold tracking-tight">{group.name}</h3>
             {group.note && <p className="label mt-1 text-muted">{group.note}</p>}
             <ul className="mt-5 border-t border-rule">

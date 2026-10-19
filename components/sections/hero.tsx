@@ -1,10 +1,11 @@
 import { AccentText } from "@/components/accent-text";
 import { Availability } from "@/components/availability";
+import { PressureName } from "@/components/pressure-name";
 import type { Profile } from "@/lib/content";
 
 /** Server-rendered and visible at first paint: the name is the LCP element, never hidden for an intro. */
 export function Hero({ profile }: { profile: Profile }) {
-  const [first, ...rest] = profile.name.split(" ");
+  const [first = "", ...rest] = profile.name.split(" ");
   return (
     <section aria-labelledby="hero-name" className="frame pt-8 pb-16 md:pt-12 md:pb-24">
       <div className="label flex flex-wrap justify-between gap-x-6 gap-y-2 text-muted">
@@ -17,8 +18,8 @@ export function Hero({ profile }: { profile: Profile }) {
       </div>
 
       <h1 id="hero-name" className="display mt-10 text-[clamp(3.75rem,20vw,16rem)] md:mt-16 md:text-[clamp(3.75rem,17vw,16rem)]">
-        <span className="block">{first}</span>
-        <span className="block md:pl-[12%]">{rest.join(" ")}</span>
+        <span className="sr-only">{profile.name}</span>
+        <PressureName lines={[first, rest.join(" ")]} />
       </h1>
 
       <div className="grid-12 mt-12 gap-y-8 md:mt-20">

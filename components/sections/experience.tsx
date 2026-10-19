@@ -23,7 +23,7 @@ function Group({ title, entries }: { title: string; entries: Entry[] }) {
       <h3 className="label text-muted">{title}</h3>
       <ol className="mt-4 border-t border-rule">
         {entries.map((e) => (
-          <li key={`${e.org}-${e.start}`} className="grid-12 gap-y-2 border-b border-rule py-6">
+          <li key={`${e.org}-${e.start}`} className="grid-12 reveal gap-y-2 border-b border-rule py-6">
             <p className="label col-span-4 pt-1.5 text-muted md:col-span-3">
               <time dateTime={e.start}>{formatYearMonth(e.start)}</time>
               {" – "}

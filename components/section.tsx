@@ -21,7 +21,7 @@ export function Section({
   const headingId = `${id}-heading`;
   return (
     <section id={id} aria-labelledby={headingId} className="frame py-20 md:py-28">
-      <div className="grid-12 items-baseline border-t border-rule pt-4">
+      <div className="grid-12 rule-top items-baseline pt-4">
         <p className="label col-span-1 text-muted md:col-span-2" aria-hidden="true">
           ({pad(index)})
         </p>

@@ -10,7 +10,7 @@ export function Certifications({ items }: { items: Cert[] }) {
     <Section id="certifications" index={6} title="Certifications">
       <ul className="border-t border-rule">
         {items.map((cert) => (
-          <li key={cert.verifyUrl} className="grid-12 gap-y-2 border-b border-rule py-6">
+          <li key={cert.verifyUrl} className="grid-12 reveal gap-y-2 border-b border-rule py-6">
             <p className="label col-span-4 pt-1.5 text-muted md:col-span-3">
               {cert.issuer} · <time dateTime={cert.issued}>{formatDate(cert.issued)}</time>
             </p>

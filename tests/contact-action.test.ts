@@ -52,6 +52,15 @@ describe("sendMessage", () => {
     expect(mocks.sendContactEmail).not.toHaveBeenCalled();
   });
 
+  it("fails closed with the fallback message when BotID errors", async () => {
+    mocks.checkBotId.mockRejectedValue(new Error("x-vercel-oidc-token header is missing"));
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const state = await sendMessage(idle, form(valid));
+    expect(state.status).toBe("error");
+    expect(state.message).toMatch(/email me directly/);
+    expect(mocks.sendContactEmail).not.toHaveBeenCalled();
+  });
+
   it("returns field errors and keeps what was typed", async () => {
     const state = await sendMessage(idle, form({ ...valid, email: "nope" }));
     expect(state.fieldErrors?.email).toBeTruthy();

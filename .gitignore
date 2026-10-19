@@ -21,3 +21,6 @@ next-env.d.ts
 *.pem
 .vercel
 *.log
+
+# generated at build time from project covers (lib/dither.ts)
+/public/_dither

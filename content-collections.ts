@@ -3,6 +3,7 @@ import path from "node:path";
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMarkdown } from "@content-collections/markdown";
 import { imageSize } from "image-size";
+import { ditherCover } from "./lib/dither";
 import {
   certificationsSchema,
   nowSchema,
@@ -66,10 +67,12 @@ const projects = defineCollection({
   transform: async (project, context) => {
     // The raw Markdown is only needed to compile the HTML; don't ship it in the bundle.
     const { content, ...data } = project;
+    const slug = project._meta.path;
+    const cover = project.cover && withSize(project.cover, `content/projects/${project._meta.filePath}`);
     return {
       ...data,
-      slug: project._meta.path,
-      cover: project.cover && withSize(project.cover, `content/projects/${project._meta.filePath}`),
+      slug,
+      cover: cover && { ...cover, dither: await ditherCover(cover.src, slug) },
       html: await compileMarkdown(context, { _meta: project._meta, content }),
     };
   },

@@ -73,10 +73,156 @@
     border-radius: 2px;
   }
 
+  /* Colour changes aren't motion, so they stay on under reduced motion. */
+  a,
+  button {
+    transition:
+      color var(--dur-fast) var(--ease-out),
+      background-color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      text-decoration-color var(--dur-fast) var(--ease-out);
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     html {
       scroll-behavior: smooth;
     }
+  }
+}
+
+/*
+ * Motion (docs/decisions.md, "Motion layer"). Everything here is progressive enhancement:
+ * without support, or with prefers-reduced-motion: reduce, content is simply static and visible.
+ */
+:root {
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-morph: 450ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 1.5rem;
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    background-size: 0% 1px;
+  }
+}
+
+@layer components {
+  /* A hairline drawn as a background, so it can animate without extra elements. */
+  .rule-top {
+    background: linear-gradient(var(--rule), var(--rule)) no-repeat left top / 100% 1px;
+  }
+}
+
+/* Scroll-driven reveals: scrubbed by scroll position, no JavaScript, never hide content where unsupported. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+
+    .rule-top {
+      animation: rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 25%;
+    }
+  }
+}
+
+/*
+ * Dither covers: a 1-bit proof over the colour screenshot. It "develops" in stepped frames on
+ * hover or keyboard focus; on touch screens it develops as the card scrolls through the middle
+ * of the viewport. Where neither applies, the colour image is shown.
+ */
+@layer components {
+  .dither {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    transition: opacity 480ms steps(6, end);
+  }
+
+  .group:hover .dither,
+  .group:focus-within .dither {
+    opacity: 0;
+  }
+}
+
+@keyframes develop {
+  to {
+    opacity: 0;
+  }
+}
+
+@media (hover: none) {
+  @supports (animation-timeline: view()) {
+    .dither {
+      animation: develop steps(6, end) both;
+      animation-timeline: view();
+      animation-range: cover 30% cover 50%;
+    }
+  }
+
+  @supports not (animation-timeline: view()) {
+    .dither {
+      display: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dither {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (hover: none) {
+  .dither {
+    display: none;
+  }
+}
+
+/* Hero name letters (components/pressure-name.tsx): fixed boxes, glyphs change in place. */
+.pressure-letter {
+  display: inline-block;
+  text-align: center;
+  white-space: pre;
+  transition: font-variation-settings 140ms linear;
+}
+
+/* Route transitions (React <ViewTransition>): project covers morph between the list and the case study. */
+::view-transition {
+  pointer-events: none; /* don't swallow clicks during a transition */
+}
+
+::view-transition-group(.morph) {
+  animation-duration: var(--dur-morph);
+  animation-timing-function: var(--ease-out);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-base);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No movement or scaling: transitions become an instant swap. */
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }
 

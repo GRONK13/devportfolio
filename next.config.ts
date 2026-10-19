@@ -3,6 +3,10 @@ import { withBotId } from "botid/next/config";
 import type { NextConfig } from "next";
 import { securityHeaders } from "./lib/security-headers";
 
+// Fixed path segment botid@1.5.x proxies its challenge through (see node_modules/botid/dist/next/config).
+// Re-check it when upgrading botid.
+const BOTID_PATH_PREFIX = "149e9513-01fa-4fb0-aad4-566afd725d1b";
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
@@ -12,7 +16,14 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: false,
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders({ dev: process.env.NODE_ENV === "development" }) }];
+    // Everything except BotID's proxied challenge path, which withBotId gives its own framing
+    // headers (it must be frameable by this origin; our X-Frame-Options: DENY would conflict).
+    return [
+      {
+        source: `/((?!${BOTID_PATH_PREFIX}/).*)`,
+        headers: securityHeaders({ dev: process.env.NODE_ENV === "development" }),
+      },
+    ];
   },
 };
 

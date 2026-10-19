@@ -36,7 +36,12 @@ export async function sendMessage(_prev: ContactState, formData: FormData): Prom
 
   // BotID needs the client script, so a submission without JavaScript is treated as a bot.
   // The email address stays visible on the page for those visitors.
-  const verdict = await checkBotId();
+  // Fail closed: if BotID can't give a verdict (outage, missing OIDC token off Vercel), refuse
+  // politely instead of crashing the form.
+  const verdict = await checkBotId().catch((error: unknown) => {
+    console.error("[contact] BotID check failed:", error instanceof Error ? error.message : error);
+    return { isBot: true };
+  });
   if (verdict.isBot) {
     return { status: "error", message: FALLBACK, values };
   }
