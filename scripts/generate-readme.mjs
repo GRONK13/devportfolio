@@ -107,7 +107,10 @@ for (const [kind, title] of [
 
 if (certifications.length) {
   add("## Certifications", "");
-  for (const c of certifications) add(`- **${c.name}**, ${c.issuer} · ${formatDate(c.issued)} · [Verify](${c.verifyUrl})`);
+  for (const c of certifications) {
+    const valid = c.expires ? ` (valid until ${formatDate(c.expires)})` : "";
+    add(`- **${c.name}**, ${c.issuer} · ${formatDate(c.issued)}${valid} · [Verify](${c.verifyUrl})`);
+  }
   add("");
 }
 

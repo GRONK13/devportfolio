@@ -1,5 +1,18 @@
 # Certifications, newest first. verifyUrl must be an https:// link to the public badge.
 items:
+  - name: NSE 1 Certified in Cybersecurity
+    issuer: Fortinet
+    issued: 2026-10-01
+    expires: 2028-10-01
+    summary: Entry-level cybersecurity certification covering today's threat landscape and security fundamentals.
+    verifyUrl: https://www.credly.com/badges/c3463ca6-ab89-4340-9194-4e58c3aebf9e/public_url
+    skills: [Network security, Threat detection, Threat intelligence, Security awareness]
+  - name: Cybersecurity and Cloud Fundamentals 1.0
+    issuer: Fortinet
+    issued: 2026-10-01
+    summary: Fundamentals of cybersecurity and cloud security, from the threat landscape to protecting cloud infrastructure.
+    verifyUrl: https://www.credly.com/badges/688ac788-ac4d-4731-96a5-a04853fa59c8/public_url
+    skills: [Cloud infrastructure, Network security, Threat detection, Security awareness]
   - name: CyberOps Associate
     issuer: Cisco
     issued: 2024-10-22

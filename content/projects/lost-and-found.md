@@ -1,5 +1,5 @@
 ---
-title: USC DCISM Lost & Found
+title: Carolinian Lost & Found
 summary: Campus portal for reporting found items and recovering lost belongings.
 featured: true
 order: 1

@@ -170,6 +170,15 @@ Decisions made while building v5, with the reason and any deviation from
 - Alt text describes the page generally ("Screenshot of the … home page") because the image
   content now changes over time.
 
+### Résumé and certifications from the October 2026 résumé
+- `public/gregg-marayan-resume.pdf` replaced with the new résumé (same path, so links don't change).
+- Added Fortinet **NSE 1 Certified in Cybersecurity** and **Cybersecurity and Cloud Fundamentals
+  1.0**. Issue and expiry dates come from Credly's public Open Badges assertions
+  (`api.credly.com/v1/obi/v2/badge_assertions/<id>`), since the résumé gives only the year;
+  skills come from each badge's tags. Certifications with an expiry show "Valid until".
+- Lost & Found renamed to **Carolinian Lost & Found** to match the live site (the URL stays
+  `/work/lost-and-found`).
+
 ### README is a generated profile
 - **Chosen:** the repository README is Gregg's profile (about, work, experience, certifications,
   skills, contact), generated from `content/` by `scripts/generate-readme.mjs`. Developer docs
