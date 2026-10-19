@@ -1,44 +1,34 @@
-import { profile } from "@/content/profile";
-import { ContactForm } from "../contact-form";
+import type { Profile } from "@/lib/content";
+import { ContactDialog } from "../contact-dialog";
 import { CopyEmailButton } from "../copy-email";
-import { ArrowUpRight, GitHub, LinkedIn } from "../icons";
-import { Section } from "../section";
+import { Download, LinkedIn } from "../icons";
+import { ButtonLink } from "../ui/button";
 
-export function Contact() {
+export function Contact({ profile }: { profile: Profile }) {
   return (
-    <Section
-      id="contact"
-      index="06"
-      eyebrow="Contact"
-      title="Let's work together"
-      intro="Hiring, collaborating, or just want to say hi? Send a message or reach me directly."
-    >
-      <div className="grid gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
-        <div className="reveal space-y-6">
-          <div>
-            <p className="text-sm text-muted">Email me directly</p>
-            <CopyEmailButton email={profile.email} className="mt-2" />
-          </div>
-          <ul className="space-y-2">
-            <li>
-              <a href={profile.linkedin.url} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 hover:text-accent">
-                <LinkedIn className="size-4" /> Connect on LinkedIn
-                <ArrowUpRight className="size-3.5 opacity-50 group-hover:opacity-100" />
-              </a>
-            </li>
-            <li>
-              <a href={profile.github.url} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 hover:text-accent">
-                <GitHub className="size-4" /> Follow on GitHub
-                <ArrowUpRight className="size-3.5 opacity-50 group-hover:opacity-100" />
-              </a>
-            </li>
-          </ul>
-          <p className="text-sm text-muted">{profile.location}</p>
+    <section aria-labelledby="contact-title" id="contact" className="container-page py-20 sm:py-28">
+      <div className="reveal tile glow px-6 py-14 text-center sm:px-12 sm:py-20">
+        <p className="eyebrow">Contact</p>
+        <h2 id="contact-title" className="mx-auto mt-4 max-w-3xl text-5xl font-semibold leading-[1.02] sm:text-7xl">
+          Let&apos;s build <em className="accent">something</em> together
+        </h2>
+        <p className="mx-auto mt-5 max-w-xl text-lg text-muted">
+          Hiring, collaborating or just curious? I&apos;d love to hear from you.
+        </p>
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <ContactDialog />
+          <ButtonLink href={profile.linkedin} external variant="secondary">
+            <LinkedIn className="size-4" /> LinkedIn
+          </ButtonLink>
+          <ButtonLink href={profile.resume} variant="secondary" target="_blank" rel="noopener">
+            <Download className="size-4" /> Résumé
+          </ButtonLink>
         </div>
-        <div className="reveal">
-          <ContactForm />
+        <div className="mt-8 flex flex-col items-center gap-2">
+          <p className="text-sm text-muted">or email me directly</p>
+          <CopyEmailButton email={profile.email} />
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

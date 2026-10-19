@@ -1,5 +1,5 @@
 import "server-only";
-import { profile } from "@/content/profile";
+import { getProfile } from "@/lib/content";
 import type { ContactInput } from "./contact-schema";
 import { serverEnv } from "./env";
 
@@ -33,7 +33,7 @@ export async function sendContactEmail(input: ContactInput): Promise<SendResult>
     },
     body: JSON.stringify({
       from: CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>",
-      to: [CONTACT_TO_EMAIL ?? profile.email],
+      to: [CONTACT_TO_EMAIL ?? getProfile().email],
       reply_to: input.email,
       subject,
       text,

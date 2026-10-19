@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { profile } from "@/content/profile";
 import { sections, type SectionId } from "@/lib/site";
 import { cn } from "@/lib/utils";
-import { CommandMenu } from "./command-menu";
+import { CommandMenu, type CommandMenuData } from "./command-menu";
 import { Download, Menu, Search } from "./icons";
 import { ThemeToggle } from "./theme";
 
@@ -31,7 +30,7 @@ function useActiveSection() {
   return active;
 }
 
-export function SiteHeader() {
+export function SiteHeader({ name, initials, menu }: { name: string; initials: string; menu: CommandMenuData }) {
   const active = useActiveSection();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -47,13 +46,15 @@ export function SiteHeader() {
     <header
       className={cn(
         "sticky top-0 z-40 border-b transition-colors duration-300",
-        scrolled ? "border-border bg-bg/80 backdrop-blur-lg" : "border-transparent bg-transparent",
+        scrolled ? "border-border bg-bg/75 backdrop-blur-xl" : "border-transparent bg-transparent",
       )}
     >
-      <div className="container-page flex h-16 items-center gap-4">
-        <Link href="/" className="flex items-center gap-2.5 font-semibold tracking-tight" aria-label={`${profile.name}, home`}>
-          <span className="grid size-8 place-items-center rounded-lg bg-fg font-mono text-xs font-bold text-bg">{profile.initials}</span>
-          <span className="hidden sm:inline">{profile.name}</span>
+      <div className="container-page flex h-[4.5rem] items-center gap-4">
+        <Link href="/" className="flex items-center gap-2.5 font-semibold tracking-tight" aria-label={`${name}, home`}>
+          <span className="grid size-9 place-items-center rounded-xl bg-[conic-gradient(from_210deg,var(--accent),var(--accent-2),var(--accent))] font-display text-sm font-bold text-accent-fg">
+            {initials}
+          </span>
+          <span className="hidden font-display text-lg sm:inline">{name}</span>
         </Link>
 
         <nav aria-label="Sections" className="ml-auto hidden lg:block">
@@ -61,7 +62,7 @@ export function SiteHeader() {
             {sections.map((section) => (
               <li key={section.id}>
                 <a
-                  href={`#${section.id}`}
+                  href={`/#${section.id}`}
                   aria-current={active === section.id ? "location" : undefined}
                   className={cn(
                     "rounded-lg px-3 py-2 text-sm transition-colors hover:text-fg",
@@ -88,10 +89,10 @@ export function SiteHeader() {
           </button>
           <ThemeToggle />
           <a
-            href={profile.resume.href}
+            href={menu.resume}
             target="_blank"
             rel="noopener"
-            className="hidden items-center gap-1.5 rounded-lg bg-fg px-3 py-1.5 text-sm font-medium text-bg transition-opacity hover:opacity-90 sm:inline-flex"
+            className="hidden items-center gap-1.5 rounded-xl bg-fg px-3.5 py-2 text-sm font-medium text-bg transition-opacity hover:opacity-90 sm:inline-flex"
           >
             <Download className="size-4" />
             Résumé
@@ -106,7 +107,7 @@ export function SiteHeader() {
           </button>
         </div>
       </div>
-      <CommandMenu open={menuOpen} onOpenChange={setMenuOpen} />
+      <CommandMenu open={menuOpen} onOpenChange={setMenuOpen} data={menu} />
     </header>
   );
 }

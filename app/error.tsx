@@ -6,7 +6,7 @@ export default function ErrorPage({ reset }: { error: Error & { digest?: string 
       <div>
         <p className="eyebrow">Something went wrong</p>
         <h1 className="mt-3 text-4xl font-semibold">That didn&apos;t load properly</h1>
-        <button type="button" onClick={reset} className="mt-8 rounded-lg bg-accent px-5 py-3 font-medium text-accent-fg">
+        <button type="button" onClick={reset} className="mt-8 rounded-xl bg-accent px-5 py-3 font-medium text-accent-fg">
           Try again
         </button>
       </div>

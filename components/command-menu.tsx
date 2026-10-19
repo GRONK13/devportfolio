@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useId, useMemo, useRef, useState, type ComponentType, type SVGProps } from "react";
-import { profile } from "@/content/profile";
-import { projects } from "@/content/projects";
+import { useRouter } from "next/navigation";
 import { sections } from "@/lib/site";
 import { ArrowUpRight, Copy, Download, Folder, GitHub, Hash, LinkedIn, Mail, Moon, Search } from "./icons";
 import { toggleTheme } from "./theme";
@@ -16,27 +15,42 @@ interface Command {
   run: () => void;
 }
 
-function scrollToId(id: string) {
-  document.getElementById(id)?.scrollIntoView();
-  history.replaceState(null, "", `#${id}`);
+export interface CommandMenuData {
+  projects: { title: string; href: string }[];
+  email: string;
+  github: string;
+  linkedin: string;
+  resume: string;
 }
 
 function openExternal(url: string) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
-const commands: Command[] = [
-  ...sections.map((s) => ({ id: `section-${s.id}`, label: s.label, group: "Jump to" as const, icon: Hash, run: () => scrollToId(s.id) })),
-  ...projects.map((p) => ({ id: `project-${p.slug}`, label: p.title, group: "Projects" as const, icon: Folder, run: () => scrollToId(`project-${p.slug}`) })),
-  { id: "resume", label: "Download résumé", group: "Links", icon: Download, run: () => openExternal(profile.resume.href) },
-  { id: "github", label: "GitHub", group: "Links", icon: GitHub, run: () => openExternal(profile.github.url) },
-  { id: "linkedin", label: "LinkedIn", group: "Links", icon: LinkedIn, run: () => openExternal(profile.linkedin.url) },
-  { id: "email", label: "Send an email", group: "Links", icon: Mail, run: () => (window.location.href = `mailto:${profile.email}`) },
-  { id: "copy-email", label: "Copy email address", group: "Actions", icon: Copy, run: () => void navigator.clipboard?.writeText(profile.email) },
-  { id: "theme", label: "Toggle dark mode", group: "Actions", icon: Moon, run: toggleTheme },
-];
+function buildCommands(data: CommandMenuData, go: (href: string) => void): Command[] {
+  return [
+    ...sections.map((s) => ({ id: `section-${s.id}`, label: s.label, group: "Jump to" as const, icon: Hash, run: () => go(`/#${s.id}`) })),
+    ...data.projects.map((p) => ({ id: `project-${p.href}`, label: p.title, group: "Projects" as const, icon: Folder, run: () => go(p.href) })),
+    { id: "resume", label: "Download résumé", group: "Links", icon: Download, run: () => openExternal(data.resume) },
+    { id: "github", label: "GitHub", group: "Links", icon: GitHub, run: () => openExternal(data.github) },
+    { id: "linkedin", label: "LinkedIn", group: "Links", icon: LinkedIn, run: () => openExternal(data.linkedin) },
+    { id: "email", label: "Send an email", group: "Links", icon: Mail, run: () => (window.location.href = `mailto:${data.email}`) },
+    { id: "copy-email", label: "Copy email address", group: "Actions", icon: Copy, run: () => void navigator.clipboard?.writeText(data.email) },
+    { id: "theme", label: "Toggle dark mode", group: "Actions", icon: Moon, run: toggleTheme },
+  ];
+}
 
-export function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+export function CommandMenu({
+  open,
+  onOpenChange,
+  data,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  data: CommandMenuData;
+}) {
+  const router = useRouter();
+  const commands = useMemo(() => buildCommands(data, (href) => router.push(href)), [data, router]);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listId = useId();
@@ -46,7 +60,7 @@ export function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChang
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     return q ? commands.filter((c) => `${c.label} ${c.group}`.toLowerCase().includes(q)) : commands;
-  }, [query]);
+  }, [query, commands]);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -85,7 +99,7 @@ export function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChang
       aria-label="Quick navigation"
       onClose={() => onOpenChange(false)}
       onClick={(event) => event.target === dialogRef.current && onOpenChange(false)}
-      className="m-auto mt-[12vh] w-[min(36rem,calc(100vw-2rem))] max-w-none overflow-hidden rounded-2xl border border-border bg-surface p-0 text-fg shadow-2xl"
+      className="m-auto mt-[12vh] w-[min(36rem,calc(100vw-2rem))] max-w-none overflow-hidden rounded-3xl border border-border bg-surface p-0 text-fg shadow-2xl"
     >
       <div className="flex items-center gap-3 border-b border-border px-4">
         <Search className="size-4 shrink-0 text-muted" />
@@ -134,7 +148,7 @@ export function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChang
                 onClick={() => run(command)}
                 className={cn(
                   "flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm",
-                  index === active ? "bg-accent-soft text-fg" : "text-muted",
+                  index === active ? "bg-accent/12 text-fg" : "text-muted",
                 )}
               >
                 <Icon className="size-4 shrink-0" />

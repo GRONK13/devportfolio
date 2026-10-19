@@ -129,3 +129,41 @@ export const LinkedIn = (p: IconProps) => (
     <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" />
   </svg>
 );
+
+export const ArrowLeft = (p: IconProps) => (
+  <Stroke {...p}>
+    <path d="M19 12H5M11 18l-6-6 6-6" />
+  </Stroke>
+);
+
+export const Clock = (p: IconProps) => (
+  <Stroke {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3 2" />
+  </Stroke>
+);
+
+export const Star = (p: IconProps) => (
+  <Stroke {...p}>
+    <path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z" />
+  </Stroke>
+);
+
+export const Lock = (p: IconProps) => (
+  <Stroke {...p}>
+    <rect x="4" y="11" width="16" height="10" rx="2" />
+    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+  </Stroke>
+);
+
+export const Send = (p: IconProps) => (
+  <Stroke {...p}>
+    <path d="M21 3 10 14M21 3l-7 18-4-7-7-4 18-7Z" />
+  </Stroke>
+);
+
+export const X = (p: IconProps) => (
+  <Stroke {...p}>
+    <path d="M6 6l12 12M18 6 6 18" />
+  </Stroke>
+);

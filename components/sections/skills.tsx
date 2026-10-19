@@ -1,23 +1,28 @@
-import { skillGroups } from "@/content/skills";
-import { Section } from "../section";
+import { getSkills } from "@/lib/content";
+import { SectionHeading } from "../ui/section-heading";
+import { Tile } from "../ui/tile";
 
 export function Skills() {
+  const groups = getSkills();
   return (
-    <Section id="skills" index="03" eyebrow="Skills" title="Tools I reach for">
-      <dl className="reveal card divide-y divide-border">
-        {skillGroups.map((group) => (
-          <div key={group.name} className="grid gap-3 p-5 sm:grid-cols-[12rem_1fr] sm:items-center sm:gap-6 sm:p-6">
-            <dt className="font-mono text-sm text-muted">{group.name}</dt>
-            <dd className="flex flex-wrap gap-2">
+    <section aria-labelledby="skills-title" id="skills" className="container-page py-20 sm:py-28">
+      <SectionHeading id="skills-title" eyebrow="Skills" title="Tools I *reach for*" />
+      <div className="grid gap-5 md:grid-cols-3">
+        {groups.map((group, i) => (
+          <Tile key={group.name} className="reveal p-6 sm:p-7">
+            <p className="font-mono text-xs text-muted">0{i + 1}</p>
+            <h3 className="mt-2 text-2xl font-semibold">{group.name}</h3>
+            {group.note && <p className="mt-1 text-sm text-muted">{group.note}</p>}
+            <ul className="mt-5 flex flex-wrap gap-2">
               {group.items.map((skill) => (
-                <span key={skill} className="chip">
+                <li key={skill} className="chip">
                   {skill}
-                </span>
+                </li>
               ))}
-            </dd>
-          </div>
+            </ul>
+          </Tile>
         ))}
-      </dl>
-    </Section>
+      </div>
+    </section>
   );
 }

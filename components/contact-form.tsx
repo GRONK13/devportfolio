@@ -9,7 +9,7 @@ import { ArrowRight } from "./icons";
 const initialState: ContactState = { status: "idle" };
 
 const fieldClass =
-  "w-full rounded-lg border border-border bg-bg px-3.5 py-2.5 text-[15px] text-fg outline-none transition-colors placeholder:text-muted/70 focus:border-accent focus:ring-4 focus:ring-ring/25 aria-[invalid=true]:border-danger";
+  "w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-[15px] text-fg outline-none transition-colors placeholder:text-muted/70 focus:border-accent focus:ring-4 focus:ring-accent/20 aria-[invalid=true]:border-danger";
 
 function Field({
   name,
@@ -45,7 +45,7 @@ function Field({
   );
 }
 
-export function ContactForm() {
+export function ContactForm({ bare = false }: { bare?: boolean }) {
   const [state, formAction, pending] = useActionState(sendMessage, initialState);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -64,7 +64,7 @@ export function ContactForm() {
         const data = new FormData(event.currentTarget);
         startTransition(() => formAction(data));
       }}
-      className="card relative space-y-5 p-6 sm:p-8"
+      className={cn("relative space-y-5", !bare && "tile p-6 sm:p-8")}
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <Field name="name" label="Name" state={state}>
@@ -106,7 +106,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-accent px-5 py-2.5 font-medium text-accent-fg transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
+          className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-accent px-5 py-2.5 font-medium text-accent-fg transition-[filter] hover:brightness-110 disabled:cursor-wait disabled:opacity-60"
         >
           {pending ? "Sending…" : "Send message"}
           <ArrowRight className="size-4" />

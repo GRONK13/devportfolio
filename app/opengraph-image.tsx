@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
-import { profile } from "@/content/profile";
+import { getProfile } from "@/lib/content";
+
+const profile = getProfile();
 
 export const alt = `${profile.name}, ${profile.role}`;
 export const size = { width: 1200, height: 630 };
@@ -16,7 +18,7 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 80,
-          background: "#15161a",
+          background: "#14161c",
           color: "#f4f4f6",
           backgroundImage: "radial-gradient(800px 400px at 10% 0%, rgba(94, 234, 212, 0.18), transparent 70%)",
         }}
@@ -44,7 +46,7 @@ export default function OpengraphImage() {
           <div style={{ fontSize: 96, fontWeight: 700, letterSpacing: -3 }}>{profile.name}</div>
           <div style={{ fontSize: 56, color: "#a1a1aa", letterSpacing: -1 }}>{profile.role}</div>
         </div>
-        <div style={{ fontSize: 26, color: "#a1a1aa" }}>{profile.focusAreas.join("  ·  ")}</div>
+        <div style={{ fontSize: 26, color: "#a1a1aa" }}>{profile.location}</div>
       </div>
     ),
     size,

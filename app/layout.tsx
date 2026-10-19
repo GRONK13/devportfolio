@@ -6,13 +6,14 @@ import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { Spotlight } from "@/components/spotlight";
 import { themeInitScript } from "@/components/theme";
-import { education } from "@/content/experience";
-import { profile } from "@/content/profile";
-import { allSkills } from "@/content/skills";
+import { getExperience, getProfile, getProjects, getSkills } from "@/lib/content";
 import { siteUrl } from "@/lib/site";
+import { display, serif } from "./fonts";
 import "./globals.css";
 
+const profile = getProfile();
 const title = `${profile.name} · ${profile.role}`;
 
 export const metadata: Metadata = {
@@ -46,8 +47,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafaf8" },
-    { media: "(prefers-color-scheme: dark)", color: "#15161a" },
+    { media: "(prefers-color-scheme: light)", color: "#f8f5ef" },
+    { media: "(prefers-color-scheme: dark)", color: "#14161c" },
   ],
   colorScheme: "light dark",
 };
@@ -60,6 +61,7 @@ function jsonLd(data: unknown) {
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
+  const university = getExperience().find((e) => e.kind === "education");
   const person = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -69,14 +71,14 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     description: profile.intro,
     url: siteUrl.href,
     email: `mailto:${profile.email}`,
-    sameAs: [profile.github.url, profile.linkedin.url],
-    alumniOf: education[0] ? { "@type": "CollegeOrUniversity", name: education[0].org } : undefined,
-    address: { "@type": "PostalAddress", addressLocality: "Taguig City", addressRegion: "Metro Manila", addressCountry: "PH" },
-    knowsAbout: allSkills,
+    sameAs: [profile.github, profile.linkedin],
+    alumniOf: university ? { "@type": "CollegeOrUniversity", name: university.org } : undefined,
+    homeLocation: { "@type": "Place", name: profile.location },
+    knowsAbout: getSkills().flatMap((g) => g.items),
   };
 
   return (
-    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable} ${display.variable} ${serif.variable}`}>
       <head>
         <script nonce={nonce} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: jsonLd(person) }} />
@@ -88,11 +90,22 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         >
           Skip to content
         </a>
-        <SiteHeader />
+        <SiteHeader
+          name={profile.name}
+          initials={profile.initials}
+          menu={{
+            projects: getProjects().map((p) => ({ title: p.title, href: p.href })),
+            email: profile.email,
+            github: profile.github,
+            linkedin: profile.linkedin,
+            resume: profile.resume,
+          }}
+        />
         <main id="main" className="flex-1">
           {children}
         </main>
-        <SiteFooter />
+        <SiteFooter profile={profile} />
+        <Spotlight />
         <Analytics />
         <SpeedInsights />
       </body>

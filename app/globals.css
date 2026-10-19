@@ -2,35 +2,40 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ------------------------------------------------------------------ tokens */
+/* The whole visual identity lives here: change a token, restyle the site.   */
+
 :root {
-  --bg: oklch(0.985 0.003 95);
-  --surface: oklch(1 0 0);
-  --surface-2: oklch(0.965 0.004 95);
-  --fg: oklch(0.21 0.012 265);
-  --muted: oklch(0.49 0.012 265);
-  --border: oklch(0.905 0.006 265);
-  --accent: oklch(0.53 0.115 192);
+  --bg: oklch(0.975 0.008 85);
+  --surface: oklch(0.995 0.004 85);
+  --surface-2: oklch(0.95 0.01 85);
+  --fg: oklch(0.2 0.015 265);
+  --muted: oklch(0.48 0.015 265);
+  --border: oklch(0.885 0.012 85);
+  --accent: oklch(0.52 0.11 188);
   --accent-fg: oklch(0.99 0 0);
-  --accent-soft: oklch(0.53 0.115 192 / 0.1);
-  --ring: oklch(0.53 0.115 192 / 0.45);
-  --success: oklch(0.55 0.14 150);
+  --accent-2: oklch(0.62 0.15 62);
+  --success: oklch(0.56 0.14 150);
   --danger: oklch(0.55 0.2 27);
+  --shadow: 0 1px 2px oklch(0.2 0.02 265 / 0.06), 0 8px 24px -12px oklch(0.2 0.02 265 / 0.18);
+  --grain-opacity: 0.035;
   color-scheme: light;
 }
 
 .dark {
-  --bg: oklch(0.155 0.008 265);
-  --surface: oklch(0.195 0.009 265);
-  --surface-2: oklch(0.23 0.01 265);
-  --fg: oklch(0.965 0.003 265);
-  --muted: oklch(0.71 0.012 265);
-  --border: oklch(0.29 0.01 265);
-  --accent: oklch(0.82 0.12 185);
-  --accent-fg: oklch(0.18 0.02 200);
-  --accent-soft: oklch(0.82 0.12 185 / 0.12);
-  --ring: oklch(0.82 0.12 185 / 0.5);
-  --success: oklch(0.78 0.15 150);
-  --danger: oklch(0.72 0.17 25);
+  --bg: oklch(0.145 0.012 265);
+  --surface: oklch(0.185 0.013 265);
+  --surface-2: oklch(0.228 0.014 265);
+  --fg: oklch(0.97 0.004 265);
+  --muted: oklch(0.72 0.014 265);
+  --border: oklch(0.285 0.013 265);
+  --accent: oklch(0.83 0.13 182);
+  --accent-fg: oklch(0.17 0.02 200);
+  --accent-2: oklch(0.85 0.14 78);
+  --success: oklch(0.8 0.16 150);
+  --danger: oklch(0.73 0.17 25);
+  --shadow: 0 1px 2px oklch(0 0 0 / 0.3), 0 12px 32px -16px oklch(0 0 0 / 0.6);
+  --grain-opacity: 0.05;
   color-scheme: dark;
 }
 
@@ -43,19 +48,22 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
-  --color-accent-soft: var(--accent-soft);
-  --color-ring: var(--ring);
+  --color-accent-2: var(--accent-2);
   --color-success: var(--success);
   --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-display), var(--font-geist-sans), ui-sans-serif, sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
+  --radius-tile: 1.5rem;
 }
+
+/* -------------------------------------------------------------------- base */
 
 @layer base {
   html {
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 5.5rem;
     -webkit-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -71,6 +79,17 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* Film grain over everything; purely decorative. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   ::selection {
     background: var(--accent);
     color: var(--accent-fg);
@@ -79,27 +98,38 @@
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: 6px;
+    border-radius: 8px;
   }
 
   h1,
   h2,
   h3 {
+    font-family: var(--font-display);
     text-wrap: balance;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
   }
 
   p {
     text-wrap: pretty;
   }
+
+  em.accent {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+  }
 }
+
+/* -------------------------------------------------------------- components */
 
 @layer components {
   .container-page {
     width: 100%;
-    max-width: 72rem;
+    max-width: 76rem;
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: 1rem;
   }
 
   @media (min-width: 640px) {
@@ -113,13 +143,32 @@
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--muted);
   }
 
-  .card {
+  .tile {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 1rem;
+    border-radius: var(--radius-tile);
+    box-shadow: var(--shadow);
+  }
+
+  /* Cursor spotlight: --mx/--my are set by components/spotlight.tsx. */
+  .tile[data-spotlight]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(28rem circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklch, var(--tint, var(--accent)) 14%, transparent), transparent 60%);
+  }
+
+  .tile[data-spotlight]:hover::before {
+    opacity: 1;
   }
 
   .chip {
@@ -129,46 +178,116 @@
     border: 1px solid var(--border);
     background: var(--surface-2);
     border-radius: 999px;
-    padding: 0.25rem 0.625rem;
+    padding: 0.2rem 0.65rem;
     font-size: 0.8125rem;
     line-height: 1.25rem;
-    color: var(--fg);
     white-space: nowrap;
   }
 
-  .hero-grid {
-    background-image:
-      linear-gradient(to right, var(--border) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 30%, transparent 75%);
+  .glow {
+    background:
+      radial-gradient(36rem 22rem at 10% -10%, color-mix(in oklch, var(--accent) 22%, transparent), transparent 70%),
+      radial-gradient(30rem 18rem at 95% 0%, color-mix(in oklch, var(--accent-2) 14%, transparent), transparent 70%);
   }
 
-  .hero-glow {
-    background: radial-gradient(40rem 20rem at 20% 0%, var(--accent-soft), transparent 70%);
+  .marquee {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  .browser-frame {
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+    background: var(--surface-2);
+    box-shadow: var(--shadow);
+  }
+
+  /* Long-form case-study text rendered from Markdown. */
+  .prose-content {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+  .prose-content > * + * {
+    margin-top: 1.1em;
+  }
+  .prose-content h2 {
+    margin-top: 2.2em;
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .prose-content h3 {
+    margin-top: 1.8em;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .prose-content strong {
+    color: var(--fg);
+    font-weight: 600;
+  }
+  .prose-content a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-content ul,
+  .prose-content ol {
+    padding-left: 1.25rem;
+  }
+  .prose-content ul {
+    list-style: disc;
+  }
+  .prose-content ol {
+    list-style: decimal;
+  }
+  .prose-content li + li {
+    margin-top: 0.4em;
+  }
+  .prose-content li::marker {
+    color: var(--accent);
+  }
+  .prose-content code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface-2);
+    border-radius: 6px;
+    padding: 0.1em 0.35em;
   }
 }
 
-/* Scroll-linked reveal. Browsers without scroll timelines, and visitors who
-   prefer reduced motion, simply see the content without animation. */
+/* ------------------------------------------------------------------ motion */
+/* Everything here is skipped for visitors who prefer reduced motion. */
+
 @media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+
   @supports (animation-timeline: view()) {
     .reveal {
-      animation: reveal linear both;
+      animation: rise linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 60%;
+      animation-range: entry 0% entry 55%;
     }
   }
 
-  .fade-up {
-    animation: reveal 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
   }
 }
 
-@keyframes reveal {
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
@@ -176,7 +295,13 @@
   }
 }
 
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 dialog::backdrop {
-  background: oklch(0.1 0 0 / 0.5);
-  backdrop-filter: blur(4px);
+  background: oklch(0.1 0 0 / 0.55);
+  backdrop-filter: blur(6px);
 }

@@ -1,8 +1,5 @@
-import { describe, expect, it, vi } from "vitest";
-
-vi.mock("server-only", () => ({}));
-
-const { formatContactEmail } = await import("@/lib/email");
+import { describe, expect, it } from "vitest";
+import { formatContactEmail } from "@/lib/email";
 
 describe("formatContactEmail", () => {
   it("produces plain text that keeps markup inert", () => {
