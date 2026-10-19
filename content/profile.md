@@ -12,8 +12,7 @@ email: gregg.marayan@gmail.com
 github: https://github.com/GRONK13
 linkedin: https://www.linkedin.com/in/gregg-marayan
 resume: /gregg-marayan-resume.pdf
-# Add a square photo next to this file (for example photo.jpg) and set: photo: photo.jpg
-# photo: photo.jpg
+photo: photo.jpg
 values:
   - title: Clean code
     body: Maintainable, scalable, self-documenting code with rigorous types.
