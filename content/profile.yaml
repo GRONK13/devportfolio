@@ -1,0 +1,31 @@
+# Who you are. Shown in the hero, About section, footer and metadata.
+name: Gregg Marayan
+fullName: Gregg Alexander Marayan
+role: Full Stack Developer
+# DRAFT headline written by Claude; rewrite it in your own voice. Wrap one or two words in
+# *asterisks* to set them in the accent style.
+headline: I build web apps that are *fast*, accessible and secure.
+intro: Information Technology graduate from the University of San Carlos with hands-on experience in full-stack web development, networking and cybersecurity.
+availability:
+  status: open # open | limited | closed
+  label: Available for remote work
+location: Taguig City, Metro Manila, Philippines
+timezone: Asia/Manila
+email: gregg.marayan@gmail.com
+socials:
+  - label: GitHub
+    url: https://github.com/GRONK13
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/gregg-marayan
+resume:
+  file: /gregg-marayan-resume.pdf
+photo:
+  src: /media/photo.jpg
+  alt: Portrait of Gregg Marayan
+# Markdown. Shown in the About section.
+about: |
+  My journey began in a Senior High School robotics class, tinkering with microcontrollers and basic programming. That hands-on experience sparked the curiosity that led me to study Information Technology.
+
+  Since then I've grown through projects, coursework, an internship and community work with Google Developer Groups on Campus. I enjoy helping teams turn ideas into working software, whether that's chasing down a backend bug, refining a UI component or setting up a smoother team workflow.
+
+  Away from the keyboard you'll find me playing Tekken 8 and Surroundead, watching shows like Dexter, or trying out new frameworks and dev tools.

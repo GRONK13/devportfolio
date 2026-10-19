@@ -1,0 +1,13 @@
+# Skills by how much you use them. A skill links to the projects whose `stack` lists the
+# same name, so spell them the same way (e.g. "Next.js", not "NextJS").
+# DRAFT: grouped by Claude from your old skills list; move items so they match how you work.
+groups:
+  - name: Daily drivers
+    note: What I reach for first
+    items: [TypeScript, React, Next.js, Tailwind CSS, Git, VS Code]
+  - name: Comfortable
+    note: Used on shipped projects
+    items: [JavaScript, Node.js, Express.js, PostgreSQL, Prisma, Supabase, REST APIs, Vercel, Framer Motion, Postman, Figma]
+  - name: Exploring
+    note: Growing into
+    items: [C# / ASP.NET Core, Docker, GitHub Actions, GraphQL, Security monitoring, Network intrusion analysis]
