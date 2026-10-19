@@ -1,5 +1,7 @@
 # Site content
 
+> The repository README is generated from these files (`pnpm readme`), so it updates with them.
+
 Everything on the site comes from this folder. The build checks every file against
 `lib/content/schemas.ts`; if a field is missing or wrong, `pnpm build` (and the Vercel deploy)
 fails with the file and field, so a mistake never reaches the live site.
@@ -25,8 +27,10 @@ YAML when it saves, so `# comments` in a file you edit there are dropped.
 
 1. Create `projects/<slug>.md` (the file name becomes the URL, `/work/<slug>`). Copy an existing
    one to start. The Markdown body is the case study; use `##` headings.
-2. Put a screenshot in `public/media/projects/<slug>.webp` (about 1600px wide) and set
-   `cover.src` and `cover.alt`.
+2. Set `links.live` and `cover` (`src: /media/projects/<slug>.webp`, plus `alt`), then run
+   `pnpm screenshots <slug>` to capture the live site as the cover (the weekly Sync job keeps it
+   current). For a site that can't be screenshotted (e.g. it needs a login), add your own
+   1600×1000 image at that path and set `screenshot: { auto: false }`.
 3. Give it a unique `order` (lower shows first).
 
 Each `## heading` in the case study becomes an entry in the page's Contents index (with a link

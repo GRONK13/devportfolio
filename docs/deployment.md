@@ -64,7 +64,19 @@ messages". (Each accepted one sends you a real email.)
 
 Edits are commits, so they go through the same build validation as code.
 
-## 6. Launch checklist (merge `v5-redesign` → `main`)
+## 6. GitHub: Sync workflow ⏳
+
+`.github/workflows/sync.yml` commits the regenerated README and project screenshots
+([development.md](development.md#generated-files)).
+
+- It pushes with the built-in `GITHUB_TOKEN` (`permissions: contents: write`). If `main` gets
+  branch protection that blocks direct pushes, allow GitHub Actions to bypass it or switch the
+  workflow to open a pull request.
+- The weekly schedule and the manual "Run workflow" button only work once the workflow file is
+  on `main`. Until then it runs only on content pushes to `v5-redesign`.
+- Confirm `url` in `content/site.yaml` is the real domain before launch: README links use it.
+
+## 7. Launch checklist (merge `v5-redesign` → `main`)
 
 - [ ] Steps 1, 2 and 5 above.
 - [ ] Switch the CSP from Report-Only to enforced (`enforceCsp` in `next.config.ts` / `lib/security-headers.ts`) after checking the browser console on the preview for violations.

@@ -6,11 +6,13 @@ order: 4
 color: "#22c55e"
 cover:
   src: /media/projects/devkwest.webp
-  alt: DevKwest landing page
+  alt: Screenshot of the DevKwest home page
 stack: [Next.js, TypeScript, Supabase, Tailwind CSS, Framer Motion]
 links:
   live: https://devkwest.vercel.app
   repo: https://github.com/nzrnshannen/devkwest
+screenshot:
+  dismiss: I Understand # the site opens with a development notice
 # DRAFT: fill these in.
 # year: "2025"
 # role: Developer

@@ -1,6 +1,6 @@
 > **Status:** this is the original plan. What was actually built, and where it deviates (for
 > example, the motion layer ships without the Motion library), is tracked in
-> [decisions.md](decisions.md); phase progress is in the [README](../README.md#status).
+> [decisions.md](decisions.md); phase progress is in [development.md](development.md#status).
 
 # Win on usability, not just spectacle
 

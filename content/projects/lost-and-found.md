@@ -2,11 +2,11 @@
 title: USC DCISM Lost & Found
 summary: Campus portal for reporting found items and recovering lost belongings.
 featured: true
-order: 3
+order: 1
 color: "#3b82f6"
 cover:
   src: /media/projects/lost-and-found.webp
-  alt: Lost & Found Portal home page with Browse Items and Report Item buttons
+  alt: Screenshot of the Carolinian Lost & Found home page
 stack: [Next.js, Supabase, JavaScript, Tailwind CSS]
 links:
   live: https://lost-n-found.dcism.org/

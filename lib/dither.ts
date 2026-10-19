@@ -10,6 +10,9 @@ import sharp from "sharp";
 
 const INK = [0x0e, 0x0e, 0x0c] as const;
 const PAPER = [0xf2, 0xef, 0xe8] as const;
+// Mean grayscale (0–255) under which a cover counts as a dark UI and is inverted before dithering.
+// Measured: dark-theme screenshots ~13–14, a dark photo hero ~36.
+const DARK_MEAN = 25;
 
 /** Atkinson error diffusion: spreads 6/8 of the error to six neighbours (lighter, crisper than Floyd–Steinberg). */
 export function atkinson(gray: Float32Array, width: number, height: number): Uint8Array {
@@ -45,9 +48,15 @@ export function atkinson(gray: Float32Array, width: number, height: number): Uin
  */
 export async function ditherCover(src: string, slug: string, width = 320): Promise<string> {
   const height = Math.round((width * 10) / 16);
-  const { data } = await sharp(path.join(process.cwd(), "public", src))
-    .resize(width, height, { fit: "cover", position: "top" })
-    .grayscale()
+  const base = () =>
+    sharp(path.join(process.cwd(), "public", src)).resize(width, height, { fit: "cover", position: "top" }).grayscale();
+
+  // Dark-themed sites would dither to almost solid ink and vanish on the dark page, so they're
+  // printed as a negative: dark UI becomes ink on paper, like a proof of the page.
+  const { channels } = await base().stats();
+  const dark = (channels[0]?.mean ?? 255) < DARK_MEAN;
+
+  const { data } = await (dark ? base().negate() : base())
     .normalise()
     .raw()
     .toBuffer({ resolveWithObject: true });

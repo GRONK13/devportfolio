@@ -94,6 +94,7 @@ export const certificationsSchema = z.strictObject({
 });
 
 export const siteSchema = z.strictObject({
+  url,
   title: z.string().min(1),
   description: z.string().min(50).max(170, "Search engines cut descriptions after ~160 characters."),
   keywords: z.array(z.string().min(1)).default([]),
@@ -108,6 +109,14 @@ export const projectSchema = z.strictObject({
   cover: image.optional(),
   stack: z.array(z.string().min(1)).min(1),
   links: z.strictObject({ live: url.optional(), repo: url.optional(), video: url.optional() }).default({}),
+  // How `pnpm screenshots` (and the weekly CI job) refreshes the cover from links.live.
+  screenshot: z
+    .strictObject({
+      auto: z.boolean().default(true), // false keeps a hand-made cover (e.g. the live site needs a login)
+      dismiss: z.string().min(1).optional(), // text of a button to click before capturing, e.g. a notice
+      delay: z.number().int().min(0).max(15000).default(2500), // ms to wait after load
+    })
+    .default({ auto: true, delay: 2500 }),
   metrics: z.array(z.strictObject({ label: z.string().min(1), value: z.string().min(1) })).default([]),
   year: z.string().regex(/^\d{4}$/, 'Use a quoted year like "2025".').optional(),
   role: z.string().optional(),

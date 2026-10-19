@@ -15,7 +15,9 @@
     "lint": "eslint .",
     "typecheck": "pnpm content && tsc --noEmit",
     "test": "pnpm content && vitest run",
-    "check": "pnpm lint && pnpm typecheck && pnpm test"
+    "check": "pnpm lint && pnpm typecheck && pnpm test",
+    "screenshots": "pnpm content && node scripts/capture-screenshots.mjs",
+    "readme": "pnpm content && node scripts/generate-readme.mjs"
   },
   "dependencies": {
     "@content-collections/core": "0.15.3",

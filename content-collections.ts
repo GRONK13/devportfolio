@@ -55,6 +55,7 @@ const profile = defineCollection({
     ...data,
     photo: photo && withSize(photo, `content/${_meta.filePath}`),
     resume: { ...resume, sizeKB: fileSizeKB(resume.file, `content/${_meta.filePath}`) },
+    about, // raw Markdown, used by the generated README
     aboutHtml: await compileMarkdown(context, { _meta, content: about }),
   }),
 });

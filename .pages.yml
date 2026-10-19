@@ -89,6 +89,14 @@ content:
           - { name: live, type: string, description: https:// URL }
           - { name: repo, type: string, description: https:// URL }
           - { name: video, type: string, description: https:// URL }
+      - name: screenshot
+        label: Live screenshot
+        type: object
+        description: The cover is refreshed weekly from the live site.
+        fields:
+          - { name: auto, label: Auto-refresh cover, type: boolean, default: true, description: Turn off to keep your own image. }
+          - { name: dismiss, label: Button to click first, type: string, description: "Optional, e.g. a notice's I Understand button." }
+          - { name: delay, label: Wait after load (ms), type: number, default: 2500 }
       - name: metrics
         type: object
         list: true
@@ -174,6 +182,7 @@ content:
     type: file
     path: content/site.yaml
     fields:
+      - { name: url, label: Site URL, type: string, required: true, description: "https:// address of the site" }
       - { name: title, type: string, required: true }
       - { name: description, type: text, required: true, description: 50–170 characters. }
       - { name: keywords, type: string, list: true }

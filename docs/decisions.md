@@ -142,6 +142,44 @@ Decisions made while building v5, with the reason and any deviation from
 - **No WebGL hero shader.** The dither covers already give the site its signature; a shader would
   add a canvas and GPU cost for little information. Revisit only if the Phase 6 review asks for it.
 
+## Content reorganisation (before Phase 6)
+
+### BalanceFlow removed; order is Lost & Found, J&A Car Rental, DevKwest
+- BalanceFlow had no users or traffic, so it was dropped from the site (its file is in Git
+  history if it comes back). The order reflects which projects are used in the real world.
+
+### Project covers are live screenshots, captured in CI, not at request time
+- **Chosen:** `scripts/capture-screenshots.mjs` screenshots each project's live site; a weekly
+  GitHub Actions job commits changed covers and Vercel redeploys.
+- **Why:** covers follow the projects' current look while pages stay static. A screenshot API
+  at request time would add a third-party image host to the CSP, a remote-image optimizer path,
+  latency, and a dependency on that service's uptime and privacy.
+- **No Puppeteer/Playwright:** `puppeteer-core` failed the pnpm trust policy (its
+  `chromium-bidi` dependency moved from a trusted CI publisher to a regular npm account, a real
+  provenance downgrade). The script drives Chrome/Edge over the DevTools Protocol with Node's
+  built-in WebSocket instead, so there's no new dependency at all.
+- Captures skip writing when the page hasn't visibly changed (mean pixel difference under 3/255
+  on a thumbnail), so live counters don't produce a commit every week.
+- Dark-themed sites dithered to almost solid ink and vanished on the dark page, so covers with a
+  mean brightness under 25/255 are inverted before dithering (`DARK_MEAN` in `lib/dither.ts`):
+  a dark UI prints as ink on paper, like a proof of the page. Every cover frame also gets an
+  inset hairline so dark images keep a visible edge.
+- Content Collections caches transforms by content file, so a new screenshot alone wouldn't
+  regenerate its dither locally; the screenshot script clears that cache after writing covers.
+  (Vercel builds start clean, so production is unaffected.)
+- Alt text describes the page generally ("Screenshot of the … home page") because the image
+  content now changes over time.
+
+### README is a generated profile
+- **Chosen:** the repository README is Gregg's profile (about, work, experience, certifications,
+  skills, contact), generated from `content/` by `scripts/generate-readme.mjs`. Developer docs
+  moved to [development.md](development.md).
+- **Why:** visitors to the GitHub repo are mostly recruiters; one source of truth means the
+  README can't drift from the site. The Sync workflow regenerates it on every content push, so
+  edits from Pages CMS update it too.
+- The site URL moved to `content/site.yaml` (`url`) so the README and the app share it;
+  `NEXT_PUBLIC_SITE_URL` and Vercel's production domain still take precedence in the app.
+
 ## Measurements (local, Phase 4)
 
 Lighthouse 13 against `pnpm start` on a busy laptop, so treat as relative, not absolute.

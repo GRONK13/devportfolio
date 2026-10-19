@@ -6,11 +6,13 @@ order: 2
 color: "#e53935"
 cover:
   src: /media/projects/ja-car-rental.webp
-  alt: J&A Car Rental login screen over a photo of a pickup truck
+  alt: Screenshot of the J&A Car Rental home page
 stack: [React, Express.js, Prisma, PostgreSQL, JavaScript, Tailwind CSS]
 links:
   live: https://ja-car-rental-system.vercel.app/
   repo: https://github.com/unclejambo/JA-car-rental-system
+screenshot:
+  delay: 6000 # the hero photo loads late
 # DRAFT: fill these in.
 # year: "2025"
 # role: Full-stack developer

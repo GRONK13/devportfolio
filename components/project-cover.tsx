@@ -22,7 +22,7 @@ export function ProjectCover({
 }) {
   return (
     <ViewTransition name={`cover-${project.slug}`} share="morph" default="none">
-      <div className="relative aspect-[16/10] overflow-hidden bg-surface">
+      <div className="relative aspect-[16/10] overflow-hidden bg-surface after:pointer-events-none after:absolute after:inset-0 after:ring-1 after:ring-rule after:ring-inset">
         {project.cover ? (
           <>
             <Image

@@ -1,112 +1,106 @@
-# Gregg Marayan — portfolio (v5)
+# Gregg Alexander Marayan
 
-Personal portfolio of Gregg Marayan, full-stack developer. An editorial, two-tone site
-("print shop terminal") built to be fast, accessible and secure first, with a few signature
-interactions on top.
+**Full Stack Developer** · Taguig City, Metro Manila, Philippines · Available for remote work
 
-Built with Next.js 16 (App Router, fully static), React 19, TypeScript and Tailwind CSS v4.
+> I build web apps that are fast, accessible and secure.
 
-## Documentation
+Information Technology graduate from the University of San Carlos with hands-on experience in full-stack web development, networking and cybersecurity.
 
-| Doc | What's in it |
-| --- | --- |
-| [docs/redesign-plan.md](docs/redesign-plan.md) | The v5 plan and the research behind it (phases 0–6) |
-| [docs/decisions.md](docs/decisions.md) | Decision log: what was chosen, why, and where it deviates from the plan |
-| [docs/deployment.md](docs/deployment.md) | Vercel setup: environment variables, BotID, Firewall rule, Pages CMS, launch checklist |
-| [content/README.md](content/README.md) | How to edit site content (files or Pages CMS) |
-| [SECURITY.md](SECURITY.md) | Security measures and how to report a vulnerability |
-| [docs/research/](docs/research/) | Raw research notes (components, motion, trends, content storage, security) |
+[Portfolio](https://greggmarayan.me) · [GitHub](https://github.com/GRONK13) · [LinkedIn](https://www.linkedin.com/in/gregg-marayan) · [Email](mailto:gregg.marayan@gmail.com) · [Résumé (PDF)](https://greggmarayan.me/gregg-marayan-resume.pdf)
 
-## Status
+## About
 
-Work happens on the `v5-redesign` branch; production still serves the previous site from `main`.
+My journey began in a Senior High School robotics class, tinkering with microcontrollers and basic programming. That hands-on experience sparked the curiosity that led me to study Information Technology.
 
-| Phase | Scope | Status |
-| --- | --- | --- |
-| 0 | Foundations: Next 16.4, pnpm 11 hardening, security headers, CI | Done |
-| 1 | Content layer: YAML/Markdown + Zod via Content Collections, Pages CMS config | Done |
-| 2 | Static, accessible skeleton: tokens, fonts, grid, all sections, case studies | Done |
-| 3 | Hardened contact form: honeypot, BotID, Firewall rate limit, Zod, Resend | Done |
-| 4 | Motion layer: scroll reveals, cover morphs, dither covers, hero pressure, split-flap | Done |
-| 5 | Case-study set pieces: contents index, reading progress, GSAP scroll pieces | Done |
-| 6 | Polish, real copy and metrics, enforce CSP, font subsetting, device testing, award submission | Next |
+Since then I've grown through projects, coursework, an internship and community work with Google Developer Groups on Campus. I enjoy helping teams turn ideas into working software, whether that's chasing down a backend bug, refining a UI component or setting up a smoother team workflow.
 
-## Features
+Away from the keyboard you'll find me playing Tekken 8 and Surroundead, watching shows like Dexter, or trying out new frameworks and dev tools.
 
-- **Content as data.** Everything on the site comes from [`content/`](content/README.md): YAML
-  for profile, now, values, skills, timeline, certifications and SEO; Markdown for project case
-  studies. Zod schemas (`lib/content/schemas.ts`) validate every file at build time, so a bad edit
-  fails the deploy instead of reaching the live site. Edit files directly or from a phone with
-  [Pages CMS](https://pagescms.org) (`.pages.yml`).
-- **Static and fast.** Every route is prerendered. Fonts (Mona Sans, Geist Mono) are self-hosted
-  and preloaded. Lighthouse (local, simulated mobile): accessibility, best practices and SEO 100.
-- **Accessible.** Skip link, landmarks, visible focus rings, labelled form with errors tied to
-  fields, contrast-checked palette in light and dark, and every effect respects
-  `prefers-reduced-motion`. axe reports no violations.
-- **Motion, CSS first** (details in [docs/decisions.md](docs/decisions.md#motion-layer-css-first-no-motion-library)):
-  - Scroll-driven reveals and hairline rules (`animation-timeline: view()`), no JavaScript.
-  - Project covers morph into the case study with React `<ViewTransition>`.
-  - Project covers start as 1-bit Atkinson-dithered "proofs", generated at build time
-    (`lib/dither.ts`), and develop into colour on hover, keyboard focus, or scroll on touch.
-  - The hero name reacts to the pointer along Mona Sans' width and weight axes
-    (`components/pressure-name.tsx`), with no layout shift.
-  - "Now" labels flip like a departures board once (`components/split-flap.tsx`).
-- **Case studies** (`app/work/[slug]`): a sticky Contents index that tracks the section being
-  read (plain anchor links, works without JavaScript), plus GSAP scroll set pieces: a
-  reading-progress hairline, cover parallax, word-by-word section headings and a rising
-  next-project title. GSAP (~48 KB gzipped) loads only on case-study pages, only without
-  reduced motion, and only once the browser is idle or the visitor scrolls
-  (`components/case-study/`).
-- **Secure contact form.** A Server Action layered with a honeypot, Vercel BotID, a Vercel
-  Firewall rate-limit rule, Zod validation and plain-text email through Resend. See
-  [SECURITY.md](SECURITY.md).
+### How I work
 
-## Develop
+- **Clean code**: Maintainable, scalable, self-documenting code with rigorous types.
+- **Innovation**: Creative engineering solutions to real-world, complex workflows.
+- **Collaboration**: Working effectively with multidisciplinary teams using Agile methods.
+- **Performance**: Optimizing page loads, rendering paths and database calls.
 
-Requires Node 24 (`.nvmrc`) and pnpm 11 (`packageManager` in `package.json`).
+## Now
 
-```bash
-pnpm install
-pnpm dev          # http://localhost:3000
-pnpm check        # lint + typecheck + tests
-pnpm build        # production build (also generates content and dither images)
-```
+<sub>Updated Oct 19, 2026</sub>
 
-| Script | Does |
-| --- | --- |
-| `pnpm dev` | Dev server. BotID is bypassed; with `RESEND_API_KEY` set, the form sends real email |
-| `pnpm build` / `pnpm start` | Production build / serve it |
-| `pnpm content` | Validate and compile `content/` into `.content-collections/` (also run by dev/build) |
-| `pnpm lint` | ESLint (Next.js core-web-vitals + TypeScript rules) |
-| `pnpm typecheck` | Content build, then `tsc --noEmit` |
-| `pnpm test` | Content build, then Vitest (`tests/`) |
+- **Building:** Version 5 of this portfolio, with an editable content system
+- **Exploring:** Cloud tooling, system administration and security operations
+- **Looking for:** Remote full-stack or software developer roles
 
-Environment variables are listed in [`.env.example`](.env.example); copy it to `.env.local`.
+## Selected work
 
-## Project structure
+### USC DCISM Lost & Found
 
-```text
-app/                    Routes: home, /work/[slug] case studies, OG images, sitemap, robots, 404
-  actions/contact.ts    Contact form Server Action
-components/             Section components, contact form, motion components
-  case-study/           Case-study contents index and GSAP set pieces
-content/                Site content (YAML + Markdown), the single source of truth
-content-collections.ts  Content collections: schemas, Markdown compile, image sizes, dither generation
-lib/
-  content/              Schemas, cross-file checks, and the getters pages use
-  security-headers.ts   CSP and response headers
-  content/toc.ts        Case-study heading ids and contents
-  dither.ts             Build-time dither generator
-  email.ts, env.ts      Server-only email sending and environment
-public/                 Static files; media in public/media/ (public/_dither/ is generated)
-tests/                  Vitest tests
-docs/                   Plan, decisions, deployment, research
-```
+[![Screenshot of the Carolinian Lost & Found home page](public/media/projects/lost-and-found.webp)](https://lost-n-found.dcism.org/)
 
-## Supply chain
+Campus portal for reporting found items and recovering lost belongings.
 
-pnpm 11 is configured in [`pnpm-workspace.yaml`](pnpm-workspace.yaml) to refuse packages
-published less than a day ago, block install scripts except an allowlist, and refuse releases
-whose provenance is weaker than earlier ones (with documented exceptions). CI installs from the
-frozen lockfile, runs `pnpm audit`, and uses GitHub Actions pinned to commit SHAs. Dependabot
-proposes updates with a 3-day cooldown; security updates skip it.
+**Built with:** Next.js, Supabase, JavaScript, Tailwind CSS
+
+[Live site](https://lost-n-found.dcism.org/) · [Source](https://github.com/GRONK13/lost-and-found) · [Case study](https://greggmarayan.me/work/lost-and-found)
+
+### J&A Car Rental System
+
+[![Screenshot of the J&A Car Rental home page](public/media/projects/ja-car-rental.webp)](https://ja-car-rental-system.vercel.app/)
+
+Mobile-first booking and management system for a real car rental business.
+
+**Built with:** React, Express.js, Prisma, PostgreSQL, JavaScript, Tailwind CSS
+
+[Live site](https://ja-car-rental-system.vercel.app/) · [Source](https://github.com/unclejambo/JA-car-rental-system) · [Case study](https://greggmarayan.me/work/ja-car-rental)
+
+### DevKwest
+
+[![Screenshot of the DevKwest home page](public/media/projects/devkwest.webp)](https://devkwest.vercel.app)
+
+A platform for developers to level up by building new projects.
+
+**Built with:** Next.js, TypeScript, Supabase, Tailwind CSS, Framer Motion
+
+[Live site](https://devkwest.vercel.app) · [Source](https://github.com/nzrnshannen/devkwest) · [Case study](https://greggmarayan.me/work/devkwest)
+
+## Experience & education
+
+### Work
+
+- **Software Developer Intern**, Talleco JobTarget · Oct 2025 – Mar 2026  
+  Developed and maintained web applications using modern technologies.
+
+### Education
+
+- **BS Information Technology**, University of San Carlos · 2021 – 2026  
+  Algorithms, data structures, networking and web development fundamentals.
+  - Internal Relations Officer, GDGoC USC Talamban (2025)
+  - Deployed a personal portfolio with Next.js and Vercel
+  - Used Supabase for backend storage and team workflows
+  - Built a to-do app with React and Capacitor
+- **High School Diploma, STEM**, Sacred Heart School – Ateneo de Cebu · 2015 – 2021  
+  Science, technology, engineering and math with hands-on research projects.
+  - Built a first portfolio with HTML, CSS and JavaScript (2017)
+  - Learned C programming fundamentals (2020)
+- **Elementary Education**, San Roque College de Cebu · 2009 – 2015  
+  Foundational education in mathematics, science and language arts.
+  - Math Wizard Award (2015)
+
+## Certifications
+
+- **CyberOps Associate**, Cisco · Oct 22, 2024 · [Verify](https://www.credly.com/badges/716ca1da-5f9a-451a-876b-ac68e5f8e7a4/public_url)
+- **Introduction to Cybersecurity**, Cisco · Aug 30, 2024 · [Verify](https://www.credly.com/badges/47bc0d42-b5bd-42b3-b1e5-a198b3993aa5/public_url)
+
+## Skills
+
+- **Daily drivers** (what I reach for first): TypeScript, React, Next.js, Tailwind CSS, Git, VS Code
+- **Comfortable** (used on shipped projects): JavaScript, Node.js, Express.js, PostgreSQL, Prisma, Supabase, REST APIs, Vercel, Framer Motion, Postman, Figma
+- **Exploring** (growing into): C# / ASP.NET Core, Docker, GitHub Actions, GraphQL, Security monitoring, Network intrusion analysis
+
+## Contact
+
+The fastest way to reach me is email: [gregg.marayan@gmail.com](mailto:gregg.marayan@gmail.com), or the contact form on [my portfolio](https://greggmarayan.me/#contact).
+
+---
+
+<sub>This README is generated from the portfolio's content (`content/`) by `pnpm readme`. To change it, edit the content files, not this README. For the codebase itself, see [docs/development.md](docs/development.md).</sub>
