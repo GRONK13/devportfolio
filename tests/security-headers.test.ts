@@ -3,12 +3,16 @@ import { buildCsp, securityHeaders } from "@/lib/security-headers";
 
 describe("security headers", () => {
   it("locks the CSP to this origin in production", () => {
-    const csp = buildCsp();
+    const csp = buildCsp({ enforced: true });
     expect(csp).toContain("default-src 'self'");
     expect(csp).toContain("frame-ancestors 'none'");
     expect(csp).toContain("object-src 'none'");
     expect(csp).not.toContain("unsafe-eval");
     expect(csp).toContain("upgrade-insecure-requests");
+  });
+
+  it("leaves upgrade-insecure-requests out of a Report-Only policy", () => {
+    expect(buildCsp()).not.toContain("upgrade-insecure-requests");
   });
 
   it("only allows eval and websockets in development", () => {

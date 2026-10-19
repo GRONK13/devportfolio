@@ -21,6 +21,8 @@
     "@content-collections/core": "0.15.3",
     "@content-collections/markdown": "0.1.4",
     "@content-collections/next": "0.2.11",
+    "@fontsource-variable/geist-mono": "5.3.0",
+    "@fontsource-variable/mona-sans": "5.3.0",
     "image-size": "2.0.4",
     "next": "16.4.2",
     "react": "19.3.1",

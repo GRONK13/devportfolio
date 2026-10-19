@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMarkdown } from "@content-collections/markdown";
@@ -28,6 +28,15 @@ function withSize<T extends { src: string }>(image: T, file: string): T & { widt
   return { ...image, width: size.width, height: size.height };
 }
 
+/** Size of a file under public/ in KB, shown next to download links. Fails the build if missing. */
+function fileSizeKB(file: string, from: string): number {
+  try {
+    return Math.round(statSync(path.join(process.cwd(), "public", file)).size / 1024);
+  } catch {
+    throw new Error(`${from}: file "${file}" was not found in public/.`);
+  }
+}
+
 /** A collection holding one YAML file, e.g. content/profile.yaml. */
 function single<const N extends string, S extends Parameters<typeof defineCollection>[0]["schema"]>(name: N, schema: S) {
   return defineCollection({ name, directory: "content", include: `${name}.yaml`, parser: "yaml", schema });
@@ -40,9 +49,10 @@ const profile = defineCollection({
   parser: "yaml",
   schema: profileSchema,
   // Markdown is compiled with raw HTML disabled, so content can't inject markup or scripts.
-  transform: async ({ _meta, about, photo, ...data }, context) => ({
+  transform: async ({ _meta, about, photo, resume, ...data }, context) => ({
     ...data,
     photo: photo && withSize(photo, `content/${_meta.filePath}`),
+    resume: { ...resume, sizeKB: fileSizeKB(resume.file, `content/${_meta.filePath}`) },
     aboutHtml: await compileMarkdown(context, { _meta, content: about }),
   }),
 });

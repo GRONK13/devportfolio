@@ -1,38 +1,34 @@
-import { getFeaturedProjects, getNow, getProfile } from "@/lib/content";
+import { About } from "@/components/sections/about";
+import { Certifications } from "@/components/sections/certifications";
+import { Contact } from "@/components/sections/contact";
+import { Experience } from "@/components/sections/experience";
+import { Hero } from "@/components/sections/hero";
+import { Now } from "@/components/sections/now";
+import { Skills } from "@/components/sections/skills";
+import { Work } from "@/components/sections/work";
+import {
+  getCertifications,
+  getFeaturedProjects,
+  getNow,
+  getProfile,
+  getProjectsUsing,
+  getSkillGroups,
+  getTimeline,
+  getValues,
+} from "@/lib/content";
 
-/** Phase 1 placeholder: proves the content layer end to end. The real design lands in Phase 2. */
 export default function HomePage() {
   const profile = getProfile();
-  const now = getNow();
-  const projects = getFeaturedProjects();
-
   return (
-    <main className="mx-auto max-w-2xl px-4 py-16">
-      <h1 className="text-3xl font-semibold">{profile.name}</h1>
-      <p className="mt-2">{profile.role} · {profile.location}</p>
-      <p className="mt-6">{profile.intro}</p>
-
-      <h2 className="mt-12 text-xl font-semibold">Work</h2>
-      <ul className="mt-4 list-disc pl-5">
-        {projects.map((p) => (
-          <li key={p.slug}>
-            <strong>{p.title}</strong>: {p.summary}
-          </li>
-        ))}
-      </ul>
-
-      <h2 className="mt-12 text-xl font-semibold">Now</h2>
-      <dl className="mt-4">
-        {now.items.map((item) => (
-          <div key={item.label}>
-            <dt className="inline font-medium">{item.label}: </dt>
-            <dd className="inline">{item.text}</dd>
-          </div>
-        ))}
-      </dl>
-      <p className="mt-2 text-sm">
-        Updated <time dateTime={now.updated}>{now.updated}</time>
-      </p>
-    </main>
+    <>
+      <Hero profile={profile} />
+      <Work projects={getFeaturedProjects()} />
+      <About profile={profile} values={getValues()} />
+      <Now now={getNow()} />
+      <Experience entries={getTimeline()} />
+      <Skills groups={getSkillGroups()} projectsUsing={getProjectsUsing} />
+      <Certifications items={getCertifications()} />
+      <Contact profile={profile} />
+    </>
   );
 }

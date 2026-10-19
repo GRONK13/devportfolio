@@ -3,7 +3,7 @@
  * fixed header; see docs/redesign-plan.md, "Security checklist" for the reasoning.
  */
 
-export function buildCsp({ dev = false } = {}): string {
+export function buildCsp({ dev = false, enforced = false } = {}): string {
   const directives: Record<string, string[]> = {
     "default-src": ["'self'"],
     // Next.js inlines its bootstrap scripts; 'unsafe-inline' stays until experimental.sri is adopted.
@@ -21,14 +21,15 @@ export function buildCsp({ dev = false } = {}): string {
     "frame-ancestors": ["'none'"],
   };
   const policy = Object.entries(directives).map(([name, values]) => `${name} ${values.join(" ")}`);
-  if (!dev) policy.push("upgrade-insecure-requests");
+  // Browsers ignore (and log an error for) upgrade-insecure-requests in a Report-Only policy.
+  if (!dev && enforced) policy.push("upgrade-insecure-requests");
   return policy.join("; ");
 }
 
 export function securityHeaders({ dev = false, enforceCsp = false } = {}): { key: string; value: string }[] {
   return [
     // Ship Report-Only first; flip enforceCsp once the browser console shows no violations.
-    { key: enforceCsp ? "Content-Security-Policy" : "Content-Security-Policy-Report-Only", value: buildCsp({ dev }) },
+    { key: enforceCsp ? "Content-Security-Policy" : "Content-Security-Policy-Report-Only", value: buildCsp({ dev, enforced: enforceCsp }) },
     { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
     { key: "X-Frame-Options", value: "DENY" },
     { key: "X-Content-Type-Options", value: "nosniff" },
