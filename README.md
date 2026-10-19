@@ -88,10 +88,10 @@ A platform for developers to level up by building new projects.
 
 ## Certifications
 
-- **NSE 1 Certified in Cybersecurity**, Fortinet · Oct 1, 2026 (valid until Oct 1, 2028) · [Verify](https://www.credly.com/badges/c3463ca6-ab89-4340-9194-4e58c3aebf9e/public_url)
-- **Cybersecurity and Cloud Fundamentals 1.0**, Fortinet · Oct 1, 2026 · [Verify](https://www.credly.com/badges/688ac788-ac4d-4731-96a5-a04853fa59c8/public_url)
-- **CyberOps Associate**, Cisco · Oct 22, 2024 · [Verify](https://www.credly.com/badges/716ca1da-5f9a-451a-876b-ac68e5f8e7a4/public_url)
-- **Introduction to Cybersecurity**, Cisco · Aug 30, 2024 · [Verify](https://www.credly.com/badges/47bc0d42-b5bd-42b3-b1e5-a198b3993aa5/public_url)
+- **Fortinet NSE 1 Certified in Cybersecurity**, Fortinet · Oct 1, 2026 (valid until Oct 1, 2028) · [Verify](https://www.credly.com/badges/c3463ca6-ab89-4340-9194-4e58c3aebf9e/public_url)
+- **Fortinet Cybersecurity and Cloud Fundamentals 1.0**, Fortinet · Oct 1, 2026 · [Verify](https://www.credly.com/badges/688ac788-ac4d-4731-96a5-a04853fa59c8/public_url)
+- **CyberOps Associate**, Cisco Networking Academy · Oct 22, 2024 · [Verify](https://www.credly.com/badges/716ca1da-5f9a-451a-876b-ac68e5f8e7a4/public_url)
+- **Introduction to Cybersecurity**, Cisco Networking Academy · Aug 30, 2024 · [Verify](https://www.credly.com/badges/47bc0d42-b5bd-42b3-b1e5-a198b3993aa5/public_url)
 
 ## Skills
 
