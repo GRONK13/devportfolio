@@ -1,0 +1,18 @@
+# Search and sharing metadata.
+# The site address, used for canonical links, the sitemap and the README. NEXT_PUBLIC_SITE_URL overrides it.
+url: https://greggmarayan.me
+title: Gregg Marayan — Full Stack Developer
+description: Gregg Marayan is a full-stack developer from the Philippines building fast, accessible and secure web apps with React, Next.js and TypeScript.
+keywords:
+  - Gregg Marayan
+  - Full Stack Developer
+  - Software Engineer
+  - React
+  - Next.js
+  - TypeScript
+  - Node.js
+  - PostgreSQL
+  - Cybersecurity
+  - Networking
+  - University of San Carlos
+  - Philippines

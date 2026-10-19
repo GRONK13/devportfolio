@@ -1,30 +1,34 @@
-"use client";
+import { About } from "@/components/sections/about";
+import { Certifications } from "@/components/sections/certifications";
+import { Contact } from "@/components/sections/contact";
+import { Experience } from "@/components/sections/experience";
+import { Hero } from "@/components/sections/hero";
+import { Now } from "@/components/sections/now";
+import { Skills } from "@/components/sections/skills";
+import { Work } from "@/components/sections/work";
+import {
+  getCertifications,
+  getFeaturedProjects,
+  getNow,
+  getProfile,
+  getProjectsUsing,
+  getSkillGroups,
+  getTimeline,
+  getValues,
+} from "@/lib/content";
 
-import { Navbar } from "@/components/navbar";
-import { HeroSection } from "@/components/hero-section";
-import { ProjectsSection } from "@/components/projects-section";
-import { CertificatesSection } from "@/components/certificates-section";
-import { SecurityConsole } from "@/components/security-console";
-import { personalInfo } from "@/data/personal-info";
-import { projects } from "@/data/projects";
-import { certificates } from "@/data/certificates";
-import { skills } from "@/data/skills";
-
-export default function Home() {
+export default function HomePage() {
+  const profile = getProfile();
   return (
-    <div className="flex-1 flex flex-col">  
-      <Navbar personalInfo={personalInfo} />
-      <main>
-        <HeroSection
-          personalInfo={personalInfo}
-          projects={projects}
-          skills={skills}
-          certificates={certificates}
-        />
-        <ProjectsSection projects={projects} />
-        <SecurityConsole />
-        <CertificatesSection certificates={certificates} />
-      </main>
-    </div>
+    <>
+      <Hero profile={profile} />
+      <Work projects={getFeaturedProjects()} />
+      <About profile={profile} values={getValues()} />
+      <Now now={getNow()} />
+      <Experience entries={getTimeline()} />
+      <Skills groups={getSkillGroups()} projectsUsing={getProjectsUsing} />
+      <Certifications items={getCertifications()} />
+      <Contact profile={profile} />
+    </>
   );
 }

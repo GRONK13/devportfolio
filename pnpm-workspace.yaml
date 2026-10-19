@@ -1,0 +1,22 @@
+# Supply-chain hardening (pnpm 11). See docs/redesign-plan.md, "Security checklist".
+# Don't install versions published less than a day ago (gives the registry time to pull malware).
+minimumReleaseAge: 1440
+# Fail if a dependency wants to run install scripts that aren't allowlisted below.
+strictDepBuilds: true
+allowBuilds:
+  sharp: true
+  esbuild: true
+  "@tailwindcss/oxide": true
+  unrs-resolver: true
+# Refuse a version whose publish trust (provenance) is weaker than earlier versions.
+trustPolicy: no-downgrade
+# Old maintenance releases (e.g. semver@6) predate provenance on later majors and trip the
+# check by publish date. Only enforce it for versions published in the last 90 days, which is
+# where package-takeover attacks land.
+trustPolicyIgnoreAfter: 129600
+# Reviewed exceptions (pin one exact version each; re-check before bumping).
+# @vercel/firewall: every 1.2.x release is published by Vercel's GitHub Actions trusted publisher
+# (same OIDC config 6e5b4dda…), but pnpm reads the registry's newer metadata as "no evidence".
+# Verified 2026-10-19 against registry.npmjs.org/@vercel/firewall.
+trustPolicyExclude:
+  - "@vercel/firewall@1.2.6"

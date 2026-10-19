@@ -1,187 +1,121 @@
-# Developer Portfolio
+# Gregg Alexander Marayan
 
-A modern, responsive developer portfolio built with Next.js 15, TypeScript, Tailwind CSS, and shadcn/ui. Features beautiful animations, dark mode support, and a contact form with email integration.
+**Full Stack Developer** · Taguig City, Metro Manila, Philippines · Available for remote work
 
-## ✨ Features
+> I build web apps that are fast, accessible and secure.
 
-- **Modern Design**: Clean, professional layout with smooth animations
-- **Responsive**: Fully mobile-friendly design that works on all devices
-- **Dark Mode**: System preference detection with manual toggle
-- **Contact Form**: Functional contact form with email integration using Resend
-- **Animations**: Beautiful animations powered by Framer Motion
-- **Type Safe**: Built with TypeScript for better development experience
-- **SEO Optimized**: Proper meta tags and semantic HTML structure
+Information Technology graduate from the University of San Carlos with hands-on experience in full-stack web development, networking and cybersecurity.
 
-## 🛠️ Tech Stack
+[Portfolio](https://greggmarayan.me) · [GitHub](https://github.com/GRONK13) · [LinkedIn](https://www.linkedin.com/in/gregg-marayan) · [Email](mailto:gregg.marayan@gmail.com) · [Résumé (PDF)](https://greggmarayan.me/gregg-marayan-resume.pdf)
 
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **UI Components**: shadcn/ui
-- **Animations**: Framer Motion
-- **Form Handling**: React Hook Form + Zod validation
-- **Email Service**: Resend
-- **Theme**: next-themes
-- **Icons**: Lucide React
+## About
 
-## 🚀 Getting Started
+My journey began in a Senior High School robotics class, tinkering with microcontrollers and basic programming. That hands-on experience sparked the curiosity that led me to study Information Technology.
 
-### Prerequisites
+Since then I've grown through projects, coursework, an internship and community work with Google Developer Groups on Campus. I enjoy helping teams turn ideas into working software, whether that's chasing down a backend bug, refining a UI component or setting up a smoother team workflow.
 
-- Node.js 18+ installed
-- npm, yarn, or pnpm package manager
+Away from the keyboard you'll find me playing Tekken 8 and Surroundead, watching shows like Dexter, or trying out new frameworks and dev tools.
 
-### Installation
+### How I work
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/GRONK13/devportfolio.git
-   cd devportfolio
-   ```
+- **Clean code**: Maintainable, scalable, self-documenting code with rigorous types.
+- **Innovation**: Creative engineering solutions to real-world, complex workflows.
+- **Collaboration**: Working effectively with multidisciplinary teams using Agile methods.
+- **Performance**: Optimizing page loads, rendering paths and database calls.
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   # or
-   pnpm install
-   ```
+## Now
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Edit `.env.local` and add your configuration:
-   ```env
-   RESEND_API_KEY=your_resend_api_key_here
-   CONTACT_EMAIL=your.email@example.com
-   ```
+<sub>Updated Oct 19, 2026</sub>
 
-4. **Run the development server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   ```
+- **Building:** Version 5 of this portfolio, with an editable content system
+- **Exploring:** Cloud tooling, system administration and security operations
+- **Looking for:** Remote full-stack or software developer roles
 
-5. **Open your browser**
-   
-   Navigate to [http://localhost:3000](http://localhost:3000) to see your portfolio.
+## Selected work
 
-## 📧 Email Setup
+### Carolinian Lost & Found
 
-To enable the contact form functionality:
+[![Screenshot of the Carolinian Lost & Found home page](public/media/projects/lost-and-found.webp)](https://lost-n-found.dcism.org/)
 
-1. **Sign up for Resend**
-   - Go to [resend.com](https://resend.com) and create an account
-   - Get your API key from the dashboard
+Campus portal for reporting found items and recovering lost belongings.
 
-2. **Configure environment variables**
-   - Add your `RESEND_API_KEY` to `.env.local`
-   - Set `CONTACT_EMAIL` to where you want to receive messages
+**Built with:** Next.js, Supabase, JavaScript, Tailwind CSS
 
-3. **Test the contact form**
-   - The form will validate inputs and show success/error messages
-   - Without API key configuration, messages will be logged to console
+[Live site](https://lost-n-found.dcism.org/) · [Source](https://github.com/GRONK13/lost-and-found) · [Case study](https://greggmarayan.me/work/lost-and-found)
 
-## 🎨 Customization
+### J&A Car Rental System
 
-### Personal Information
+[![Screenshot of the J&A Car Rental home page](public/media/projects/ja-car-rental.webp)](https://ja-car-rental-system.vercel.app/)
 
-Update your personal information in the centralized configuration file:
+Mobile-first booking and management system for a real car rental business.
 
-- **Personal Info**: `data/personal-info.ts` - Contains all your personal details, contact info, social links, and descriptions
-- **Projects**: `data/projects.ts` - Your project portfolio
-- **Skills**: `data/skills.ts` - Technical skills and tools
-- **Experience**: `data/experience.ts` - Work experience and education
-- **Certificates**: `data/certificates.ts` - Professional certifications
+**Built with:** React, Express.js, Prisma, PostgreSQL, JavaScript, Tailwind CSS
 
-### Styling
+[Live site](https://ja-car-rental-system.vercel.app/) · [Source](https://github.com/unclejambo/JA-car-rental-system) · [Case study](https://greggmarayan.me/work/ja-car-rental)
 
-- **Colors**: Modify the CSS custom properties in `app/globals.css`
-- **Components**: Customize shadcn/ui components in `components/ui/`
-- **Animations**: Adjust Framer Motion animations in component files
+### DevKwest
 
-### Navigation
+[![Screenshot of the DevKwest home page](public/media/projects/devkwest.webp)](https://devkwest.vercel.app)
 
-Update the navigation items in `components/navbar.tsx`:
+A platform for developers to level up by building new projects.
 
-```typescript
-const navigation = [
-  { name: "Home", href: "/", icon: Home },
-  { name: "About", href: "/about", icon: User },
-  // Add or modify navigation items
-];
-```
+**Built with:** Next.js, TypeScript, Supabase, Tailwind CSS, Framer Motion
 
-## 📱 Mobile Responsive
+[Live site](https://devkwest.vercel.app) · [Source](https://github.com/nzrnshannen/devkwest) · [Case study](https://greggmarayan.me/work/devkwest)
 
-The portfolio is fully responsive and includes:
+## Experience & education
 
-- Mobile-friendly navigation with hamburger menu
-- Optimized layouts for all screen sizes
-- Touch-friendly interactive elements
-- Performance optimizations for mobile devices
+### Work
 
-## 🌙 Dark Mode
+- **Software Developer Intern**, JobTarget Talleco (Cebu City, Philippines) · Oct 2025 – Mar 2026  
+  Full-stack development on job posting data, from Python scrapers to backend and templating features.
+  - Built and maintained Python scraping scripts to extract and structure job posting data, handling 5 to 10 ticket-based updates per shift, each cascaded to the production database
+  - Developed backend and templating features using Twig and JavaScript, with API endpoints documented and tested via Swagger
+  - Collaborated in an Agile team using Git and GitLab for version control and code review, and Jira for sprint tracking
+- **Quality Assurance Analyst**, Staff Outsourcing Solutions (Cebu City, Philippines) · Oct 2022 – Jul 2023  
+  Quality assurance for a high-volume call center, improving QA efficiency by 25%.
+  - Applied standardized quality assurance protocols in a call center environment
+  - Streamlined QA communication across teams, improving efficiency by 25%
+  - Built issue tracking workflows that improved identification and resolution turnaround
+- **Customer Service Representative**, Staff Outsourcing Solutions (Cebu City, Philippines) · Jun 2022 – Oct 2022  
+  Customer and technical support with a 90% first-contact resolution rate.
+  - Resolved customer and technical inquiries at a 90% first-contact resolution rate in a high-volume support environment
+  - Managed technical support escalations, providing accurate information and clear next steps
+  - Supported customer retention through consistent, professional service delivery
 
-Dark mode is implemented using `next-themes`:
+### Education
 
-- Automatically detects system preference
-- Manual toggle available in navigation
-- Smooth transitions between themes
-- Consistent styling across all components
+- **BS Information Technology**, University of San Carlos · 2021 – 2026  
+  Algorithms, data structures, networking and web development fundamentals.
+  - Internal Relations Officer, GDGoC USC Talamban (2025)
+  - Deployed a personal portfolio with Next.js and Vercel
+  - Used Supabase for backend storage and team workflows
+  - Built a to-do app with React and Capacitor
+- **High School Diploma, STEM**, Sacred Heart School – Ateneo de Cebu · 2015 – 2021  
+  Science, technology, engineering and math with hands-on research projects.
+  - Built a first portfolio with HTML, CSS and JavaScript (2017)
+  - Learned C programming fundamentals (2020)
+- **Elementary Education**, San Roque College de Cebu · 2009 – 2015  
+  Foundational education in mathematics, science and language arts.
+  - Math Wizard Award (2015)
 
-## 📊 Performance
+## Certifications
 
-The portfolio is optimized for performance:
+- **Fortinet NSE 1 Certified in Cybersecurity**, Fortinet · Oct 1, 2026 (valid until Oct 1, 2028) · [Verify](https://www.credly.com/badges/c3463ca6-ab89-4340-9194-4e58c3aebf9e/public_url)
+- **Fortinet Cybersecurity and Cloud Fundamentals 1.0**, Fortinet · Oct 1, 2026 · [Verify](https://www.credly.com/badges/688ac788-ac4d-4731-96a5-a04853fa59c8/public_url)
+- **CyberOps Associate**, Cisco Networking Academy · Oct 22, 2024 · [Verify](https://www.credly.com/badges/716ca1da-5f9a-451a-876b-ac68e5f8e7a4/public_url)
+- **Introduction to Cybersecurity**, Cisco Networking Academy · Aug 30, 2024 · [Verify](https://www.credly.com/badges/47bc0d42-b5bd-42b3-b1e5-a198b3993aa5/public_url)
 
-- **Next.js App Router** for optimal loading
-- **Static generation** where possible
-- **Optimized images** and assets
-- **Minimal bundle size** with tree shaking
-- **Fast animations** with Framer Motion
+## Skills
 
-## 🚀 Deployment
+- **Daily drivers** (what I reach for first): TypeScript, React, Next.js, Tailwind CSS, Git, VS Code
+- **Comfortable** (used on shipped projects): JavaScript, Node.js, Express.js, PostgreSQL, Prisma, Supabase, REST APIs, Vercel, Framer Motion, Postman, Figma
+- **Exploring** (growing into): C# / ASP.NET Core, Docker, GitHub Actions, GraphQL, Security monitoring, Network intrusion analysis
 
-### Vercel (Recommended)
+## Contact
 
-1. Push your code to GitHub
-2. Connect your repository to [Vercel](https://vercel.com)
-3. Set environment variables in Vercel dashboard
-4. Deploy automatically on every push
-
-### Other Platforms
-
-The portfolio can be deployed on any platform that supports Next.js:
-
-- Netlify
-- AWS Amplify
-- Railway
-- DigitalOcean App Platform
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📞 Support
-
-If you have any questions or need help with setup, please [open an issue](https://github.com/GRONK13/devportfolio/issues) or contact me directly at gregg.marayan@gmail.com.
+The fastest way to reach me is email: [gregg.marayan@gmail.com](mailto:gregg.marayan@gmail.com), or the contact form on [my portfolio](https://greggmarayan.me/#contact).
 
 ---
 
-Built with ❤️ using Next.js and modern web technologies.
+<sub>This README is generated from the portfolio's content (`content/`) by `pnpm readme`. To change it, edit the content files, not this README. For the codebase itself, see [docs/development.md](docs/development.md).</sub>
