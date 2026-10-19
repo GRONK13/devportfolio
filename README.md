@@ -28,8 +28,8 @@ Work happens on the `v5-redesign` branch; production still serves the previous s
 | 2 | Static, accessible skeleton: tokens, fonts, grid, all sections, case studies | Done |
 | 3 | Hardened contact form: honeypot, BotID, Firewall rate limit, Zod, Resend | Done |
 | 4 | Motion layer: scroll reveals, cover morphs, dither covers, hero pressure, split-flap | Done |
-| 5 | Case-study set pieces (GSAP, optional shader) | Next |
-| 6 | Polish, real copy and metrics, enforce CSP, device testing, award submission | Planned |
+| 5 | Case-study set pieces: contents index, reading progress, GSAP scroll pieces | Done |
+| 6 | Polish, real copy and metrics, enforce CSP, font subsetting, device testing, award submission | Next |
 
 ## Features
 
@@ -51,6 +51,12 @@ Work happens on the `v5-redesign` branch; production still serves the previous s
   - The hero name reacts to the pointer along Mona Sans' width and weight axes
     (`components/pressure-name.tsx`), with no layout shift.
   - "Now" labels flip like a departures board once (`components/split-flap.tsx`).
+- **Case studies** (`app/work/[slug]`): a sticky Contents index that tracks the section being
+  read (plain anchor links, works without JavaScript), plus GSAP scroll set pieces: a
+  reading-progress hairline, cover parallax, word-by-word section headings and a rising
+  next-project title. GSAP (~48 KB gzipped) loads only on case-study pages, only without
+  reduced motion, and only once the browser is idle or the visitor scrolls
+  (`components/case-study/`).
 - **Secure contact form.** A Server Action layered with a honeypot, Vercel BotID, a Vercel
   Firewall rate-limit rule, Zod validation and plain-text email through Resend. See
   [SECURITY.md](SECURITY.md).
@@ -83,11 +89,13 @@ Environment variables are listed in [`.env.example`](.env.example); copy it to `
 app/                    Routes: home, /work/[slug] case studies, OG images, sitemap, robots, 404
   actions/contact.ts    Contact form Server Action
 components/             Section components, contact form, motion components
+  case-study/           Case-study contents index and GSAP set pieces
 content/                Site content (YAML + Markdown), the single source of truth
 content-collections.ts  Content collections: schemas, Markdown compile, image sizes, dither generation
 lib/
   content/              Schemas, cross-file checks, and the getters pages use
   security-headers.ts   CSP and response headers
+  content/toc.ts        Case-study heading ids and contents
   dither.ts             Build-time dither generator
   email.ts, env.ts      Server-only email sending and environment
 public/                 Static files; media in public/media/ (public/_dither/ is generated)

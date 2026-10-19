@@ -29,6 +29,10 @@ YAML when it saves, so `# comments` in a file you edit there are dropped.
    `cover.src` and `cover.alt`.
 3. Give it a unique `order` (lower shows first).
 
+Each `## heading` in the case study becomes an entry in the page's Contents index (with a link
+anchor such as `#what-it-does`), so keep them short. Use `###` for sub-headings that shouldn't
+be listed.
+
 The dithered "proof" version of the cover shown on the home page is generated from the
 screenshot at build time (`public/_dither/`); there is nothing to make by hand.
 

@@ -103,6 +103,45 @@ Decisions made while building v5, with the reason and any deviation from
   proxied challenge path, which could break BotID in production. The global header rule now
   excludes that path (`BOTID_PATH_PREFIX` in `next.config.ts`).
 
+## Phase 5: case-study set pieces
+
+### What the case studies got
+- **Contents index** (`components/case-study/contents.tsx`): a sticky list of the case study's
+  `##` sections, marking the one being read with `aria-current="location"`. Heading ids and the
+  list are produced at build time (`lib/content/toc.ts`): a small rehype plugin adds the ids, and
+  the list is read from the Markdown source because compiled Markdown is cached. Plain anchor
+  links, so it works without JavaScript; it isn't motion, so it stays on with reduced motion.
+  Hidden on phones, where case studies are short enough to scroll.
+- **GSAP set pieces** (`components/case-study/case-motion.tsx`): reading-progress hairline
+  (scrubbed), cover parallax inside its frame (scrubbed), section headings rising word by word
+  with SplitText (once), next-project title letters rising (scrubbed).
+
+### Rules for the set pieces
+- Transforms and opacity only, so no layout shift (measured CLS 0 through a full scroll).
+- Nothing already on screen when GSAP starts is hidden: headings above the fold are skipped, and
+  scrubbed effects start from the page top so their first frame is the resting state.
+- SplitText uses `aria: "auto"` (headings keep their text as an accessible name); the
+  next-project link has its own `aria-label`, so its split letters are decorative.
+- Text is split only after `document.fonts.ready`, so line breaks come from the real font.
+- The progress bar's hidden state is an inline `transform`, not Tailwind's `scale-x-0`:
+  Tailwind v4 uses the separate CSS `scale` property, which would multiply with GSAP's
+  `transform` and keep the bar at zero.
+
+### GSAP loaded late, and only where needed
+- Dynamic `import()` inside the component: GSAP never ships with the home page and isn't fetched
+  at all with reduced motion (checked by recording network requests in headless Edge).
+- Setup waits for browser idle time (or the first scroll), since nothing it does is visible
+  before scrolling. Cost: ~121 KB raw / ~48 KB gzipped (core, ScrollTrigger, SplitText).
+- GSAP 3.13+ is free for commercial use under its Standard "no charge" license (not open source;
+  the only restriction is building tools that compete with Webflow).
+
+### Not done (deviations from the plan)
+- **No Lenis smooth scrolling.** It replaces the native scroll feel, which juries and visitors
+  often read as scroll-jacking, and it would add a scroll loop to every page. Native scrolling
+  works with every set piece here.
+- **No WebGL hero shader.** The dither covers already give the site its signature; a shader would
+  add a canvas and GPU cost for little information. Revisit only if the Phase 6 review asks for it.
+
 ## Measurements (local, Phase 4)
 
 Lighthouse 13 against `pnpm start` on a busy laptop, so treat as relative, not absolute.
@@ -111,6 +150,11 @@ Lighthouse 13 against `pnpm start` on a busy laptop, so treat as relative, not a
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Desktop | 100 | 100 | 100 | 100 | 0.8 s | 20 ms | 0 |
 | Mobile (simulated slow 4G, 4× CPU) | 84–87 | 100 | 100 | 100 | 3.0–3.4 s | 330–340 ms | 0 |
+
+Phase 5, case-study page (`/work/ja-car-rental`): desktop 100 across all four categories, LCP 0.7 s,
+TBT 50 ms, CLS 0; mobile performance 90–96, accessibility/best practices/SEO 100, LCP 2.7–2.9 s,
+CLS 0. Local Lighthouse runs swing widely with machine load (the same build measured TBT
+30–570 ms across runs), so compare builds in back-to-back runs.
 
 Mobile LCP is the hero intro paragraph repainting when Mona Sans (98 KB) arrives over throttled
 4G; first paint is 0.9 s. Subsetting the font is planned for Phase 6.

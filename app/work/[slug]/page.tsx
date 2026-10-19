@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CaseContents } from "@/components/case-study/contents";
+import { CaseMotion } from "@/components/case-study/case-motion";
 import { ProjectCover } from "@/components/project-cover";
 import { getProject, getProjects } from "@/lib/content";
 import { pad } from "@/lib/format";
@@ -40,7 +42,14 @@ export default async function ProjectPage({ params }: Props) {
   ].filter((f): f is { label: string; value: string } => Boolean(f.value));
 
   return (
-    <article className="pb-20">
+    <article data-case className="pb-20">
+      <div
+        aria-hidden="true"
+        data-case-progress
+        className="fixed inset-x-0 top-14 z-40 h-0.5 origin-left bg-accent-fill"
+        style={{ transform: "scaleX(0)" }} // GSAP scrubs this; stays hidden without it
+      />
+      <CaseMotion />
       <header className="frame pt-8 md:pt-12">
         <nav aria-label="Breadcrumb" className="label text-muted">
           <ol className="flex gap-2">
@@ -96,7 +105,7 @@ export default async function ProjectPage({ params }: Props) {
         </dl>
       </header>
 
-      <div className="frame mt-12 md:mt-16">
+      <div data-case-cover className="frame mt-12 md:mt-16">
         <ProjectCover project={project} sizes="(min-width: 1440px) 1344px, 100vw" priority />
       </div>
 
@@ -112,7 +121,11 @@ export default async function ProjectPage({ params }: Props) {
       )}
 
       <div className="frame grid-12 mt-16 md:mt-24">
+        <div className="hidden md:col-span-2 md:block">
+          <CaseContents toc={project.toc} />
+        </div>
         <div
+          data-case-prose
           className="prose col-span-4 text-lg md:col-span-8 md:col-start-3"
           // Compiled from content/projects/*.md at build time with raw HTML disabled.
           dangerouslySetInnerHTML={{ __html: project.html }}
@@ -121,10 +134,14 @@ export default async function ProjectPage({ params }: Props) {
 
       {next && next.slug !== project.slug && (
         <nav aria-label="Next project" className="frame mt-24 md:mt-32">
-          <Link href={`/work/${next.slug}`} className="group block border-t border-rule pt-6">
+          <Link
+            href={`/work/${next.slug}`}
+            aria-label={`Next project: ${next.title}`}
+            className="group block border-t border-rule pt-6"
+          >
             <span className="label text-muted">Next project</span>
             <span className="display mt-4 block text-[clamp(2.5rem,8vw,7rem)] group-hover:text-accent">
-              {next.title}
+              <span data-case-next-title>{next.title}</span>
               <span aria-hidden="true"> →</span>
             </span>
           </Link>

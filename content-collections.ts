@@ -3,6 +3,7 @@ import path from "node:path";
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMarkdown } from "@content-collections/markdown";
 import { imageSize } from "image-size";
+import { extractToc, rehypeHeadingIds } from "./lib/content/toc";
 import { ditherCover } from "./lib/dither";
 import {
   certificationsSchema,
@@ -73,7 +74,8 @@ const projects = defineCollection({
       ...data,
       slug,
       cover: cover && { ...cover, dither: await ditherCover(cover.src, slug) },
-      html: await compileMarkdown(context, { _meta: project._meta, content }),
+      html: await compileMarkdown(context, { _meta: project._meta, content }, { rehypePlugins: [rehypeHeadingIds] }),
+      toc: extractToc(content),
     };
   },
 });
