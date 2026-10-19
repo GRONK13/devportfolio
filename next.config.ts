@@ -1,4 +1,5 @@
 import { withContentCollections } from "@content-collections/next";
+import { withBotId } from "botid/next/config";
 import type { NextConfig } from "next";
 import { securityHeaders } from "./lib/security-headers";
 
@@ -15,5 +16,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-// withContentCollections must be the outermost plugin.
-export default withContentCollections(nextConfig);
+// withContentCollections must be the outermost plugin. withBotId proxies BotID's challenge
+// script through this origin, so the CSP can stay same-origin.
+export default withContentCollections(withBotId(nextConfig));

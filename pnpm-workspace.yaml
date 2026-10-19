@@ -14,3 +14,9 @@ trustPolicy: no-downgrade
 # check by publish date. Only enforce it for versions published in the last 90 days, which is
 # where package-takeover attacks land.
 trustPolicyIgnoreAfter: 129600
+# Reviewed exceptions (pin one exact version each; re-check before bumping).
+# @vercel/firewall: every 1.2.x release is published by Vercel's GitHub Actions trusted publisher
+# (same OIDC config 6e5b4dda…), but pnpm reads the registry's newer metadata as "no evidence".
+# Verified 2026-10-19 against registry.npmjs.org/@vercel/firewall.
+trustPolicyExclude:
+  - "@vercel/firewall@1.2.6"

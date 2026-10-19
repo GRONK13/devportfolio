@@ -23,6 +23,8 @@
     "@content-collections/next": "0.2.11",
     "@fontsource-variable/geist-mono": "5.3.0",
     "@fontsource-variable/mona-sans": "5.3.0",
+    "@vercel/firewall": "1.2.6",
+    "botid": "1.5.11",
     "image-size": "2.0.4",
     "next": "16.4.2",
     "react": "19.3.1",
