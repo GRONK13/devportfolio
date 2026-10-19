@@ -99,7 +99,7 @@ for (const [kind, title] of [
   if (entries.length === 0) continue;
   add(`### ${title}`, "");
   for (const e of entries) {
-    add(`- **${e.title}**, ${e.org} · ${range(e)}  `, `  ${e.summary}`);
+    add(`- **${e.title}**, ${e.org}${e.location ? ` (${e.location})` : ""} · ${range(e)}  `, `  ${e.summary}`);
     for (const h of e.highlights) add(`  - ${h}`);
   }
   add("");

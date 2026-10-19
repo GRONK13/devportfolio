@@ -67,8 +67,21 @@ A platform for developers to level up by building new projects.
 
 ### Work
 
-- **Software Developer Intern**, Talleco JobTarget · Oct 2025 – Mar 2026  
-  Developed and maintained web applications using modern technologies.
+- **Software Developer Intern**, JobTarget Talleco (Cebu City, Philippines) · Oct 2025 – Mar 2026  
+  Full-stack development on job posting data, from Python scrapers to backend and templating features.
+  - Built and maintained Python scraping scripts to extract and structure job posting data, handling 5 to 10 ticket-based updates per shift, each cascaded to the production database
+  - Developed backend and templating features using Twig and JavaScript, with API endpoints documented and tested via Swagger
+  - Collaborated in an Agile team using Git and GitLab for version control and code review, and Jira for sprint tracking
+- **Quality Assurance Analyst**, Staff Outsourcing Solutions (Cebu City, Philippines) · Oct 2022 – Jul 2023  
+  Quality assurance for a high-volume call center, improving QA efficiency by 25%.
+  - Applied standardized quality assurance protocols in a call center environment
+  - Streamlined QA communication across teams, improving efficiency by 25%
+  - Built issue tracking workflows that improved identification and resolution turnaround
+- **Customer Service Representative**, Staff Outsourcing Solutions (Cebu City, Philippines) · Jun 2022 – Oct 2022  
+  Customer and technical support with a 90% first-contact resolution rate.
+  - Resolved customer and technical inquiries at a 90% first-contact resolution rate in a high-volume support environment
+  - Managed technical support escalations, providing accurate information and clear next steps
+  - Supported customer retention through consistent, professional service delivery
 
 ### Education
 
