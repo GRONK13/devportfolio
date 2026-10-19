@@ -1,0 +1,10 @@
+# How you work. Shown in the About section, in this order.
+items:
+  - title: Clean code
+    description: Maintainable, scalable, self-documenting code with rigorous types.
+  - title: Innovation
+    description: Creative engineering solutions to real-world, complex workflows.
+  - title: Collaboration
+    description: Working effectively with multidisciplinary teams using Agile methods.
+  - title: Performance
+    description: Optimizing page loads, rendering paths and database calls.

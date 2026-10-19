@@ -1,0 +1,38 @@
+# Work and education. Dates are YYYY or YYYY-MM; use `present` for an ongoing role.
+# The site sorts entries newest first.
+entries:
+  - kind: work
+    title: Software Developer Intern
+    org: Talleco JobTarget
+    start: "2025-10"
+    end: "2026-03"
+    summary: Developed and maintained web applications using modern technologies.
+    highlights: []
+  - kind: education
+    title: BS Information Technology
+    org: University of San Carlos
+    start: "2021"
+    end: "2026"
+    summary: Algorithms, data structures, networking and web development fundamentals.
+    highlights:
+      - Internal Relations Officer, GDGoC USC Talamban (2025)
+      - Deployed a personal portfolio with Next.js and Vercel
+      - Used Supabase for backend storage and team workflows
+      - Built a to-do app with React and Capacitor
+  - kind: education
+    title: High School Diploma, STEM
+    org: Sacred Heart School – Ateneo de Cebu
+    start: "2015"
+    end: "2021"
+    summary: Science, technology, engineering and math with hands-on research projects.
+    highlights:
+      - Built a first portfolio with HTML, CSS and JavaScript (2017)
+      - Learned C programming fundamentals (2020)
+  - kind: education
+    title: Elementary Education
+    org: San Roque College de Cebu
+    start: "2009"
+    end: "2015"
+    summary: Foundational education in mathematics, science and language arts.
+    highlights:
+      - Math Wizard Award (2015)
